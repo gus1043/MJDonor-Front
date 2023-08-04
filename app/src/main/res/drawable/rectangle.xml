@@ -4,7 +4,7 @@
         <shape>
             <size
                 android:width="300dp"
-                android:height="120dp"/>
+                android:height="150dp"/>
             <solid android:color="#E8E8E8" />
             <stroke android:color="#808080" />
             <corners android:topRightRadius="20dp" android:bottomRightRadius="20dp"/>
@@ -15,7 +15,7 @@
         <shape>
             <size
                 android:width="300dp"
-                android:height="120dp"/>
+                android:height="150dp"/>
             <solid android:color="@android:color/white" />
             <stroke android:color="#808080" />
             <corners android:topRightRadius="20dp" android:bottomRightRadius="20dp"/>

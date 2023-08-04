@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     tools:ignore="MissingConstraints"
     android:background="#FBFBFB">
@@ -20,12 +20,14 @@
             android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_marginBottom="50dp">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:paddingBottom="40px"
-                android:src="@drawable/logo"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                app:civ_border_width="2dp"
+                app:civ_fill_color="#23f22f"
+                app:civ_border_color="@color/white"
+                android:src="@drawable/logo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,14 +58,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:padding="40dp">
+                android:paddingTop="40dp"
+                >
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="20dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -71,7 +75,7 @@
                         android:src="@drawable/baseline_person_24"/>
                     <EditText
                         android:id="@+id/email"
-                        android:layout_width="250dp"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
                         android:hint="Email address"/>
                 </LinearLayout>
@@ -80,7 +84,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="20dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -89,7 +94,7 @@
                     <EditText
                         android:id="@+id/password"
                         android:hint="Password"
-                        android:layout_width="250dp"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
 
@@ -101,11 +106,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:paddingLeft="20dp"
                         android:src="@drawable/baseline_calendar_month_24"/>
                     <EditText
                         android:id="@+id/birth"
                         android:hint="Birth"
-                        android:layout_width="250dp"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
 
@@ -118,24 +124,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:paddingLeft="20dp"
                         android:src="@drawable/baseline_home_24"/>
                     <EditText
                         android:id="@+id/location"
                         android:hint="Location"
-                        android:layout_width="250dp"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
 
                 <ImageButton
+                    android:id="@+id/signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/baseline_arrow_circle_right_24"
+                    android:background="@drawable/circle_background"
+                    android:layout_marginLeft="40dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="80dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="100dp"
-                    android:background="@color/white"/>
+                    android:layout_centerVertical="true"/>
+
 
             </LinearLayout>
         </RelativeLayout>
