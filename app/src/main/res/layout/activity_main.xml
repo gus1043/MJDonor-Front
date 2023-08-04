@@ -6,43 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/container"></FrameLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:civ_border_width="2dp"
-            app:civ_fill_color="#23f22f"
-            app:civ_border_color="@color/design_default_color_primary_dark"
-            android:src="@drawable/logo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"/>
-
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_menu"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="로그인"
-            tools:ignore="MissingConstraints" />
+            android:layout_alignParentBottom="true"
+            android:background="#FFFFFF"
+            app:itemIconTint="#000000"
+            app:itemTextColor="#000000"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_menu"/>
 
-        <Button
-            android:id="@+id/signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="회원가입"
-            tools:ignore="MissingConstraints" />
-
-    </LinearLayout>
-
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

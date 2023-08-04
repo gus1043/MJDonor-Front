@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_home"
+        android:enabled="true"
+        android:icon="@drawable/baseline_home_24"
+        android:title="홈"/>
+
+    <item
+        android:id="@+id/tab_bookmark"
+        android:enabled="true"
+        android:icon="@drawable/baseline_bookmark_border_24"
+        android:title="스크랩"/>
+    <item
+        android:id="@+id/tab_mypage"
+        android:enabled="true"
+        android:icon="@drawable/baseline_person_24"
+        android:title="마이페이지"/>
+</menu>
