@@ -8,4 +8,13 @@
     기부 금액 및 주제에 대한 결정은
     투명한 과정을 거칩니다.
     </string>
+    <string name="donationName">아메리칸 스나이퍼 - 전쟁 평화 기부
+    </string>
+    <string name="goal">목표 모금액 | 500,000,000 원</string>
+    <string name="company">유니세프 한국위원회</string>
+    <string name="donationContent">전쟁은 인류에게 상처와 파괴를 안겨옵니다. 하지만 우리는 함께 모여서 이를 멈추고 평화를 이룰 수 있습니다. 여러분의 작은 기부가 큰 변화를 만들 수 있습니다. 우리는 전쟁 피해자들을 돕고 세계의 갈등을 해소하는 어쩌구 저쩌구 안녕하십니까 지금은 새벽 3시 제 생각에</string>
+    <string name="numPeople">2000+기부자</string>
+    <string name="nowDonate">현재 모금액</string>
+    <string name="nowDonate_Num">100,000원</string>
+    <string name="donateBtn">기부하기</string>
 </resources>

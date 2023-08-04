@@ -8,4 +8,32 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#3E4347</item>
     </style>
+    <style name="donationName">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="goal">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#B3000000</item>
+    </style>
+    <style name="company">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#B3000000</item>
+    </style>
+    <style name="donationContent">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#9D9D9D</item>
+    </style>
+    <style name="numPeople">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#9D9D9D</item>
+    </style>
+    <style name="nowDonate">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#9D9D9D</item>
+    </style>
+    <style name="nowDonate_Num">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
 </resources>

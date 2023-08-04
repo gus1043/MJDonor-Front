@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/selectedimage1"
+        android:layout_width="330dp"
+        android:layout_height="280dp"
+        android:src="@drawable/img1"
+        android:scaleType="centerCrop"
+        android:clipToOutline="true"
+        />
+
+    <TextView
+        android:id="@+id/some_id"
+        android:layout_width="330dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/donationName"
+        android:textAppearance="@style/donationName"
+        android:gravity="top"
+        android:textStyle="bold"
+        />
+
+    <RelativeLayout
+        android:layout_width="330dp"
+        android:layout_height="30dp">
+
+        <TextView
+            android:id="@+id/goal"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/goal"
+            android:textAppearance="@style/goal"
+            android:gravity="center_vertical"
+            android:layout_alignParentStart="true"
+            />
+
+        <TextView
+            android:id="@+id/company"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/company"
+            android:textAppearance="@style/company"
+            android:gravity="center_vertical"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/donationContent"
+        android:layout_width="330dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/donationContent"
+        android:textAppearance="@style/donationContent"
+        android:gravity="top"
+        />
+
+    <RelativeLayout
+        android:layout_width="330dp"
+        android:layout_height="30dp">
+
+        <TextView
+            android:id="@+id/numPeople"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/numPeople"
+            android:textAppearance="@style/numPeople"
+            android:gravity="center_vertical"
+            android:layout_alignParentStart="true"
+            />
+
+        <TextView
+            android:id="@+id/nowDonate"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/nowDonate"
+            android:textAppearance="@style/nowDonate"
+            android:gravity="center_vertical"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="330dp"
+        android:layout_height="30dp">
+
+    <RelativeLayout
+        android:layout_width="140dp"
+        android:layout_height="30dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/profile1" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/profile2" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/profile3" />
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/profile4" />
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/profile5" />
+    </RelativeLayout>
+
+        <TextView
+            android:id="@+id/nowDonate_Num"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/nowDonate_Num"
+            android:textAppearance="@style/nowDonate_Num"
+            android:gravity="center_vertical"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@color/teal_700"
+        android:textColor="#FFFFFF"
+        android:text="@string/donateBtn"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
