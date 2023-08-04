@@ -6,33 +6,168 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment3">
 
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        android:background="#F5F5F5">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:civ_border_width="2dp"
-            app:civ_fill_color="#23f22f"
-            app:civ_border_color="@color/design_default_color_primary_dark"
-            android:src="@drawable/logo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="로그인"
-            tools:ignore="MissingConstraints" />
+            <View
+                android:id="@+id/inputbox"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:background="@drawable/rounded_box2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="회원가입"
-            tools:ignore="MissingConstraints" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_margin="10dp"
+                    app:civ_border_width="2dp"
+                    app:civ_fill_color="#23f22f"
+                    app:civ_border_color="@color/design_default_color_primary_dark"
+                    android:src="@drawable/profile3"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp" />
+
+                <TextView
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:text="디비 + 학생(.kt)"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/stdnum"
+                    android:gravity="center"
+                    android:textSize="15dp"
+                    android:text="60211704"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:text="기부현황"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/doncount"
+                            android:gravity="center"
+                            android:textSize="15dp"
+                            android:text="3"/>
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:text="총 기부 금액"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/totaldon"
+                            android:gravity="center"
+                            android:textSize="15dp"
+                            android:text="3,000,000원"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="1dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:layout_margin="10dp"
+                    android:text="기부 금액"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"/>
+
+                <!--                <de.hdodenhof.circleimageview.CircleImageView-->
+                <!--                    app:civ_border_width="2dp"-->
+                <!--                    app:civ_fill_color="#23f22f"-->
+                <!--                    app:civ_border_color="@color/design_default_color_primary_dark"-->
+                <!--                    android:src="@drawable/logo"-->
+                <!--                    android:layout_width="100dp"-->
+                <!--                    android:layout_height="100dp"/>-->
+                <Button
+                    android:id="@+id/signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="회원가입"/>
+
+                <Button
+                    android:id="@+id/login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="로그인"/>
+
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 
