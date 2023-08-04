@@ -12,6 +12,10 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#000000</item>
     </style>
+    <style name="donationName_donate">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
     <style name="goal">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#B3000000</item>
@@ -19,6 +23,10 @@
     <style name="company">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#B3000000</item>
+    </style>
+    <style name="company_donate">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#DFDEDE</item>
     </style>
     <style name="donationContent">
         <item name="android:textSize">16sp</item>

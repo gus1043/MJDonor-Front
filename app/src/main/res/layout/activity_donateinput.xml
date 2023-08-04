@@ -1,0 +1,67 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/black"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/black"
+        android:scaleType="centerCrop"
+        android:clipToOutline="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/selectedimage1"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/img3"
+        android:scaleType="centerCrop"
+        android:clipToOutline="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:alpha="0.5"/>
+
+    <TextView
+        android:id="@+id/company_donate"
+        android:layout_width="385dp"
+        android:layout_height="wrap_content"
+        android:text="@string/company"
+        android:textAppearance="@style/company_donate"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="160dp" />
+
+    <TextView
+        android:id="@+id/donationName_donate"
+        android:layout_width="385dp"
+        android:layout_height="wrap_content"
+        android:text="@string/donationName"
+        android:textAppearance="@style/donationName_donate"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="186dp" />
+
+    <View
+        android:id="@+id/inputbox"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:background="@drawable/rounded_box"
+        app:layout_constraintTop_toBottomOf="@id/selectedimage1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
