@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import Fragment1
 import Fragment3
 import android.content.Intent
 import android.os.Bundle

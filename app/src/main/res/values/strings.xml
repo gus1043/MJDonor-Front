@@ -1,11 +1,11 @@
 <resources>
     <!-- Adding the string resource -->
     <string name="title">
-    투명한 기부, 진정한 영향력
+    투명한 기부, 진정한 영향력\n
     어쩌구 저쩌구
     </string>
     <string name="bottom_title">
-    기부 금액 및 주제에 대한 결정은
+    기부 금액 및 주제에 대한 결정은\n
     투명한 과정을 거칩니다.
     </string>
     <string name="donationName">아메리칸 스나이퍼 - 전쟁 평화 기부

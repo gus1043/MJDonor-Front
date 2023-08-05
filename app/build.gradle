@@ -37,6 +37,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.viewpager2:viewpager2:1.0.0' //캐러셀
+    implementation 'me.relex:circleindicator:2.1.6' //캐러셀
     implementation 'de.hdodenhof:circleimageview:2.2.0' //동그랗게 이미지 넣기
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
