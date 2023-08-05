@@ -31,13 +31,14 @@ class Fragment3 : Fragment() {
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // Sample data for the RecyclerView items
         val itemList = listOf(
             ItemData(R.drawable.img1, "아메리칸 스나이퍼", "유니세프 한국위원회"),
             ItemData(R.drawable.img3, "아메리칸 스나이퍼", "유니세프 한국위원회"),
             ItemData(R.drawable.img2, "아메리칸 스나이퍼", "유니세프 한국위원회"),
         )
 
-        adapter = MyAdapter(itemList)
+        adapter = MyAdapter(requireContext(), itemList)
         recyclerView.adapter = adapter
 
         binding.login.setOnClickListener {

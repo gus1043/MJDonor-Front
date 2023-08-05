@@ -1,3 +1,5 @@
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -5,9 +7,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.DonSelectActivity
+import com.example.myapplication.DonationSelectionActivity
 import com.example.myapplication.R
 
-class MyAdapter(private val itemList: List<ItemData>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+class MyAdapter(private val context: Context, private val itemList: List<ItemData>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val selectedImage: ImageView = itemView.findViewById(R.id.selectedimage1)
@@ -29,7 +33,8 @@ class MyAdapter(private val itemList: List<ItemData>) : RecyclerView.Adapter<MyA
         holder.titleText.text = currentItem.title
         holder.donLocText.text = currentItem.donLoc
         holder.donateButton.setOnClickListener {
-            // Implement button click behavior here
+            val intent = Intent(context, DonSelectActivity::class.java)
+            context.startActivity(intent)
         }
     }
 
