@@ -1,8 +1,9 @@
 <resources>
     <!-- Adding the string resource -->
+    <string name="titleadd">
+        투명한 기부, 진정한 영향력</string>
     <string name="title">
-    투명한 기부, 진정한 영향력\n
-    어쩌구 저쩌구
+        MJDonor
     </string>
     <string name="bottom_title">
     기부 금액 및 주제에 대한 결정은\n
