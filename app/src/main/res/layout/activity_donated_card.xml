@@ -39,7 +39,7 @@
     <TextView
         android:id="@+id/donateDoneContent"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="160dp"
         android:gravity="center_horizontal"
         android:text="@string/donateDoneContent"
         android:textAppearance="@style/donateDoneContent"
@@ -49,15 +49,15 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:background="@color/teal_700"
         android:gravity="center"
         android:text="@string/checkDonate"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="449dp" />
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="513dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
