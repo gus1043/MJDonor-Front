@@ -12,7 +12,6 @@ class DonInputActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityDonateinputBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
 
         binding.inputdonatebtn.setOnClickListener {
 //            val intent: Intent = Intent(this, DonInputActivity::class.java)
