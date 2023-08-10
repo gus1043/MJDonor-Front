@@ -5,6 +5,12 @@
     <string name="title">
         MJDonor
     </string>
+    <string name="list_title">
+        MJDonor에서 진행된 기부들
+    </string>
+    <string name="add_title">
+        내가 등록한 기부 목록
+    </string>
     <string name="bottom_title">
     기부 금액 및 주제에 대한 결정은\n
     투명한 과정을 거칩니다.

@@ -1,17 +1,20 @@
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.R
 
 class CarouselAdapter(private val context: Context, private val itemList: List<ItemData>) : RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.imageView)
+        val imageButton: ImageButton = itemView.findViewById(R.id.imageButton)
         val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
         val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
     }
@@ -25,9 +28,17 @@ class CarouselAdapter(private val context: Context, private val itemList: List<I
         val currentItem = itemList[position % itemList.size] // Use modulo to create circular wrapping
 
         // Set data to the views here
-        holder.imageView.setImageResource(currentItem.imageResId)
+        holder.imageButton.setImageResource(currentItem.imageResId)
         holder.titleTextView.text = currentItem.title
         holder.descriptionTextView.text = currentItem.donLoc
+        holder.imageButton.setOnClickListener {
+            // 클릭된 아이템에 대한 처리를 수행합니다.
+            // 예를 들어 DonSelectActivity로 이동하는 코드를 추가합니다.
+            val intent = Intent(context, DonSelectActivity::class.java)
+            // 필요하다면 아이템 데이터를 intent에 추가할 수도 있습니다.
+            // intent.putExtra("itemData", currentItem)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
