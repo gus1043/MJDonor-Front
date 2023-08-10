@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.LoginActivity
 import com.example.myapplication.R
+import com.example.myapplication.RegisterActivity
 import com.example.myapplication.databinding.Fragment4Binding
 
 class Fragment4 : Fragment() {
@@ -38,6 +40,11 @@ class Fragment4 : Fragment() {
 
         adapter = AddAdapter(requireContext() as AppCompatActivity, itemList)
         recyclerView.adapter = adapter
+
+        binding.donBtn.setOnClickListener {
+            val intent = Intent(requireContext(), RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {
