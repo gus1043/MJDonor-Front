@@ -19,45 +19,63 @@
         android:src="@drawable/img3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />\
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:layout_marginBottom="10dp">
-        <TextView
-            android:id="@+id/Title"
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="아메리칸 스나이퍼"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="아메리칸 스나이퍼"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/donLoc"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:textSize="15dp"
                 android:text="유니세프 한국위원회"
                 android:gravity="start" />
 
-            <Button
-                android:id="@+id/donBtn"
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="기부하기"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:background="@drawable/rounded_btn" />
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true">
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/donBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기부하기"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+
+                    android:background="@drawable/rounded_btn" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 </LinearLayout>

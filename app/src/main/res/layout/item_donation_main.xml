@@ -9,8 +9,8 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <ImageButton
+        android:id="@+id/imageButton"
         android:layout_width="300dp"
         android:layout_height="400dp"
         android:background="@drawable/rounded_box"

@@ -13,7 +13,7 @@ import com.example.myapplication.databinding.Fragment3Binding
 
 class Fragment3 : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MyAdapter
+    private lateinit var adapter: MyPartiAdapter
     private var _binding: Fragment3Binding? = null
     private val binding get() = _binding!!
 
@@ -33,12 +33,12 @@ class Fragment3 : Fragment() {
 
         // Sample data for the RecyclerView items
         val itemList = listOf(
-            ItemData(R.drawable.img1, "아메리칸 스나이퍼", "유니세프 한국위원회"),
-            ItemData(R.drawable.img3, "아메리칸 스나이퍼", "유니세프 한국위원회"),
-            ItemData(R.drawable.img2, "아메리칸 스나이퍼", "유니세프 한국위원회"),
+            ItemParticipationData(R.drawable.img1, "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 ),
+            ItemParticipationData(R.drawable.img2, "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 ),
+            ItemParticipationData(R.drawable.img3, "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 ),
         )
 
-        adapter = MyAdapter(requireContext(), itemList)
+        adapter = MyPartiAdapter(requireContext(), itemList)
         recyclerView.adapter = adapter
 
         binding.login.setOnClickListener {
