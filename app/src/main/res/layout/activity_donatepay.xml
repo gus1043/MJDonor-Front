@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,19 +12,19 @@
         android:layout_height="180dp"
         tools:ignore="MissingConstraints">
 
-    <ImageView
-        android:id="@+id/selectedimage1"
-        android:layout_width="357dp"
-        android:layout_height="122dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/rounded_box"
-        android:clipToOutline="true"
-        android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/selectedimage1"
+            android:layout_width="357dp"
+            android:layout_height="122dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rounded_box"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/black"
@@ -36,33 +37,33 @@
             android:scaleType="centerCrop"
             android:src="@drawable/black" />
 
+        <TextView
+            android:id="@+id/donationName"
+            android:layout_width="330dp"
+            android:layout_height="35dp"
+            android:text="@string/donationName"
+            android:textColor="@color/white"
+            android:textSize="9pt"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="112dp"
+            android:layout_marginLeft="42dp"/>
+
+        <TextView
+            android:id="@+id/company"
+            android:layout_width="357dp"
+            android:layout_height="35dp"
+            android:text="@string/company"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="90dp"
+            android:layout_marginLeft="42dp" />
+
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/donationName_donate"
-        android:layout_width="357dp"
-        android:layout_height="35dp"
-        android:text="@string/donationName"
-        android:textSize="9pt"
-        android:textStyle="bold"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="112dp"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/donationName_donate"
-        android:layout_width="357dp"
-        android:layout_height="35dp"
-        android:text="@string/company"
-        android:textSize="7pt"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="90dp"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/donationName_donate"
+        android:id="@+id/howpay"
         android:layout_width="357dp"
         android:layout_height="35dp"
         android:text="결제 방법"
@@ -74,18 +75,20 @@
         tools:layout_editor_absoluteY="180dp" />
 
     <RadioButton
-        android:id="@+id/radioButton2"
+        android:id="@+id/radioButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:clickable="false"
+        android:focusable="false"
         android:text="간편 계좌"
+        android:textColor="#A7AAB2"
         android:textSize="7pt"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/radioButton2"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="27dp"
-        tools:layout_editor_absoluteY="231dp"
-        android:textColor="#A7AAB2"
-        android:clickable="false"
-        android:focusable="false"/>
+        tools:layout_editor_absoluteX="27dp" />
 
     <RadioButton
         android:id="@+id/radioButton2"
@@ -100,6 +103,7 @@
         tools:layout_editor_absoluteY="275dp" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="310dp"
         android:layout_height="35dp"
         android:layout_centerInParent="true"
@@ -109,7 +113,6 @@
         tools:layout_editor_absoluteY="315dp">
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -121,7 +124,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -133,6 +136,7 @@
         tools:layout_editor_absoluteY="360dp" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="220dp"
         android:layout_height="47dp"
         tools:ignore="MissingConstraints"
@@ -157,13 +161,14 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout3"
         android:layout_width="84dp"
         android:layout_height="47dp"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="55dp"
         tools:layout_editor_absoluteY="380dp">
 
-        <EditText
+        <Spinner
             android:id="@+id/bank"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -181,7 +186,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/donationName_donate"
+        android:id="@+id/textView5"
         android:layout_width="357dp"
         android:layout_height="35dp"
         android:text="메세지"
@@ -193,7 +198,7 @@
         tools:layout_editor_absoluteY="445dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -205,6 +210,7 @@
         tools:layout_editor_absoluteY="480dp" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout4"
         android:layout_width="357dp"
         android:layout_height="120dp"
         tools:ignore="MissingConstraints"
@@ -229,6 +235,7 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/rounded_bluebox"
@@ -240,6 +247,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <View
+        android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#002968"
@@ -251,7 +259,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/donationName_donate"
+        android:id="@+id/textView7"
         android:layout_width="150dp"
         android:layout_height="35dp"
         android:text="50,000원"
@@ -263,13 +271,14 @@
         tools:layout_editor_absoluteY="675dp" />
 
     <TextView
+        android:id="@+id/textView8"
         android:layout_width="140dp"
         android:layout_height="35dp"
-        android:text="결제하기"
-        android:paddingTop="3dp"
-        android:paddingLeft="10dp"
-        android:textColor="@color/black"
         android:background="@drawable/rounded_button"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:text="결제하기"
+        android:textColor="@color/black"
         android:textSize="8pt"
         android:textStyle="bold"
         tools:ignore="MissingConstraints"
