@@ -55,6 +55,9 @@
         <activity android:name=".DonInputActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".DonatePayActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
