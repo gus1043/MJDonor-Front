@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.R
 
-class MyAdapter(private val context: Context, private val itemList: List<ItemData>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+class MyAdapter(private val context: Context, private var itemList: List<ItemData>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val selectedImage: ImageView = itemView.findViewById(R.id.selectedimage1)
         val titleText: TextView = itemView.findViewById(R.id.Title)
         val donLocText: TextView = itemView.findViewById(R.id.donLoc)
         val donateButton: Button = itemView.findViewById(R.id.donBtn)
+        val type : TextView= itemView.findViewById(R.id.type)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,6 +32,7 @@ class MyAdapter(private val context: Context, private val itemList: List<ItemDat
         holder.selectedImage.setImageResource(currentItem.imageResId)
         holder.titleText.text = currentItem.title
         holder.donLocText.text = currentItem.donLoc
+        holder.type.text = currentItem.type
         holder.donateButton.setOnClickListener {
             val intent = Intent(context, DonSelectActivity::class.java)
             context.startActivity(intent)
@@ -40,4 +42,10 @@ class MyAdapter(private val context: Context, private val itemList: List<ItemDat
     override fun getItemCount(): Int {
         return itemList.size
     }
+
+    fun updateData(filteredItemList: List<ItemData>) {
+        itemList = filteredItemList
+        notifyDataSetChanged()
+    }
+
 }

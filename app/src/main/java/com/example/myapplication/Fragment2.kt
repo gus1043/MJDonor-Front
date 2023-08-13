@@ -31,13 +31,39 @@ class Fragment2 : Fragment() {
 
         // Sample data for the RecyclerView items
         val itemList = listOf(
-            ItemData(R.drawable.img1, "아메리칸 스나이퍼", "유니세프 한국위원회"),
-            ItemData(R.drawable.img3, "아메리칸 스나이퍼", "유니세프 한국위원회"),
-            ItemData(R.drawable.img2, "아메리칸 스나이퍼", "유니세프 한국위원회"),
+            ItemData(R.drawable.img1, "아메리칸 스나이퍼", "유니세프 한국위원회","환경"),
+            ItemData(R.drawable.img3, "아메리칸 스나이퍼", "유니세프 한국위원회","글로벌"),
+            ItemData(R.drawable.img2, "아메리칸 스나이퍼", "유니세프 한국위원회","저소득층"),
+            ItemData(R.drawable.img2, "아메리칸 스나이퍼", "유니세프 한국위원회","한부모가정"),
         )
 
         adapter = MyAdapter(requireContext() as AppCompatActivity, itemList)
         recyclerView.adapter = adapter
+
+        binding.all.setOnClickListener {
+            adapter.updateData(itemList)
+        }
+
+
+        binding.environment.setOnClickListener {
+            val filteredItemList = itemList.filter { it.type == "환경" }
+            adapter.updateData(filteredItemList)
+        }
+
+        binding.singleParent.setOnClickListener {
+            val filteredItemList = itemList.filter { it.type == "한부모가정" }
+            adapter.updateData(filteredItemList)
+        }
+
+        binding.lowIncome.setOnClickListener {
+            val filteredItemList = itemList.filter { it.type == "저소득층" }
+            adapter.updateData(filteredItemList)
+        }
+
+        binding.global.setOnClickListener {
+            val filteredItemList = itemList.filter { it.type == "글로벌" }
+            adapter.updateData(filteredItemList)
+        }
     }
 
     override fun onDestroyView() {

@@ -42,15 +42,6 @@ class Fragment3 : Fragment() {
         adapter = MyPartiAdapter(requireContext(), childFragmentManager, itemList)
         recyclerView.adapter = adapter
 
-        binding.login.setOnClickListener {
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.signup.setOnClickListener {
-            val intent = Intent(requireContext(), SignupActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onDestroyView() {

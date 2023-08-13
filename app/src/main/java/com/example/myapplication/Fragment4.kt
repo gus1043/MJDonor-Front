@@ -32,9 +32,9 @@ class Fragment4 : Fragment() {
 
         // Sample data for the RecyclerView items
         val itemList = listOf(
-            ItemData(R.drawable.img1, "스크래치 교육 봉사 기부", "유니세프 한국위원회"),
-            ItemData(R.drawable.img3, "스크래치 교육 봉사 기부", "유니세프 한국위원회"),
-            ItemData(R.drawable.img2, "스크래치 교육 봉사 기부", "유니세프 한국위원회"),
+            ItemData(R.drawable.img1, "스크래치 교육 봉사 기부", "유니세프 한국위원회", "글로벌"),
+            ItemData(R.drawable.img3, "스크래치 교육 봉사 기부", "유니세프 한국위원회","한부모가정"),
+            ItemData(R.drawable.img2, "스크래치 교육 봉사 기부", "유니세프 한국위원회","저소득층"),
         )
 
         adapter = AddAdapter(requireContext() as AppCompatActivity, itemList)

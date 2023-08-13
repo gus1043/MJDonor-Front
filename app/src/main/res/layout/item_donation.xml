@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/selectedimage1"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
         android:background="@drawable/rounded_box"
         android:clipToOutline="true"
         android:scaleType="centerCrop"
@@ -61,18 +61,27 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
+                android:gravity="end"
                 android:layout_alignParentEnd="true">
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="종류"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="-10dp"
+                    android:id="@+id/type"/>
                 <Button
                     android:id="@+id/donBtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:text="기부하기"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/white"
                     android:textSize="15dp"
+                    android:background="@drawable/rounded_btn"
+                    android:padding="8dp" />
 
-                    android:background="@drawable/rounded_btn" />
             </LinearLayout>
 
         </RelativeLayout>

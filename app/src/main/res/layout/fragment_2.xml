@@ -35,7 +35,73 @@
                 android:textSize="25dp"
                 android:text="@string/list_title"
                 android:textAppearance="@style/title" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/all"
+                        android:drawableLeft="@drawable/baseline_cruelty_free_24"
+                        android:text="전체"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/rounded_button"/>
+
+                    <Button
+                        android:id="@+id/environment"
+                        android:drawableLeft="@drawable/baseline_cruelty_free_24"
+                        android:text="환경"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/rounded_button"/>
+
+                    <Button
+                        android:id="@+id/single_parent"
+                        android:drawableLeft="@drawable/baseline_cruelty_free_24"
+                        android:text="한부모가정"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/rounded_button"/>
+
+                    <Button
+                        android:id="@+id/low_income"
+                        android:drawableLeft="@drawable/baseline_cruelty_free_24"
+                        android:text="저소득층"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/rounded_button"/>
+
+                    <Button
+                        android:id="@+id/global"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/rounded_button"
+                        android:drawableLeft="@drawable/baseline_cruelty_free_24"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="글로벌" />
+                </LinearLayout>
+            </HorizontalScrollView>
         </LinearLayout>
+
 
         <ScrollView
             android:layout_width="match_parent"
