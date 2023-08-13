@@ -3,18 +3,18 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.DonSelectActivity
-import com.example.myapplication.DonationSelectionActivity
+import com.example.myapplication.DonationTree
 import com.example.myapplication.R
 
-class MyPartiAdapter(private val context: Context, private val itemList: List<ItemParticipationData>) : RecyclerView.Adapter<MyPartiAdapter.ViewHolder>() {
+class MyPartiAdapter(private val context: Context, private val fragmentManager: FragmentManager, private val itemList: List<ItemParticipationData>) : RecyclerView.Adapter<MyPartiAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val selectedImage: ImageView = itemView.findViewById(R.id.selectedimage1)
+        val participatedimage: ImageButton = itemView.findViewById(R.id.participatedimage)
         val titleText: TextView = itemView.findViewById(R.id.Title)
         val donLocText: TextView = itemView.findViewById(R.id.donLoc)
         val account: TextView = itemView.findViewById(R.id.account)
@@ -31,15 +31,22 @@ class MyPartiAdapter(private val context: Context, private val itemList: List<It
         val currentItem = itemList[position]
 
         // Set data to the views here
-        holder.selectedImage.setImageResource(currentItem.imageResId)
+        holder.participatedimage.setImageResource(currentItem.imageResId)
         holder.titleText.text = currentItem.title
         holder.donLocText.text = currentItem.donLoc
         holder.account.text = currentItem.account
         holder.enddate.text = currentItem.enddate
         holder.money.text = currentItem.money.toString()
+        holder.participatedimage.setOnClickListener {
+            openDonationTree()
+        }
     }
 
     override fun getItemCount(): Int {
         return itemList.size
+    }
+    private fun openDonationTree() {
+        val fragment = DonationTree()
+        fragment.show(fragmentManager, "donationTreeDialog")
     }
 }

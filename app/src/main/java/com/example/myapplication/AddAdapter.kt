@@ -17,6 +17,7 @@ class AddAdapter(private val context: Context, private val itemList: List<ItemDa
         val titleText: TextView = itemView.findViewById(R.id.Title)
         val donLocText: TextView = itemView.findViewById(R.id.donLoc)
         val donateButton: Button = itemView.findViewById(R.id.donBtn)
+        val type: TextView = itemView.findViewById(R.id.type)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,10 +28,10 @@ class AddAdapter(private val context: Context, private val itemList: List<ItemDa
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = itemList[position]
 
-        // Set data to the views here
         holder.selectedImage.setImageResource(currentItem.imageResId)
         holder.titleText.text = currentItem.title
         holder.donLocText.text = currentItem.donLoc
+        holder.type.text = currentItem.type
         holder.donateButton.setOnClickListener {
             val intent = Intent(context, DonSelectActivity::class.java)
             context.startActivity(intent)

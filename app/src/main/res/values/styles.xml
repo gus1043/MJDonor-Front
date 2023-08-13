@@ -13,7 +13,7 @@
         <item name="android:textColor">#000000</item>
     </style>
     <style name="donationName_donate">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">23sp</item>
         <item name="android:textColor">#ffffff</item>
     </style>
     <style name="goal">

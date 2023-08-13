@@ -9,12 +9,13 @@
     android:orientation="vertical"
     android:background="@drawable/rounded_box"
     android:layout_marginBottom="10dp"
-    tools:ignore="MissingDefaultResource">
+    tools:ignore="MissingDefaultResource"
+    android:layout_margin="10dp">
 
-    <ImageView
-        android:id="@+id/selectedimage1"
+    <ImageButton
+        android:id="@+id/participatedimage"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:background="@drawable/rounded_box"
         android:clipToOutline="true"
         android:scaleType="centerCrop"
@@ -34,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="아메리칸 스나이퍼"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:textStyle="bold"/>
 
         <TextView
@@ -66,7 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="가상계좌 : "
-                        android:textSize="15dp"
+                        android:textSize="13dp"
                         tools:ignore="TextSizeCheck" />
 
                     <TextView
@@ -74,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="계좌 연결"
-                        android:textSize="15dp"
+                        android:textSize="13dp"
                         tools:ignore="TextSizeCheck" />
                 </LinearLayout>
                 <LinearLayout
@@ -85,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="입금 기한 : "
-                        android:textSize="15dp"
+                        android:textSize="13dp"
                         tools:ignore="TextSizeCheck" />
 
                     <TextView
@@ -93,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="기한 연결"
-                        android:textSize="15dp"
+                        android:textSize="13dp"
                         tools:ignore="TextSizeCheck" />
 
                     <RelativeLayout
@@ -111,7 +112,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="금액: "
-                                android:textSize="15dp"
+                                android:textSize="13dp"
                                 tools:ignore="TextSizeCheck" />
 
                             <TextView
@@ -119,7 +120,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="금액 연결 "
-                                android:textSize="15dp"
+                                android:textSize="13dp"
                                 tools:ignore="TextSizeCheck"
                                 android:layout_gravity="end"/>
                         </LinearLayout>

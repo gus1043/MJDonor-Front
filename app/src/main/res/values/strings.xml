@@ -29,9 +29,10 @@
     <string name="toMain">메인으로 이동하기</string>
     <string name="donateDoneContent">금액은 목표 모금액이 달성될 시\n유니세프 한국위원회로 전달됩니다.\n\n기부 등록 내역은 마이페이지에서
 확인할 수 있습니다.</string>
+    <string name="notice">정해진 기한까지 정확한 입금하지 않으면\n기부는 취소됩니다.</string>
+    <string name="check">가상 계좌 입금 여부는 마이페이지에 있는\n기부 현황에서 확인해 주세요.</string>
     <string name="checkDonate">기부 내역 확인하기</string>
-    <string name="donatement">사회적 영향력을 위해 기부에 대한 정보를
-정확히 제공해 주세요</string>
+    <string name="donatement">사회적 영향력을 위해 기부에 대한 정보를\n정확히 제공해 주세요</string>
     <string name="termAgree">이용약관에 동의해 주세요</string>
     <array name="type">
         <item>저소득층</item>
@@ -39,4 +40,12 @@
         <item>환경</item>
         <item>글로벌</item>
     </array>
+    <array name="bank">
+        <item>하나은행</item>
+        <item>카카오뱅크</item>
+        <item>토스뱅크</item>
+        <item>농협은행</item>
+    </array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

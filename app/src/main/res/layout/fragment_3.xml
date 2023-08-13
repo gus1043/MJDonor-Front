@@ -127,7 +127,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:text="기부 참여/개설 현황"/>
 
         <ScrollView
@@ -141,28 +141,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"/>
-
-                <!--                <de.hdodenhof.circleimageview.CircleImageView-->
-                <!--                    app:civ_border_width="2dp"-->
-                <!--                    app:civ_fill_color="#23f22f"-->
-                <!--                    app:civ_border_color="@color/design_default_color_primary_dark"-->
-                <!--                    android:src="@drawable/logo"-->
-                <!--                    android:layout_width="100dp"-->
-                <!--                    android:layout_height="100dp"/>-->
-
-                <Button
-                    android:id="@+id/signup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="회원가입"/>
-
-                <Button
-                    android:id="@+id/login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="로그인"/>
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
 

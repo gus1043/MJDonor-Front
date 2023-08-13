@@ -6,14 +6,15 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <ImageView
-        android:id="@+id/selectedimage1"
+    <ImageButton
+        android:id="@+id/selecteddonation"
         android:layout_width="330dp"
         android:layout_height="280dp"
-        android:src="@drawable/img1"
-        android:scaleType="centerCrop"
+        android:background="@drawable/rounded_btn"
         android:clipToOutline="true"
-        />
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img1" />
 
     <TextView
         android:id="@+id/some_id"

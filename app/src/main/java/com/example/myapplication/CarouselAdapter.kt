@@ -1,3 +1,4 @@
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -38,7 +39,13 @@ class CarouselAdapter(private val context: Context, private val itemList: List<I
             // 필요하다면 아이템 데이터를 intent에 추가할 수도 있습니다.
             // intent.putExtra("itemData", currentItem)
             context.startActivity(intent)
+
+            // 애니메이션 추가
+            if (context is Activity) {
+                context.overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
+            }
         }
+
     }
 
     override fun getItemCount(): Int {

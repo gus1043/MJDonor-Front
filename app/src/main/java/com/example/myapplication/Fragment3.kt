@@ -38,18 +38,10 @@ class Fragment3 : Fragment() {
             ItemParticipationData(R.drawable.img3, "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 ),
         )
 
-        adapter = MyPartiAdapter(requireContext(), itemList)
+        // Pass the FragmentManager as a parameter to the adapter
+        adapter = MyPartiAdapter(requireContext(), childFragmentManager, itemList)
         recyclerView.adapter = adapter
 
-        binding.login.setOnClickListener {
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.signup.setOnClickListener {
-            val intent = Intent(requireContext(), SignupActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onDestroyView() {

@@ -33,9 +33,9 @@ class Fragment1 : Fragment() {
 
         // Sample data for the RecyclerView items
         val itemList = listOf(
-            ItemData(R.drawable.img1, "아메리칸 스나이퍼", "유니세프 한국위원회"),
-            ItemData(R.drawable.img3, "아메리칸 스나이퍼", "유니세프 한국위원회"),
-            ItemData(R.drawable.img2, "아메리칸 스나이퍼", "유니세프 한국위원회"),
+            ItemData(R.drawable.img1, "아메리칸 스나이퍼", "유니세프 한국위원회","글로벌"),
+            ItemData(R.drawable.img3, "아메리칸 스나이퍼", "유니세프 한국위원회","환경"),
+            ItemData(R.drawable.img2, "아메리칸 스나이퍼", "유니세프 한국위원회","한부모가정"),
         )
 
         adapter = CarouselAdapter(requireContext(), itemList)

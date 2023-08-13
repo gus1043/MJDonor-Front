@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <RelativeLayout
         android:id="@+id/inputrelate"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="200dp"
         tools:ignore="MissingConstraints">
 
         <ImageView
@@ -22,17 +23,48 @@
             android:id="@+id/selectedimage1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/insert_btn"
-            android:scaleType="fitXY"
+            android:background="@drawable/insert_btn"
+            android:scaleType="center"
             android:clipToOutline="true"
             android:padding="0dp"
-            android:clickable="true" />
+            android:clickable="true"
+            tools:ignore="ExtraText" />
 
+        <ImageButton
+            android:id="@+id/selectedimage2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/insert_btn"
+            android:scaleType="center"
+            android:clipToOutline="true"
+            android:padding="0dp"
+            android:clickable="true"
+            tools:ignore="ExtraText" />
+
+        <ImageButton
+            android:id="@+id/rightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/baseline_chevron_right_24" />
+
+        <ImageButton
+            android:id="@+id/leftBtn"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/baseline_chevron_left_24" />
     </RelativeLayout>
+
+
     <View
         android:id="@+id/inputbox"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="480dp"
         android:background="@drawable/rounded_box"
         app:layout_constraintTop_toBottomOf="@id/donationName_donate"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +73,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="480dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="-20dp"
@@ -67,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="기부하기"
+                android:text="기부 등록하기"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
