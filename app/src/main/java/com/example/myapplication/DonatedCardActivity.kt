@@ -7,6 +7,12 @@ import com.example.myapplication.databinding.ActivityDonatedCardBinding
 
 class DonatedCardActivity : AppCompatActivity() {
 
+    override fun onBackPressed() {
+        val intent: Intent = Intent(this, MainActivity::class.java)
+        finish()
+        startActivity(intent)
+        overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityDonatedCardBinding.inflate(layoutInflater)
@@ -14,7 +20,9 @@ class DonatedCardActivity : AppCompatActivity() {
         binding.toMypage.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("selectedFragment", "fragment3")
+            finish()
             startActivity(intent)
+            overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
         }
     }
 }

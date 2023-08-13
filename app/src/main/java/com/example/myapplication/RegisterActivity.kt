@@ -23,7 +23,9 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.inputdonatebtn.setOnClickListener {
             val intent: Intent = Intent(this, RegisterCardActivity::class.java)
+            finish()
             startActivity(intent)
+            overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
         }
     }
 

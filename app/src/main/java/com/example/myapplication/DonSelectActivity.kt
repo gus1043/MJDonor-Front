@@ -18,6 +18,7 @@ class DonSelectActivity : AppCompatActivity() {
         binding.selectdonatebtn.setOnClickListener {
             val intent: Intent = Intent(this, DonInputActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
         }
     }
 
