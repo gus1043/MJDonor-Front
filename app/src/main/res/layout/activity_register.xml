@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="기부하기"
+                android:text="기부 등록하기"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
