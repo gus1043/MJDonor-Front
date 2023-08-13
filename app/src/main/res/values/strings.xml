@@ -39,4 +39,10 @@
         <item>환경</item>
         <item>글로벌</item>
     </array>
+    <array name="bank">
+        <item>하나은행</item>
+        <item>카카오뱅크</item>
+        <item>토스뱅크</item>
+        <item>농협은행</item>
+    </array>
 </resources>
