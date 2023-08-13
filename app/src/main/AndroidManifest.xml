@@ -61,6 +61,9 @@
         <activity android:name=".DonatedCardActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".DonationTree"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

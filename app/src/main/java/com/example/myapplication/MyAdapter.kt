@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.DonSelectActivity
-import com.example.myapplication.DonationSelectionActivity
 import com.example.myapplication.R
 
 class MyAdapter(private val context: Context, private val itemList: List<ItemData>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
