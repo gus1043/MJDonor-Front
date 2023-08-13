@@ -34,7 +34,6 @@
             android:layout_height="wrap_content"
             android:text="@string/company"
             android:textAppearance="@style/company_donate"
-            android:textStyle="bold"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp" />
 
