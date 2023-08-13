@@ -9,8 +9,6 @@ import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityDonateinputBinding
-import com.example.myapplication.databinding.ActivityDonationselectionBinding
-import com.example.myapplication.databinding.ActivityMainBinding
 import java.text.NumberFormat
 
 class DonInputActivity : AppCompatActivity() {
@@ -70,6 +68,15 @@ class DonInputActivity : AppCompatActivity() {
             val currentAmount = binding.money.text.toString().replace("[^\\d]".toRegex(), "").toInt()
             val newAmount = currentAmount + 10000
             binding.money.setText(newAmount.toString())
+        }
+
+        binding.inputdonatebtn.setOnClickListener {
+            // 현재 입력된 금액을 가져와서 다음 액티비티로 전달하고, 해당 액티비티로 이동
+            val amount = binding.money.text.toString().replace("[^\\d]".toRegex(), "").toInt()
+
+            val intent = Intent(this, DonatePayActivity::class.java)
+            intent.putExtra("amount", amount) // 다음 액티비티로 금액 전달
+            startActivity(intent) // 다음 액티비티로 이동
         }
     }
 }
