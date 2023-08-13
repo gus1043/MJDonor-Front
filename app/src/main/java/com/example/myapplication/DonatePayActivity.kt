@@ -13,10 +13,13 @@ class DonatePayActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDonatepayBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val amount = intent.getIntExtra("amount", 0) // 인텐트에서 금액 데이터 추출
+        binding.paymentAmount.text = amount.toString()+"원"
 
         binding.payButton.setOnClickListener {
             val intent: Intent = Intent(this, DonatedCardActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
         }
     }
 }
