@@ -58,10 +58,8 @@
             </LinearLayout>
         </ScrollView>
 
-        <!-- Move the Button to the bottom of the LinearLayout -->
     </LinearLayout>
-
-    <!-- Add the Button outside of the LinearLayout, directly in the FrameLayout -->
+>
     <Button
         android:id="@+id/donBtn"
         android:layout_width="match_parent"

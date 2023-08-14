@@ -46,6 +46,11 @@
         <item>토스뱅크</item>
         <item>농협은행</item>
     </array>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="signupcheck">이용약관에 동의해 주세요.</string>
+    <array name="steps">
+        <item>Step1</item>
+        <item>Step2</item>
+        <item>FINAL</item>
+    </array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -4,7 +4,15 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="teal_700">#002968</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">	#5588ff</color>
+    <color name="primaryLightColor">#84C2FF</color>
+    <color name="primaryLightLittleColor">#3F90DF</color>
+    <color name="primaryDarkColor">#002968</color>
+    <color name="colorLightGrayMore">#FDFDFD</color>
+    <color name="colorGray">#8F8F8F</color>
+
 </resources>
