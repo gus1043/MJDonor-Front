@@ -23,6 +23,9 @@ import java.net.MalformedURLException
 import java.net.URL
 
 class LoginActivity : AppCompatActivity() {
+
+    var isExistBlank = false
+
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,25 +37,30 @@ class LoginActivity : AppCompatActivity() {
         var pwet = findViewById<EditText>(R.id.password)
 
         loginBtn.setOnClickListener {
-            try {
-                Toast.makeText(this@LoginActivity, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                val id = idet.text.toString()
-                val pw = pwet.text.toString()
+            if (idet.text.isEmpty() || pwet.text.isEmpty()) {
+                isExistBlank = true
+                Toast.makeText(this, "로그인 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+            }else {
+                try {
+                    Toast.makeText(this@LoginActivity, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                    val id = idet.text.toString()
+                    val pw = pwet.text.toString()
 
-                GlobalScope.launch(Dispatchers.IO) {
-                    val result = performLogin(id, pw)
-                    // UI 업데이트 작업 등을 여기에 추가할 수 있습니다.
-                    if (result != null) {
-                        runOnUiThread {
-                            // 예시: 로그인 성공 시 메인 화면으로 이동
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            startActivity(intent)
+                    GlobalScope.launch(Dispatchers.IO) {
+                        val result = performLogin(id, pw)
+                        // UI 업데이트 작업 등을 여기에 추가할 수 있습니다.
+                        if (result != null) {
+                            runOnUiThread {
+                                // 예시: 로그인 성공 시 메인 화면으로 이동
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                startActivity(intent)
+                            }
                         }
                     }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Log.i("DBtest", ".....ERROR.....!")
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Log.i("DBtest", ".....ERROR.....!")
             }
         }
     }
