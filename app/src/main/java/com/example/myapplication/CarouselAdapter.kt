@@ -33,18 +33,17 @@ class CarouselAdapter(private val context: Context, private val itemList: List<I
         holder.titleTextView.text = currentItem.title
         holder.descriptionTextView.text = currentItem.donLoc
         holder.imageButton.setOnClickListener {
-            // 클릭된 아이템에 대한 처리를 수행합니다.
-            // 예를 들어 DonSelectActivity로 이동하는 코드를 추가합니다.
             val intent = Intent(context, DonSelectActivity::class.java)
-            // 필요하다면 아이템 데이터를 intent에 추가할 수도 있습니다.
-            // intent.putExtra("itemData", currentItem)
+            intent.putExtra("title", currentItem.title)
+            intent.putExtra("donLoc", currentItem.donLoc)
+            intent.putExtra("imageResId", currentItem.imageResId)
             context.startActivity(intent)
 
-            // 애니메이션 추가
             if (context is Activity) {
                 context.overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
             }
         }
+
 
     }
 
