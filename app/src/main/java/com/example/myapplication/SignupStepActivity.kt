@@ -49,9 +49,9 @@ class SignupStepActivity : AppCompatActivity() {
                 STEP_2 -> transitionToStep(FINAL_STEP, "Submit")
                 else -> {
                     val email = binding.email.text.toString()
-                    val password= binding.password.text.toString()
-                    val passwordCheck= binding.passwordCheck.text.toString()
-                    val name= binding.name.text.toString()
+                    val password = binding.password.text.toString()
+                    val passwordCheck = binding.passwordCheck.text.toString()
+                    val name = binding.name.text.toString()
                     val studentNum = binding.studentNum.text.toString()
                     val walletAdress = binding.walletAddress.text.toString()
 
@@ -76,14 +76,13 @@ class SignupStepActivity : AppCompatActivity() {
                         studentNumCorrect= false
                     }
 
-//                    //비밀번호 유효성
-//                    if(!Pattern.matches("^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$", password))
-//                    {
-//                       passwordCorrect= false
-//                    }
+                    //비밀번호 유효성
+                    if(!Pattern.matches("^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$", password))
+                    {
+                       passwordCorrect= false
+                    }
 
-                    if(!isExistBlank && isPWSame && emailCorrect && studentNumCorrect){
-
+                    if (!isExistBlank && isPWSame && emailCorrect && studentNumCorrect && passwordCorrect) {
                         // 회원가입 성공 토스트 메세지 띄우기
                         Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
 
@@ -106,9 +105,9 @@ class SignupStepActivity : AppCompatActivity() {
                         else if(!isPWSame){ // 입력한 비밀번호가 다를 경우
                             dialog("not same")
                         }
-//                        else if(!passwordCorrect){ // 비밀번호 유효성
-//                            dialog("passwordCorrect")
-//                        }
+                        else if(!passwordCorrect){ // 비밀번호 유효성
+                            dialog("passwordCorrect")
+                        }
                         else if(!emailCorrect){ // 입력한 비밀번호가 다를 경우
                             dialog("emailCorrect")
                         }
@@ -172,10 +171,10 @@ class SignupStepActivity : AppCompatActivity() {
             dialog.setTitle("회원가입 실패")
             dialog.setMessage("이메일 형식을 맞춰주세요")
         }
-//        else if(type.equals("passwordCorrect")){
-//            dialog.setTitle("회원가입 실패")
-//            dialog.setMessage("비밀번호 형식을 맞춰 주세요")
-//        }
+        else if(type.equals("passwordCorrect")){
+            dialog.setTitle("회원가입 실패")
+            dialog.setMessage("비밀번호 형식을 맞춰 주세요")
+        }
 
         val dialog_listener = object: DialogInterface.OnClickListener{
             override fun onClick(dialog: DialogInterface?, which: Int) {

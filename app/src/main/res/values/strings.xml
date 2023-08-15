@@ -54,5 +54,6 @@
     </array>
     <string name="toSignup"><u>회원가입</u></string>
     <string name="tologin"><u>로그인</u></string>
+    <string name="passwordneed">특수문자, 영대소문자를 포함한 8-20자로 작성해주세요</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
