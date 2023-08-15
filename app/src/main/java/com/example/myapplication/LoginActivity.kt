@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
+import com.example.myapplication.databinding.ActivityLoginBinding
+import com.example.myapplication.databinding.ActivitySignupstepBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,18 +25,26 @@ import java.net.MalformedURLException
 import java.net.URL
 
 class LoginActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivityLoginBinding
     var isExistBlank = false
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.hide()
 
         var loginBtn = findViewById<AppCompatImageButton>(R.id.login)
         var idet = findViewById<EditText>(R.id.email)
         var pwet = findViewById<EditText>(R.id.password)
+
+        binding.tosignupbtn.setOnClickListener{
+            finish()
+            val intent = Intent(this, SignupStepActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
+        }
 
         loginBtn.setOnClickListener {
             if (idet.text.isEmpty() || pwet.text.isEmpty()) {

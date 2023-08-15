@@ -36,6 +36,12 @@ class SignupStepActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         binding.stepView.done(false)
+        binding.tologinpbtn.setOnClickListener{
+            finish()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
+        }
 
         binding.button.setOnClickListener {
             when (position) {
