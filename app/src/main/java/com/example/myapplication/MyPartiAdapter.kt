@@ -5,11 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.DonationTree
 import com.example.myapplication.R
+import org.w3c.dom.Text
 
 class MyPartiAdapter(private val context: Context, private val fragmentManager: FragmentManager, private val itemList: List<ItemParticipationData>) : RecyclerView.Adapter<MyPartiAdapter.ViewHolder>() {
 
@@ -20,6 +22,7 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
         val account: TextView = itemView.findViewById(R.id.account)
         val enddate: TextView = itemView.findViewById(R.id.enddate)
         val money: TextView = itemView.findViewById(R.id.money)
+        val deposit: TextView = itemView.findViewById(R.id.deposit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,7 +33,6 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = itemList[position]
 
-        // Set data to the views here
         holder.participatedimage.setImageResource(currentItem.imageResId)
         holder.titleText.text = currentItem.title
         holder.donLocText.text = currentItem.donLoc
@@ -40,6 +42,23 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
         holder.participatedimage.setOnClickListener {
             openDonationTree()
         }
+
+        val depositMessage = if (currentItem.Deposite == true) {
+            context.getString(R.string.depostie_done)
+        } else {
+            context.getString(R.string.depostie_not)
+        }
+
+        holder.deposit.text = depositMessage
+
+        val textColorResId = if (currentItem.Deposite == true) {
+            R.color.green
+        } else {
+            R.color.red
+        }
+
+        holder.deposit.setTextColor(ContextCompat.getColor(context, textColorResId))
+
     }
 
     override fun getItemCount(): Int {

@@ -4,5 +4,6 @@ data class ItemParticipationData(
     val donLoc: String,
     val account: String,
     val enddate : String,
-    val money : Int
+    val money : Int,
+    val Deposite : Boolean
 )
