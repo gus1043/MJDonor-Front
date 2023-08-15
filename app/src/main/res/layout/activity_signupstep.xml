@@ -154,6 +154,7 @@
                     android:id="@+id/password"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:inputType="textPassword"
                     android:hint="Password"/>
             </LinearLayout>
 
@@ -194,6 +195,7 @@
                     android:id="@+id/password_check"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:inputType="textPassword"
                     android:hint="password 확인"/>
             </LinearLayout>
 

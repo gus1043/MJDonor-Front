@@ -97,7 +97,8 @@
                             android:id="@+id/email"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
-                            android:hint="Email address"/>
+                            android:hint="Email address"
+                            android:inputType="textEmailAddress"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -114,7 +115,8 @@
                             android:id="@+id/password"
                             android:hint="Password"
                             android:layout_width="230dp"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"/>
                     </LinearLayout>
 
                 </LinearLayout>
