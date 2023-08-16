@@ -12,8 +12,10 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import com.example.myapplication.databinding.ActivityRegisterBinding
 import java.io.File
 import java.io.FileOutputStream
@@ -79,10 +81,23 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.inputdonatebtn.setOnClickListener {
-            val intent: Intent = Intent(this, RegisterCardActivity::class.java)
-            finish()
-            startActivity(intent)
-            overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
+            val isAgree = binding.registerAgree.isChecked
+            var isExistBlank = false
+            val title = binding.registertitle.text.toString()
+            val registerDescription = binding.registerDescription.text.toString()
+            val goal = binding.goal.text.toString()
+            if (title.isEmpty() || registerDescription.isEmpty() || goal.isEmpty() ) {
+                isExistBlank = true
+            }
+
+            if (isAgree && !isExistBlank) {
+                val intent: Intent = Intent(this, RegisterCardActivity::class.java)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
+            } else {
+                Toast.makeText(this, "모든 약관에 동의해야 합니다.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         currencyFormat = NumberFormat.getCurrencyInstance() // Initialize currencyFormat
