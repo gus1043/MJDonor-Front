@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.RegisterActivity
 import com.example.myapplication.databinding.Fragment2Binding
 
 class Fragment2 : Fragment() {
@@ -63,6 +64,10 @@ class Fragment2 : Fragment() {
         binding.global.setOnClickListener {
             val filteredItemList = itemList.filter { it.type == "글로벌" }
             adapter.updateData(filteredItemList)
+        }
+        binding.donBtn.setOnClickListener {
+            val intent = Intent(requireContext(), RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -13,7 +13,7 @@ import com.example.myapplication.databinding.Fragment4Binding
 
 class Fragment4 : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: AddAdapter
+    private lateinit var adapter: OrgAdapter
     private var _binding: Fragment4Binding? = null
     private val binding get() = _binding!!
 
@@ -37,13 +37,8 @@ class Fragment4 : Fragment() {
             ItemData(R.drawable.img2, "스크래치 교육 봉사 기부", "유니세프 한국위원회","저소득층"),
         )
 
-        adapter = AddAdapter(requireContext() as AppCompatActivity, itemList)
+        adapter = OrgAdapter(requireContext() as AppCompatActivity, itemList)
         recyclerView.adapter = adapter
-
-        binding.donBtn.setOnClickListener {
-            val intent = Intent(requireContext(), RegisterActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onDestroyView() {

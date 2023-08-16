@@ -133,5 +133,14 @@
         </ScrollView>
 
     </LinearLayout>
-
+    <Button
+        android:id="@+id/donBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/donation_btn"
+        android:text="기부 등록하기"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
 </FrameLayout>

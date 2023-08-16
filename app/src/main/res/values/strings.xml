@@ -23,6 +23,7 @@
     <string name="checkDonate">기부 내역 확인하기</string>
     <string name="donatement">사회적 영향력을 위해 기부에 대한 정보를\n정확히 제공해 주세요</string>
     <string name="termAgree">이용약관에 동의해 주세요</string>
+    <string name="org">MJDonor와 함께하는 기관들</string>
     <array name="type">
         <item>저소득층</item>
         <item>한부모가정</item>
