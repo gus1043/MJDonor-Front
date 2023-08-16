@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityDonateinputBinding
@@ -77,6 +78,25 @@ class DonInputActivity : AppCompatActivity() {
             intent.putExtra("amount", amount) // 다음 액티비티로 금액 전달
             startActivity(intent) // 다음 액티비티로 이동
             overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
+        }
+
+        binding.inputdonatebtn.setOnClickListener {
+            val isAgree = binding.inputAgree.isChecked
+            var isExistBlank = false
+            val money = binding.money.text.toString()
+            val nickname = binding.nickname.text.toString()
+            if (money.isEmpty() || nickname.isEmpty() ) {
+                isExistBlank = true
+            }
+
+            if (isAgree && !isExistBlank) {
+                val intent: Intent = Intent(this, DonatedCardActivity::class.java)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
+            } else {
+                Toast.makeText(this, "모든 약관에 동의해야 합니다.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

@@ -168,6 +168,7 @@
                 android:layout_marginTop="-10dp">
 
                 <EditText
+                    android:id="@+id/nickname"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
@@ -194,6 +195,7 @@
                 android:text="실제 기부금이 전달될 때 표기될 기부자명입니다." />
 
             <CheckBox
+                android:id="@+id/inputAgree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
