@@ -149,6 +149,7 @@ class SignupStepActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
+        overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
     }
     fun dialog(type: String){
         val dialog = AlertDialog.Builder(this)

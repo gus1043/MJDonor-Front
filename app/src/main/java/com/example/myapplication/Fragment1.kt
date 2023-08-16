@@ -5,9 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.R
-import com.example.myapplication.SignupActivity
-import com.example.myapplication.SignupStepActivity
+import com.example.myapplication.*
 import com.example.myapplication.databinding.Fragment1Binding
 
 class Fragment1 : Fragment() {
@@ -42,8 +40,13 @@ class Fragment1 : Fragment() {
         // Set up the carousel layout manager for the RecyclerView
         recyclerViewmain.setCarouselLayoutManager()
 
-        binding.signup.setOnClickListener {
-            val intent = Intent(requireContext(), SignupStepActivity::class.java)
+        binding.input.setOnClickListener {
+            val intent = Intent(requireContext(), DonInputActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.register.setOnClickListener {
+            val intent = Intent(requireContext(), RegisterActivity::class.java)
             startActivity(intent)
         }
     }

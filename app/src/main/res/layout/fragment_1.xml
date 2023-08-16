@@ -51,6 +51,13 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/signup"/>
+        android:id="@+id/input"
+        android:text="기부금 입력"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/register"
+        android:layout_marginLeft="100dp"
+        android:text="기부 등록"/>
 
 </RelativeLayout>

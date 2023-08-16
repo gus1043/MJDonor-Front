@@ -1,7 +1,9 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -9,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.content.edit
 import com.example.myapplication.databinding.ActivityLoginBinding
 import com.example.myapplication.databinding.ActivitySignupstepBinding
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +30,8 @@ import java.net.URL
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     var isExistBlank = false
+    // 앱 상태(로그인 여부) 저장 : 앱 내부 초기 값 설정
+    private lateinit var sharedPreferences: SharedPreferences
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +39,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
+        //login false로 지정
+        sharedPreferences = getSharedPreferences("TermsAgree", Context.MODE_PRIVATE)
+        val termsAgreed = sharedPreferences.getBoolean("login", false)
 
         var loginBtn = findViewById<AppCompatImageButton>(R.id.login)
         var idet = findViewById<EditText>(R.id.email)
@@ -52,6 +61,9 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "로그인 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
             }else {
                 try {
+                    sharedPreferences.edit {
+                        putBoolean("login", true)
+                    }
                     Toast.makeText(this@LoginActivity, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
                     val id = idet.text.toString()
                     val pw = pwet.text.toString()
@@ -61,9 +73,10 @@ class LoginActivity : AppCompatActivity() {
                         // UI 업데이트 작업 등을 여기에 추가할 수 있습니다.
                         if (result != null) {
                             runOnUiThread {
-                                // 예시: 로그인 성공 시 메인 화면으로 이동
+                                //로그인 성공 시 메인 화면으로 이동
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)
+                                overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
                             }
                         }
                     }
