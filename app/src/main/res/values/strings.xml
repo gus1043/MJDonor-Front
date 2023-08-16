@@ -40,6 +40,7 @@
     <array name="steps">
         <item>Step1</item>
         <item>Step2</item>
+        <item>Step3</item>
         <item>FINAL</item>
     </array>
     <string name="toSignup"><u>회원가입</u></string>

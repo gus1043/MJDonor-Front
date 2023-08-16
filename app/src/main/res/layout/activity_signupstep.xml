@@ -306,6 +306,7 @@
             </LinearLayout>
 
             <CheckBox
+                android:id="@+id/signupAgree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -316,6 +317,48 @@
                 app:layout_constraintTop_toBottomOf="@+id/walletadresslayout"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/STEP_3"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/step_view"
+            tools:ignore="NotSibling">
+
+            <TextView
+                android:id="@+id/imagetext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:text="프로필 이미지를 입력해주세요!"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="0"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagetext"
+                app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/FINALSTEP"
             android:layout_width="280dp"
@@ -351,7 +394,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="회원가입 입력이 끝났습니다! "
                 android:textAlignment="center"
-                android:textSize="8sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
