@@ -7,7 +7,8 @@
     <string name="add_title">내가 등록한 기부 목록</string>
     <string name="bottom_title">기부 금액 및 주제에 대한 결정은\n투명한 과정을 거칩니다.</string>
     <string name="donationName">아메리칸 스나이퍼 - 전쟁 평화 기부</string>
-    <string name="goal">목표 모금액 | 500,000,000 원</string>
+    <string name="goal">목표 모금액 | </string>
+    <string name="enddate">모금 마감일 | </string>
     <string name="company">유니세프 한국위원회</string>
     <string name="donationContent">전쟁은 인류에게 상처와 파괴를 안겨옵니다. 하지만 우리는 함께 모여서 이를 멈추고 평화를 이룰 수 있습니다. 여러분의 작은 기부가 큰 변화를 만들 수 있습니다. 우리는 전쟁 피해자들을 돕고 세계의 갈등을 해소하는 어쩌구 저쩌구 안녕하십니까 지금은 새벽 3시 제 생각에</string>
     <string name="numPeople">2000+기부자</string>
@@ -23,6 +24,7 @@
     <string name="checkDonate">기부 내역 확인하기</string>
     <string name="donatement">사회적 영향력을 위해 기부에 대한 정보를\n정확히 제공해 주세요</string>
     <string name="termAgree">이용약관에 동의해 주세요</string>
+    <string name="org">MJDonor와 함께하는 기관들</string>
     <array name="type">
         <item>저소득층</item>
         <item>한부모가정</item>
@@ -39,6 +41,7 @@
     <array name="steps">
         <item>Step1</item>
         <item>Step2</item>
+        <item>Step3</item>
         <item>FINAL</item>
     </array>
     <string name="toSignup"><u>회원가입</u></string>
@@ -47,4 +50,5 @@
     <string name="depostie_not">입금 미완료</string>
     <string name="passwordneed">특수문자, 영대소문자를 포함한 8-20자로 작성해주세요</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pay">환불 받을 본인 명의의 계좌를 함께 입력해 주세요.\n기부 모금 마감 날짜까지 목표 금액이 달성되지 않으면\n순차적으로 자동 환불됩니다</string>
 </resources>

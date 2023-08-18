@@ -85,20 +85,31 @@ class RegisterActivity : AppCompatActivity() {
             var isExistBlank = false
             val title = binding.registertitle.text.toString()
             val registerDescription = binding.registerDescription.text.toString()
-            val goal = binding.goal.text.toString()
-            if (title.isEmpty() || registerDescription.isEmpty() || goal.isEmpty() ) {
+            val goal = binding.goal.text.replace("[^\\d]".toRegex(), "").toInt()
+
+            val startDate = binding.startDateEditText.text.toString()
+            val endDate = binding.endDateEditText.text.toString()
+
+            if (title.isEmpty() || registerDescription.isEmpty() || goal == 0 || startDate.isEmpty() || endDate.isEmpty()) {
                 isExistBlank = true
             }
 
-            if (isAgree && !isExistBlank) {
+            if (firstSelectedImage == null || secondSelectedImage == null) {
+                isExistBlank = true
+            }
+
+            if (isExistBlank) {
+                Toast.makeText(this, "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            } else if (!isAgree) {
+                Toast.makeText(this, "약관에 동의해야 합니다.", Toast.LENGTH_SHORT).show()
+            } else {
                 val intent: Intent = Intent(this, RegisterCardActivity::class.java)
                 finish()
                 startActivity(intent)
                 overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
-            } else {
-                Toast.makeText(this, "모든 약관에 동의해야 합니다.", Toast.LENGTH_SHORT).show()
             }
         }
+
 
         currencyFormat = NumberFormat.getCurrencyInstance() // Initialize currencyFormat
 

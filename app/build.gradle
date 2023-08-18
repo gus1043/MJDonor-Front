@@ -37,6 +37,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.github.shuhart:stepview:1.5.1'//회원가입 stepper
     implementation 'androidx.viewpager2:viewpager2:1.0.0' //캐러셀
     implementation 'me.relex:circleindicator:2.1.6' //캐러셀

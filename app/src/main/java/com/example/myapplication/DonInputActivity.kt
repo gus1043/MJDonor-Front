@@ -45,11 +45,6 @@ class DonInputActivity : AppCompatActivity() {
             }
         })
 
-        binding.inputdonatebtn.setOnClickListener {
-            // TODO: 입력된 금액 처리
-            // 예: 입력된 금액을 다음 단계로 전달하거나 로직을 수행
-        }
-
         binding.button1.setOnClickListener {
             // 현재 입력된 금액에 1000을 더해서 업데이트
             val currentAmount = binding.money.text.toString().replace("[^\\d]".toRegex(), "").toInt()
@@ -83,19 +78,22 @@ class DonInputActivity : AppCompatActivity() {
         binding.inputdonatebtn.setOnClickListener {
             val isAgree = binding.inputAgree.isChecked
             var isExistBlank = false
-            val money = binding.money.text.toString()
+            val money = binding.money.text.toString().replace("[^\\d]".toRegex(), "").toInt()
             val nickname = binding.nickname.text.toString()
-            if (money.isEmpty() || nickname.isEmpty() ) {
+            if (nickname.isEmpty() ) {
                 isExistBlank = true
             }
-
-            if (isAgree && !isExistBlank) {
+            if (money == 0 || money < 0) {
+                Toast.makeText(this, "금액을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }else if (isExistBlank){
+                Toast.makeText(this, "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
+            }else if (!isAgree){
+                Toast.makeText(this, "약관에 동의해야 합니다.", Toast.LENGTH_SHORT).show()
+            } else {
                 val intent: Intent = Intent(this, DonatedCardActivity::class.java)
                 finish()
                 startActivity(intent)
                 overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
-            } else {
-                Toast.makeText(this, "모든 약관에 동의해야 합니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
