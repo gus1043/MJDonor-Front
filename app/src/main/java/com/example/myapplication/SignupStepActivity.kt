@@ -19,6 +19,13 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.myapplication.databinding.ActivityRegisterBinding
 import com.example.myapplication.databinding.ActivitySignupstepBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.io.*
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
 import java.util.regex.Pattern
 
 class SignupStepActivity : AppCompatActivity() {
@@ -84,12 +91,13 @@ class SignupStepActivity : AppCompatActivity() {
                     val password = binding.password.text.toString()
                     val passwordCheck = binding.passwordCheck.text.toString()
                     val name = binding.name.text.toString()
-                    val studentNum = binding.studentNum.text.toString()
+                    val studentNumText = binding.studentNum.text.toString()
+                    val studentNum = studentNumText.toIntOrNull() ?: "12345678"
                     val walletAdress = binding.walletAddress.text.toString()
 
 
                     // 유저가 항목을 다 채우지 않았을 경우
-                    if(email.isEmpty() || password.isEmpty() || passwordCheck.isEmpty()|| name.isEmpty()|| studentNum.isEmpty()|| walletAdress.isEmpty()){
+                    if(email.isEmpty() || password.isEmpty() || passwordCheck.isEmpty()|| name.isEmpty()|| studentNumText.isEmpty()|| walletAdress.isEmpty()){
                         isExistBlank = true
                     }
 
@@ -99,7 +107,7 @@ class SignupStepActivity : AppCompatActivity() {
                     }
 
                     //학번 유효성
-                    if(!Pattern.matches("(?:\\d{8})", studentNum))
+                    if(!Pattern.matches("(?:\\d{8})", studentNumText))
                     {
                         studentNumCorrect= false
                     }
@@ -130,9 +138,18 @@ class SignupStepActivity : AppCompatActivity() {
                         editor.putString("pw", password)
                         editor.apply()
 
-                        // 로그인 화면으로 이동
-                        navigateToLoginActivity()
-
+                        GlobalScope.launch(Dispatchers.IO) {
+                            val result = performSignup(studentNum as Int, email, name, password, walletAdress)
+                            // UI 업데이트 작업 등을 여기에 추가할 수 있습니다.
+                            if (result != null) {
+                                runOnUiThread {
+                                    //로그인 성공 시 메인 화면으로 이동
+                                    val intent = Intent(this@SignupStepActivity, LoginActivity::class.java)
+                                    startActivity(intent)
+                                    overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
+                                }
+                            }
+                        }
                     }
                     else{
                         // 상태에 따라 다른 다이얼로그 띄워주기
@@ -160,6 +177,49 @@ class SignupStepActivity : AppCompatActivity() {
         }
     }
 
+    private suspend fun performSignup(studentNum: Int, email: String, name: String, password: String, walletAdress: String): String? {
+        try {
+            val url = URL("http://jsp.mjdonor.kro.kr:8888/webapp/Android/performSignup.jsp")
+            val conn = url.openConnection() as HttpURLConnection
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+            conn.requestMethod = "POST"
+
+            val osw: OutputStream = conn.outputStream
+            val writer = BufferedWriter(OutputStreamWriter(osw, "UTF-8"))
+
+            val sendMsg = "u_id=$studentNum&email=$email&name=$name&password=$password&wallet=$walletAdress"
+
+            writer.write(sendMsg)
+            writer.flush()
+
+            if (conn.responseCode == HttpURLConnection.HTTP_OK) {
+                val tmp = InputStreamReader(conn.inputStream, "UTF-8")
+                val reader = BufferedReader(tmp)
+                val buffer = StringBuffer()
+
+                var str: String? = null
+                while (reader.readLine().also { str = it } != null) {
+                    str?.let {
+                        buffer.append(it)
+                    }
+                }
+                val receiveMsg = buffer.toString()
+                return receiveMsg
+            } else {
+                Log.d("TestRegisterActivity", "HTTP connection failed with response code: ${conn.responseCode}")
+            }
+        } catch (e: MalformedURLException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Log.e("TestRegisterActivity", "IOException: ${e.message}")
+            Log.e("TestRegisterActivity", "IOException: $e")
+        }
+
+        return null
+    }
+
+
     override fun onBackPressed() {
         when (position) {
             STEP_1 -> super.onBackPressed()
@@ -186,13 +246,6 @@ class SignupStepActivity : AppCompatActivity() {
             STEP_3 -> binding.STEP3.visibility = View.VISIBLE
             FINAL_STEP -> binding.FINALSTEP.visibility = View.VISIBLE
         }
-    }
-
-    private fun navigateToLoginActivity() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
-        finish()
-        overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
     }
     fun dialog(type: String){
         val dialog = AlertDialog.Builder(this)

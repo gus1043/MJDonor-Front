@@ -94,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
 
             Log.d("TestRegisterActivity", "Inside performLogin - Start")
 
-            val url = URL("http://jsp.mjdonor.kro.kr:8888/webapp/Android/androidDB.jsp") // 헤로쿠 배포해야 할 듯
+            val url = URL("http://jsp.mjdonor.kro.kr:8888/webapp/Android/androidDB.jsp")
             val conn = url.openConnection() as HttpURLConnection
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
             conn.requestMethod = "POST"
