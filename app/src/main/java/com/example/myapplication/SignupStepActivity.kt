@@ -128,13 +128,6 @@ class SignupStepActivity : AppCompatActivity() {
                         // 회원가입 성공 토스트 메세지 띄우기
                         Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
 
-                        // 유저가 입력한 id, pw를 쉐어드에 저장한다.
-                        val sharedPreference = getSharedPreferences("file name", Context.MODE_PRIVATE)
-                        val editor = sharedPreference.edit()
-                        editor.putString("id", email)
-                        editor.putString("pw", password)
-                        editor.apply()
-
                         GlobalScope.launch(Dispatchers.IO) {
                             val result = performSignup(studentNum as Int, email, name, password, walletAdress)
                             // UI 업데이트 작업 등을 여기에 추가할 수 있습니다.
