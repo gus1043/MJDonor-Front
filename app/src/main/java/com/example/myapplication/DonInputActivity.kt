@@ -18,7 +18,7 @@ class DonInputActivity : AppCompatActivity() {
     private lateinit var currencyFormat: NumberFormat
     private lateinit var title: String
     private lateinit var donLoc: String
-    private lateinit var image2: String
+    private lateinit var image1: String
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,14 +28,14 @@ class DonInputActivity : AppCompatActivity() {
 
         title = intent.getStringExtra("title") ?: "Default Title"
         donLoc = intent.getStringExtra("donLoc") ?: "Default Location"
-        image2 = intent.getStringExtra("image2")?: "Default Image"
+        image1 = intent.getStringExtra("image1")?: "Default Image"
 
         currencyFormat = NumberFormat.getCurrencyInstance()
 
         binding.donationNameDonate.text = title
         binding.companyDonate.text = donLoc
         Glide.with(this)
-            .load(image2)
+            .load(image1)
             .into(binding.selectedimage1)
 
         // EditText 초기값 설정

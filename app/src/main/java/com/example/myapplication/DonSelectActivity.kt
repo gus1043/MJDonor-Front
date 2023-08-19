@@ -17,6 +17,7 @@ class DonSelectActivity : AppCompatActivity() {
     private lateinit var title: String
     private lateinit var donLoc: String
     private lateinit var description: String
+    private lateinit var image1: String
     private lateinit var image2: String
     private var p_id : Int=0
     private var enddate : Int=0
@@ -31,6 +32,7 @@ class DonSelectActivity : AppCompatActivity() {
         // 인텐트로 전달된 값 받기
         title = intent.getStringExtra("title") ?: "Default Title"
         donLoc = intent.getStringExtra("donLoc") ?: "Default Location"
+        image1 = intent.getStringExtra("image1")?: "Default Image"
         image2 = intent.getStringExtra("image2")?: "Default Image"
         p_id = intent.getIntExtra("p_id",1)
         goal = intent.getIntExtra("goal",1)
@@ -51,7 +53,7 @@ class DonSelectActivity : AppCompatActivity() {
             val intent: Intent = Intent(this, DonInputActivity::class.java)
             intent.putExtra("title", title)
             intent.putExtra("donLoc", donLoc)
-            intent.putExtra("image2", image2)
+            intent.putExtra("image1", image1)
             startActivity(intent)
             overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
         }
@@ -97,13 +99,12 @@ class DonSelectActivity : AppCompatActivity() {
 
     private fun openDonationTree() {
         val fragment = DonationTree()
-        fragment.setImage(image2) // 이미지 설정
+        fragment.setImage(image1) // 이미지 설정
 
         // DonationTree 프래그먼트를 표시
         val fragmentManager = supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
         fragment.show(transaction, "donationTreeDialog")
     }
-
 }
 

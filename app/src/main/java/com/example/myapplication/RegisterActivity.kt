@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import android.widget.EditText
@@ -145,6 +146,7 @@ class RegisterActivity : AppCompatActivity() {
             try {
                 val inputStream = contentResolver.openInputStream(selectedImage!!)
                 val selectedBitmap = BitmapFactory.decodeStream(inputStream)
+                Log.d("bitmap", "$selectedBitmap")
                 inputStream?.close()
 
                 if (isThumbnailVisible) {
