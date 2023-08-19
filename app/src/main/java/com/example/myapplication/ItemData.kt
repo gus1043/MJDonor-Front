@@ -1,5 +1,6 @@
 data class ItemData(
-    val imageResId: String,
+    val imageResId1: String,
+    val imageResId2: String,
     val p_id:Int,
     val title: String,
     val description: String,

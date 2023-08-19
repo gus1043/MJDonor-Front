@@ -1,5 +1,6 @@
 data class CarouselItem(
-    val image: String,
+    val image1: String,
+    val image2: String,
     val p_id:Int,
     val title: String,
     val description: String,

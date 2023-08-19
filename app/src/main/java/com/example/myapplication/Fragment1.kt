@@ -29,9 +29,9 @@ class Fragment1 : Fragment() {
 
         // Sample data for the RecyclerView items
         val itemList = listOf(
-            CarouselItem("https://placebear.com/g/200/200",1, "아메리칸 스나이퍼1", "어쩌구 저쩌구 와앙","유니세프 한국위원회1",20230529,6000000,10000),
-            CarouselItem("https://cdn.shopify.com/s/files/1/1830/5085/products/VE0007_BCAA_Capsule_90ct_2048x2048.png?v=1494855182", 2,"아메리칸 스나이퍼2", "ㄹㅇㄹㄴㄹㅇㄴㄹㄴㄹㅇ","유니세프 한국위원회2",20230829,8000000,100),
-            CarouselItem("https://source.unsplash.com/user/c_v_r/1900×800", 3,"아메리칸 스나이퍼3", "ㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㄴ","유니세프 한국위원회2",20230729,90000000,9023343),
+            CarouselItem("https://placebear.com/g/200/200","https://placebear.com/g/200/200",1, "아메리칸 스나이퍼1", "어쩌구 저쩌구 와앙","유니세프 한국위원회1",20230529,6000000,10000),
+            CarouselItem("https://cdn.shopify.com/s/files/1/1830/5085/products/VE0007_BCAA_Capsule_90ct_2048x2048.png?v=1494855182","https://cdn.shopify.com/s/files/1/1830/5085/products/VE0007_BCAA_Capsule_90ct_2048x2048.png?v=1494855182", 2,"아메리칸 스나이퍼2", "ㄹㅇㄹㄴㄹㅇㄴㄹㄴㄹㅇ","유니세프 한국위원회2",20230829,8000000,100),
+            CarouselItem("https://source.unsplash.com/user/c_v_r/1900×800","https://source.unsplash.com/user/c_v_r/1900×800", 3,"아메리칸 스나이퍼3", "ㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㄴ","유니세프 한국위원회2",20230729,90000000,9023343),
         )
 
         adapter = CarouselAdapter(requireContext(), itemList)

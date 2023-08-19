@@ -35,7 +35,7 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
         val currentItem = itemList[position]
 
         Glide.with(context)
-            .load(currentItem.imageResId)
+            .load(currentItem.imageResId2)
             .into(holder.participatedimage)
 
         holder.titleText.text = currentItem.title
@@ -45,7 +45,7 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
         holder.money.text = currentItem.money.toString()
 
         holder.participatedimage.setOnClickListener {
-            openDonationTree(currentItem.imageResId) // 이미지 URL 설정
+            openDonationTree(currentItem.imageResId2) // 이미지 URL 설정
         }
 
         val depositMessage = if (currentItem.Deposite == true) {

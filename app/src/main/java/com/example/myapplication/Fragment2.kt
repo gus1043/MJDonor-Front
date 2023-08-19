@@ -32,9 +32,9 @@ class Fragment2 : Fragment() {
 
         // Sample data for the RecyclerView items
         val itemList = listOf(
-            ItemData("https://www.kasandbox.org/programming-images/avatars/duskpin-tree.png",1, "아메리칸 스나이퍼9", "어쩌구 저쩌구 와앙","유니세프 한국위원회1",20230529,6000000,10000,"환경"),
-            ItemData("https://www.kasandbox.org/programming-images/avatars/marcimus-orange.png", 2,"아메리칸 스나이퍼21", "ㄹㅇㄹㄴㄹㅇㄴㄹㄴㄹㅇ","유니세프 한국위원회2",20230829,8000000,100,"글로벌"),
-            ItemData("https://www.kasandbox.org/programming-images/avatars/duskpin-sapling.png", 3,"아메리칸 스나이퍼3", "ㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㄴ","유니세프 한국위원회23",20230729,90000000,9023343,"저소득층"),
+            ItemData("https://www.kasandbox.org/programming-images/avatars/duskpin-tree.png","https://www.kasandbox.org/programming-images/avatars/purple-pi-teal.png",1, "아메리칸 스나이퍼9", "어쩌구 저쩌구 와앙","유니세프 한국위원회1",20230529,6000000,10000,"환경"),
+            ItemData("https://www.kasandbox.org/programming-images/avatars/marcimus-orange.png", "https://www.kasandbox.org/programming-images/avatars/purple-pi-teal.png",2,"아메리칸 스나이퍼21", "ㄹㅇㄹㄴㄹㅇㄴㄹㄴㄹㅇ","유니세프 한국위원회2",20230829,8000000,100,"글로벌"),
+            ItemData("https://www.kasandbox.org/programming-images/avatars/duskpin-sapling.png", "https://www.kasandbox.org/programming-images/avatars/purple-pi-teal.png",3,"아메리칸 스나이퍼3", "ㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㄴ","유니세프 한국위원회23",20230729,90000000,9023343,"저소득층"),
         )
 
         adapter = MyAdapter(requireContext() as AppCompatActivity, itemList)

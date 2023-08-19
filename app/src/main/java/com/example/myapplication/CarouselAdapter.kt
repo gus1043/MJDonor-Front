@@ -30,7 +30,7 @@ class CarouselAdapter(private val context: Context, private val itemList: List<C
 
         // Set data to the views here
         Glide.with(context)
-            .load(currentItem.image)
+            .load(currentItem.image1)
             .into(holder.imageButton)
 
         holder.titleTextView.text = currentItem.title
@@ -39,7 +39,8 @@ class CarouselAdapter(private val context: Context, private val itemList: List<C
             val intent = Intent(context, DonSelectActivity::class.java)
             intent.putExtra("title", currentItem.title)
             intent.putExtra("donLoc", currentItem.donLoc)
-            intent.putExtra("image", currentItem.image)
+            intent.putExtra("image1", currentItem.image1)
+            intent.putExtra("image2", currentItem.image2)
             intent.putExtra("p_id", currentItem.p_id)
             intent.putExtra("description", currentItem.description)
             intent.putExtra("goal", currentItem.goal)

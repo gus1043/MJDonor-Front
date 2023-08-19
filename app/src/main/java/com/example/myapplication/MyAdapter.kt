@@ -30,7 +30,7 @@ class MyAdapter(private val context: Context, private var itemList: List<ItemDat
         val currentItem = itemList[position]
 
         Glide.with(context)
-            .load(currentItem.imageResId)
+            .load(currentItem.imageResId1)
             .into(holder.selectedImage)
 
         holder.titleText.text = currentItem.title
@@ -40,7 +40,8 @@ class MyAdapter(private val context: Context, private var itemList: List<ItemDat
             val intent = Intent(context, DonSelectActivity::class.java)
             intent.putExtra("title", currentItem.title)
             intent.putExtra("donLoc", currentItem.donLoc)
-            intent.putExtra("image", currentItem.imageResId)
+            intent.putExtra("image1", currentItem.imageResId1)
+            intent.putExtra("image2", currentItem.imageResId2)
             intent.putExtra("p_id", currentItem.p_id)
             intent.putExtra("description", currentItem.description)
             intent.putExtra("goal", currentItem.goal)
