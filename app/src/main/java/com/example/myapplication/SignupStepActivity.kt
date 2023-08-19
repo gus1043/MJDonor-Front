@@ -43,6 +43,7 @@ class SignupStepActivity : AppCompatActivity() {
     private val GET_IMAGE_FOR_IMAGEVIEW2 = 202
     private val GET_IMAGE_FOR_IMAGEVIEW3 = 203
 
+    private lateinit var selectedImageUri: Uri
 
     companion object {
         private const val STEP_1 = 0
@@ -136,7 +137,7 @@ class SignupStepActivity : AppCompatActivity() {
                         editor.apply()
 
                         GlobalScope.launch(Dispatchers.IO) {
-                            val result = performSignup(studentNum as Int, email, name, password, walletAdress)
+                            val result = performSignup(studentNum as Int, email, name, password, walletAdress, selectedImageUri)
                             // UI 업데이트 작업 등을 여기에 추가할 수 있습니다.
                             if (result != null) {
                                 runOnUiThread {
@@ -165,7 +166,7 @@ class SignupStepActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun performSignup(studentNum: Int, email: String, name: String, password: String, walletAdress: String): String? {
+    private suspend fun performSignup(studentNum: Int, email: String, name: String, password: String, walletAdress: String, photoUri: Uri): String? {
         try {
             val url = URL("http://jsp.mjdonor.kro.kr:8888/webapp/Android/performSignup.jsp")
             val conn = url.openConnection() as HttpURLConnection
@@ -175,7 +176,7 @@ class SignupStepActivity : AppCompatActivity() {
             val osw: OutputStream = conn.outputStream
             val writer = BufferedWriter(OutputStreamWriter(osw, "UTF-8"))
 
-            val sendMsg = "u_id=$studentNum&email=$email&name=$name&password=$password&wallet=$walletAdress"
+            val sendMsg = "u_id=$studentNum&email=$email&name=$name&password=$password&wallet=$walletAdress&photo=${photoUri.toString()}"
 
             writer.write(sendMsg)
             writer.flush()
@@ -269,14 +270,15 @@ class SignupStepActivity : AppCompatActivity() {
         dialog.show()
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val selectedImageUri: Uri?
         val option1 = RequestOptions.bitmapTransform(MultiTransformation(FitCenter(), RoundedCorners(30)))
 
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && data != null && data.data != null) {
-            selectedImageUri = data.data
+            selectedImageUri = data.data!! // Store the selected image URI
             when (requestCode) {
-                GET_IMAGE_FOR_IMAGEVIEW1 -> Glide.with(applicationContext).load(selectedImageUri).apply(option1).into(imageView1)
+                GET_IMAGE_FOR_IMAGEVIEW1 -> {
+                    Glide.with(applicationContext).load(selectedImageUri).apply(option1).into(imageView1)
+                }
             }
         }
     }
