@@ -75,7 +75,11 @@ class SignupStepActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             when (position) {
-                STEP_1 -> transitionToStep(STEP_2, "Next")
+                STEP_1 -> {
+                    val studentNum = binding.studentNum.text.toString()
+                    val password = binding.password.text.toString()
+                    sendPostRequest(studentNum, password)
+                    transitionToStep(STEP_2, "Next")}
                 STEP_2 -> transitionToStep(STEP_3, "Next")
                 STEP_3 -> transitionToStep(FINAL_STEP, "Submit")
                 else -> {
@@ -89,7 +93,6 @@ class SignupStepActivity : AppCompatActivity() {
 
                     val email = binding.email.text.toString()
                     val password = binding.password.text.toString()
-                    val passwordCheck = binding.passwordCheck.text.toString()
                     val name = binding.name.text.toString()
                     val studentNumText = binding.studentNum.text.toString()
                     val studentNum = studentNumText.toIntOrNull() ?: "12345678"
@@ -97,7 +100,7 @@ class SignupStepActivity : AppCompatActivity() {
 
 
                     // 유저가 항목을 다 채우지 않았을 경우
-                    if(email.isEmpty() || password.isEmpty() || passwordCheck.isEmpty()|| name.isEmpty()|| studentNumText.isEmpty()|| walletAdress.isEmpty()){
+                    if(email.isEmpty() || password.isEmpty() || name.isEmpty()|| studentNumText.isEmpty()|| walletAdress.isEmpty()){
                         isExistBlank = true
                     }
 
@@ -118,13 +121,13 @@ class SignupStepActivity : AppCompatActivity() {
                         isAgree = true
                     }
 
-                    //비밀번호 유효성
-                    if(!Pattern.matches("^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$", password))
-                    {
-                       passwordCorrect= false }
-
-                    if(password == passwordCheck){
-                        isPWSame = true }
+//                    //비밀번호 유효성
+//                    if(!Pattern.matches("^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$", password))
+//                    {
+//                       passwordCorrect= false }
+//
+//                    if(password == passwordCheck){
+//                        isPWSame = true }
 
 
                     if (!isExistBlank && isPWSame && emailCorrect && studentNumCorrect && passwordCorrect && isAgree) {
@@ -159,14 +162,11 @@ class SignupStepActivity : AppCompatActivity() {
                         else if(!isPWSame){ // 입력한 비밀번호가 다를 경우
                             dialog("not same")
                         }
-                        else if(!passwordCorrect){ // 비밀번호 유효성
-                            dialog("passwordCorrect")
-                        }
+//                        else if(!passwordCorrect){ // 비밀번호 유효성
+//                            dialog("passwordCorrect")
+//                        }
                         else if(!emailCorrect){ // 입력한 비밀번호가 다를 경우
                             dialog("emailCorrect")
-                        }
-                        else if(!studentNumCorrect){ // 입력한 비밀번호가 다를 경우
-                            dialog("studentNumCorrect")
                         }
                         else if(!isAgree){ // 이용약관 동의 안한 경우
                             dialog("Agree")
@@ -255,11 +255,6 @@ class SignupStepActivity : AppCompatActivity() {
             dialog.setTitle("회원가입 실패")
             dialog.setMessage("입력란을 정확히 작성해주세요")
         }
-        // 입력한 비밀번호가 다를 경우
-        else if(type.equals("not same")){
-            dialog.setTitle("회원가입 실패")
-            dialog.setMessage("비밀번호가 다릅니다")
-        }
         else if(type.equals("studentNumCorrect")){
             dialog.setTitle("회원가입 실패")
             dialog.setMessage("학번을 8자를 입력해주세요")
@@ -299,6 +294,27 @@ class SignupStepActivity : AppCompatActivity() {
             when (requestCode) {
                 GET_IMAGE_FOR_IMAGEVIEW1 -> Glide.with(applicationContext).load(selectedImageUri).apply(option1).into(imageView1)
             }
+        }
+    }
+    private fun sendPostRequest(studentNum: String, password: String) {
+        try {
+            val url = URL("https://sso1.mju.ac.kr/mju/userCheck.do")
+            val conn = url.openConnection() as HttpURLConnection
+            conn.requestMethod = "POST"
+            conn.doOutput = true
+
+            val postData = "id=$studentNum&passwrd=$password"
+            val os: OutputStream = conn.outputStream
+            val writer = OutputStreamWriter(os, "UTF-8")
+            writer.write(postData)
+            writer.flush()
+            writer.close()
+            os.close()
+
+            val responseCode = conn.responseCode
+            // Handle the response code and response if needed
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

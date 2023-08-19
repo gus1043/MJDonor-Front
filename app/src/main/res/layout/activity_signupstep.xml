@@ -94,7 +94,7 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:visibility="visible"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="70dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/logolayout"
@@ -102,7 +102,7 @@
             tools:ignore="NotSibling">
 
             <LinearLayout
-                android:id="@+id/emaillayout"
+                android:id="@+id/studentNumlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -123,10 +123,10 @@
                     android:layout_marginTop="10dp"
                     android:src="@drawable/baseline_person_24"/>
                 <EditText
-                    android:id="@+id/email"
+                    android:id="@+id/studentNum"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:hint="Email address"/>
+                    android:hint="통합로그인 아이디"/>
             </LinearLayout>
 
             <LinearLayout
@@ -144,7 +144,7 @@
                 android:textColorHint="?android:attr/textColorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emaillayout">
+                app:layout_constraintTop_toBottomOf="@+id/studentNumlayout">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,48 +155,7 @@
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:hint="Password"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:text="@string/passwordneed"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="30dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/passwordlayout"/>
-
-            <LinearLayout
-                android:id="@+id/passwordchecklayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="33dp"
-                android:layout_marginEnd="16dp"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:textColorHint="?android:attr/textColorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/passwordlayout">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/baseline_lock_24"/>
-                <EditText
-                    android:id="@+id/password_check"
-                    android:layout_width="230dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="password 확인"/>
+                    android:hint="통합로그인 비밀번호"/>
             </LinearLayout>
 
             <Button
@@ -209,7 +168,7 @@
                 android:text="@string/tologin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/passwordchecklayout"/>
+                app:layout_constraintTop_toBottomOf="@+id/passwordlayout"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -253,7 +212,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/studentNumlayout"
+                android:id="@+id/emaillayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -262,6 +221,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="16dp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:textColorHint="?android:attr/textColorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -270,13 +231,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/baseline_lock_24"/>
+                    android:src="@drawable/baseline_person_24"/>
                 <EditText
-                    android:id="@+id/studentNum"
+                    android:id="@+id/email"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:hint="학번"
-                    android:inputType="number"/>
+                    android:hint="이메일 주소"/>
             </LinearLayout>
 
             <LinearLayout
@@ -292,7 +252,7 @@
                 android:textColorHint="?android:attr/textColorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/studentNumlayout">
+                app:layout_constraintTop_toBottomOf="@+id/emaillayout">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
