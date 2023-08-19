@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.LoginActivity
 import com.example.myapplication.R
 import com.example.myapplication.SignupActivity
@@ -41,6 +42,21 @@ class Fragment3 : Fragment() {
         // Pass the FragmentManager as a parameter to the adapter
         adapter = MyPartiAdapter(requireContext(), childFragmentManager, itemList)
         recyclerView.adapter = adapter
+
+        val dummyUserData = UserData(
+            name = "최지현",
+            studentNumber = "60211704",
+            donationCount = 3,
+            totalDonation = "3,000,000원",
+            profile="https://www.kasandbox.org/programming-images/avatars/purple-pi-teal.png"
+        )
+        binding.name.text = dummyUserData.name
+        binding.stdnum.text = dummyUserData.studentNumber
+        binding.doncount.text = dummyUserData.donationCount.toString()
+        binding.totaldon.text = dummyUserData.totalDonation
+        Glide.with(this)
+            .load(dummyUserData.profile)
+            .into(binding.profile)
 
     }
 
