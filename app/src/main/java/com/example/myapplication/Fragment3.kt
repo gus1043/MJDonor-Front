@@ -1,5 +1,7 @@
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +15,13 @@ import com.example.myapplication.LoginActivity
 import com.example.myapplication.R
 import com.example.myapplication.SignupActivity
 import com.example.myapplication.databinding.Fragment3Binding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 class Fragment3 : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -37,8 +46,15 @@ class Fragment3 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        // sharePreference에서 받아오기
+        val id = sharedPreferences.getString("id", "")
+        val pw = sharedPreferences.getString("pw", "")
+
+        Log.d("Account", "$id, $pw")
+
+        val userInfoUrl = "http://192.168.0.101:8081/MJDonor/Android/userInfo.jsp?u_id=${id}"
+        val url = URL(userInfoUrl)
+        val connection = url.openConnection() as HttpURLConnection
 
         // Sample data for the RecyclerView items
         val itemList = listOf(
@@ -47,29 +63,88 @@ class Fragment3 : Fragment() {
             ItemParticipationData("https://www.kasandbox.org/programming-images/avatars/primosaur-ultimate.png", "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 , true),
         )
 
-        adapter = MyPartiAdapter(requireContext(), childFragmentManager, itemList)
-        recyclerView.adapter = adapter
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val inputStream = connection.inputStream
+                val content = inputStream.bufferedReader().use { it.readText() }
 
-        val dummyUserData = UserData(
-            name = "최지현",
-            studentNumber = "60211704",
-            donationCount = 3,
-            totalDonation = "3,000,000원",
-            profile = "https://www.kasandbox.org/programming-images/avatars/purple-pi-teal.png"
-        )
-        binding.name.text = dummyUserData.name
-        binding.stdnum.text = dummyUserData.studentNumber
-        binding.doncount.text = dummyUserData.donationCount.toString()
-        binding.totaldon.text = dummyUserData.totalDonation
-        Glide.with(this)
-            .load(dummyUserData.profile)
-            .into(binding.profile)
+                // 파싱된 결과에서 필요한 데이터 추출
+                val photo = content.substringAfter("Photo: ").substringBefore(", ")
+                val name = content.substringAfter("Name: ").substringBefore(", ")
+                val userId = content.substringAfter("User ID: ")
 
-        // sharePreference에서 받아오기
-        val id = sharedPreferences.getString("id", "")
-        val pw = sharedPreferences.getString("pw", "")
+                Log.d("please", name)
+                Log.d("please", userId)
+                Log.d("please", photo)
 
-        Log.d("Account", "$id, $pw")
+                withContext(Dispatchers.Main) {
+                    binding.name.text = name
+                    binding.stdnum.text = userId
+
+                    // 이미지 다운로드 및 설정
+                    val extractedBitmap = BitmapFactory.decodeByteArray(photo.toByteArray(), 0, photo.toByteArray().size)
+                    binding.profile.setImageBitmap(extractedBitmap)
+                }
+
+            } catch (e: Exception) {
+                // Handle exceptions here
+                e.printStackTrace()
+            } finally {
+            }
+        }
+
+        val donationCountUrl = "http://192.168.0.101:8081/MJDonor/Android/donationCountForUser.jsp?u_id=${id}"
+        val donationCountUrlConnection = URL(donationCountUrl).openConnection() as HttpURLConnection
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val donationCountInputStream = donationCountUrlConnection.inputStream
+                val donationCountContent =
+                    donationCountInputStream.bufferedReader().use { it.readText() }
+
+                // 필요한 데이터 추출
+                val donationCount =
+                    donationCountContent.substringAfter("Donation Count for User $id: ")
+                        .substringBefore(", ")
+
+                withContext(Dispatchers.Main) {
+                    binding.doncount.text = donationCount
+                }
+                
+
+            } catch (e: Exception) {
+                // Handle exceptions here
+                e.printStackTrace()
+            } finally {
+                connection.disconnect()
+            }
+        }
+
+        // totalDonation 데이터 파싱
+        val totalDonationUrl = "http://192.168.0.101:8081/MJDonor/Android/sumDonationPointForUser.jsp?u_id=${id}"
+        val totalDonationUrlConnection = URL(totalDonationUrl).openConnection() as HttpURLConnection
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val totalDonationInputStream = totalDonationUrlConnection.inputStream
+                val totalDonationContent =
+                    totalDonationInputStream.bufferedReader().use { it.readText() }
+
+                // 필요한 데이터 추출
+                val totalDonation =
+                    totalDonationContent.substringAfter("Sum of Donation Points for User $id: ")
+                        .substringBefore(", ")
+
+                withContext(Dispatchers.Main) {
+                    binding.totaldon.text = totalDonation
+                }
+
+            } catch (e: Exception) {
+                // Handle exceptions here
+                e.printStackTrace()
+            } finally {
+                totalDonationUrlConnection.disconnect()
+            }
+        }
     }
 
     override fun onDestroyView() {
