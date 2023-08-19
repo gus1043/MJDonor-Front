@@ -5,21 +5,17 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
-import android.net.Uri
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.edit
 import com.example.myapplication.databinding.ActivityRegisterBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -37,8 +33,8 @@ class RegisterActivity : AppCompatActivity() {
     val IMAGE_PICK_CODE = 1000 // Request code for image selection
     lateinit var binding: ActivityRegisterBinding
     var isThumbnailVisible = true
-    private var firstSelectedImage: Uri? = null
-    private var secondSelectedImage: Uri? = null
+    private var firstSelectedBitmap: Bitmap? = null
+    private var secondSelectedBitmap: Bitmap? = null
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -90,7 +86,7 @@ class RegisterActivity : AppCompatActivity() {
             binding.selectedimage2.visibility = View.VISIBLE
             binding.rightBtn.visibility = View.GONE
             binding.leftBtn.visibility = View.VISIBLE
-            secondSelectedImage?.let { binding.selectedimage2.setImageURI(it) }
+            secondSelectedBitmap?.let { binding.selectedimage2.setImageBitmap(it) }
         }
 
         binding.leftBtn.setOnClickListener {
@@ -99,7 +95,7 @@ class RegisterActivity : AppCompatActivity() {
             binding.selectedimage2.visibility = View.GONE
             binding.rightBtn.visibility = View.VISIBLE
             binding.leftBtn.visibility = View.GONE
-            firstSelectedImage?.let { binding.selectedimage1.setImageURI(it) }
+            firstSelectedBitmap?.let { binding.selectedimage1.setImageBitmap(it) }
         }
 
         binding.inputdonatebtn.setOnClickListener {
@@ -127,7 +123,7 @@ class RegisterActivity : AppCompatActivity() {
                 isExistBlank = true
             }
 
-            if (firstSelectedImage == null || secondSelectedImage == null) {
+            if (firstSelectedBitmap == null || secondSelectedBitmap == null) {
                 isExistBlank = true
             }
 
@@ -149,8 +145,8 @@ class RegisterActivity : AppCompatActivity() {
                     val endparsedDate = dateFormat.parse(enddateString)
 
 
-                    val result = firstSelectedImage?.let { it1 ->
-                        secondSelectedImage?.let { it2 ->
+                    val result = firstSelectedBitmap?.let { it1 ->
+                        secondSelectedBitmap?.let { it2 ->
                             performRegister(title, registerDescription,
                                 goal, startparsedDate as Date, endparsedDate as Date,
                                 it1,
@@ -173,8 +169,8 @@ class RegisterActivity : AppCompatActivity() {
                             Log.d("RegisterActivity", "Title: $title")
                             Log.d("RegisterActivity", "Register Description: $registerDescription")
                             Log.d("RegisterActivity", "Goal: $goal")
-                            Log.d("RegisterActivity", "First Selected Image: $firstSelectedImage")
-                            Log.d("RegisterActivity", "Second Selected Image: $secondSelectedImage")
+                            Log.d("RegisterActivity", "First Selected Image: $firstSelectedBitmap")
+                            Log.d("RegisterActivity", "Second Selected Image: $secondSelectedBitmap")
                             Log.d("RegisterActivity", "Type: $type")
                             Log.d("RegisterActivity", "o_id: $o_id")
                             Log.d("RegisterActivity", "u_id: $u_id")
@@ -210,7 +206,7 @@ class RegisterActivity : AppCompatActivity() {
         })
     }
 
-    private suspend fun performRegister(title: String, registerDescription: String, goal: Int, startDate: Date, endDate: Date, firstSelectedImage: Uri, secondSelectedImage: Uri, type: String, o_id: Int, u_id: Int): String? {
+    private suspend fun performRegister(title: String, registerDescription: String, goal: Int, startDate: Date, endDate: Date, firstSelectedImage: Bitmap, secondSelectedImage: Bitmap, type: String, o_id: Int, u_id: Int): String? {
         try {
 
             fun formatDate(date: Date): String {
@@ -274,17 +270,23 @@ class RegisterActivity : AppCompatActivity() {
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             val selectedImage = data?.data
 
-            if (isThumbnailVisible) {
-                selectedImage?.let {
-                    firstSelectedImage = it
-                    binding.selectedimage1.setImageURI(it)
+            try {
+                val inputStream = contentResolver.openInputStream(selectedImage!!)
+                val selectedBitmap = BitmapFactory.decodeStream(inputStream)
+                Log.d("bitmap", "$selectedBitmap")
+                inputStream?.close()
+
+                if (isThumbnailVisible) {
+                    firstSelectedBitmap = selectedBitmap
+                    binding.selectedimage1.setImageBitmap(selectedBitmap)
+                } else {
+                    secondSelectedBitmap = selectedBitmap
+                    binding.selectedimage2.setImageBitmap(selectedBitmap)
                 }
-            } else {
-                selectedImage?.let {
-                    secondSelectedImage = it
-                    binding.selectedimage2.setImageURI(it)
-                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
+
         }
     }
     private fun showDatePickerDialog() {

@@ -1,9 +1,9 @@
 package com.example.myapplication
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -11,13 +11,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.FitCenter
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
-import com.example.myapplication.databinding.ActivityRegisterBinding
 import com.example.myapplication.databinding.ActivitySignupstepBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -43,8 +36,9 @@ class SignupStepActivity : AppCompatActivity() {
     private val GET_IMAGE_FOR_IMAGEVIEW2 = 202
     private val GET_IMAGE_FOR_IMAGEVIEW3 = 203
 
-    private lateinit var selectedImageUri: Uri
-
+    val IMAGE_PICK_CODE = 1000
+    private var selectedBitmap: Bitmap? = null
+    private var selectedImageByteArray: ByteArray? = null
     companion object {
         private const val STEP_1 = 0
         private const val STEP_2 = 1
@@ -62,8 +56,8 @@ class SignupStepActivity : AppCompatActivity() {
 
         imageView1.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
-            intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-            startActivityForResult(intent, GET_IMAGE_FOR_IMAGEVIEW1)
+            intent.type = "image/*"
+            startActivityForResult(intent, IMAGE_PICK_CODE)
         }
 
 
@@ -128,14 +122,15 @@ class SignupStepActivity : AppCompatActivity() {
                     if (!isExistBlank && emailCorrect && studentNumCorrect && isAgree) {
                         // 회원가입 성공 토스트 메세지 띄우기
                         Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
-
+                        Log.d("bitmapSignup","$email, $name, $password, $walletAdress, $selectedImageByteArray")
                         GlobalScope.launch(Dispatchers.IO) {
-                            val result = performSignup(studentNum as Int, email, name, password, walletAdress, selectedImageUri)
+                            val result = performSignup(studentNum as Int, email, name, password, walletAdress, selectedImageByteArray)
                             // UI 업데이트 작업 등을 여기에 추가할 수 있습니다.
                             if (result != null) {
                                 runOnUiThread {
                                     //로그인 성공 시 메인 화면으로 이동
                                     val intent = Intent(this@SignupStepActivity, LoginActivity::class.java)
+                                    finish()
                                     startActivity(intent)
                                     overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
                                 }
@@ -159,9 +154,9 @@ class SignupStepActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun performSignup(studentNum: Int, email: String, name: String, password: String, walletAdress: String, photoUri: Uri): String? {
+    private suspend fun performSignup(studentNum: Int, email: String, name: String, password: String, walletAdress: String, photobytearray: ByteArray?): String? {
         try {
-            val url = URL("http://jsp.mjdonor.kro.kr:8888/webapp/Android/performSignup.jsp")
+            val url = URL("http://192.168.0.101:8081/MJDonor/Android/performSignup.jsp")
             val conn = url.openConnection() as HttpURLConnection
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
             conn.requestMethod = "POST"
@@ -169,8 +164,8 @@ class SignupStepActivity : AppCompatActivity() {
             val osw: OutputStream = conn.outputStream
             val writer = BufferedWriter(OutputStreamWriter(osw, "UTF-8"))
 
-            val sendMsg = "u_id=$studentNum&email=$email&name=$name&password=$password&wallet=$walletAdress&photo=${photoUri.toString()}"
-
+            val sendMsg = "u_id=$studentNum&email=$email&name=$name&password=$password&wallet=$walletAdress&photo=${photobytearray}"
+            Log.d("bitmapPerform", "u_id=$studentNum&email=$email&name=$name&password=$password&wallet=$walletAdress&photo=${photobytearray}")
             writer.write(sendMsg)
             writer.flush()
 
@@ -263,18 +258,28 @@ class SignupStepActivity : AppCompatActivity() {
         dialog.show()
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val option1 = RequestOptions.bitmapTransform(MultiTransformation(FitCenter(), RoundedCorners(30)))
-
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && data != null && data.data != null) {
-            selectedImageUri = data.data!! // Store the selected image URI
-            when (requestCode) {
-                GET_IMAGE_FOR_IMAGEVIEW1 -> {
-                    Glide.with(applicationContext).load(selectedImageUri).apply(option1).into(imageView1)
-                }
+        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            val selectedImage = data?.data
+
+            try {
+                val inputStream = contentResolver.openInputStream(selectedImage!!)
+                selectedBitmap = BitmapFactory.decodeStream(inputStream)
+
+                inputStream?.close()
+
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                selectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+                selectedImageByteArray = byteArrayOutputStream.toByteArray()  // Store the byte array
+                Log.d("bitmapThumb", "$selectedImageByteArray")
+                binding.imageView1.setImageBitmap(selectedBitmap)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
+
     private var isErrorResponse = false // 에러 응답 여부를 나타내는 변수
 
     private fun sendPostRequest(studentNum: String, password: String) {
