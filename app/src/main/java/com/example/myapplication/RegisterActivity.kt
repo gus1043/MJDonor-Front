@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -27,8 +28,8 @@ class RegisterActivity : AppCompatActivity() {
     val IMAGE_PICK_CODE = 1000 // Request code for image selection
     lateinit var binding: ActivityRegisterBinding
     var isThumbnailVisible = true
-    var firstSelectedImage: Uri? = null
-    var secondSelectedImage: Uri? = null
+    private var firstSelectedBitmap: Bitmap? = null
+    private var secondSelectedBitmap: Bitmap? = null
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +69,7 @@ class RegisterActivity : AppCompatActivity() {
             binding.selectedimage2.visibility = View.VISIBLE
             binding.rightBtn.visibility = View.GONE
             binding.leftBtn.visibility = View.VISIBLE
-            secondSelectedImage?.let { binding.selectedimage2.setImageURI(it) }
+            secondSelectedBitmap?.let { binding.selectedimage2.setImageBitmap(it) }
         }
 
         binding.leftBtn.setOnClickListener {
@@ -77,7 +78,7 @@ class RegisterActivity : AppCompatActivity() {
             binding.selectedimage2.visibility = View.GONE
             binding.rightBtn.visibility = View.VISIBLE
             binding.leftBtn.visibility = View.GONE
-            firstSelectedImage?.let { binding.selectedimage1.setImageURI(it) }
+            firstSelectedBitmap?.let { binding.selectedimage1.setImageBitmap(it) }
         }
 
         binding.inputdonatebtn.setOnClickListener {
@@ -94,7 +95,7 @@ class RegisterActivity : AppCompatActivity() {
                 isExistBlank = true
             }
 
-            if (firstSelectedImage == null || secondSelectedImage == null) {
+            if (firstSelectedBitmap == null || secondSelectedBitmap == null) {
                 isExistBlank = true
             }
 
@@ -141,15 +142,24 @@ class RegisterActivity : AppCompatActivity() {
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             val selectedImage = data?.data
 
-            if (isThumbnailVisible) {
-                firstSelectedImage = selectedImage
-                binding.selectedimage1.setImageURI(selectedImage)
-            } else {
-                secondSelectedImage = selectedImage
-                binding.selectedimage2.setImageURI(selectedImage)
+            try {
+                val inputStream = contentResolver.openInputStream(selectedImage!!)
+                val selectedBitmap = BitmapFactory.decodeStream(inputStream)
+                inputStream?.close()
+
+                if (isThumbnailVisible) {
+                    firstSelectedBitmap = selectedBitmap
+                    binding.selectedimage1.setImageBitmap(selectedBitmap)
+                } else {
+                    secondSelectedBitmap = selectedBitmap
+                    binding.selectedimage2.setImageBitmap(selectedBitmap)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
+
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
