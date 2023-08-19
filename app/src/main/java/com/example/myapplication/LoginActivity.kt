@@ -41,8 +41,8 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         //login false로 지정
-        sharedPreferences = getSharedPreferences("TermsAgree", Context.MODE_PRIVATE)
-        val termsAgreed = sharedPreferences.getBoolean("login", false)
+        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
+        val login = sharedPreferences.getBoolean("login", false)
 
         var loginBtn = findViewById<AppCompatImageButton>(R.id.login)
         var idet = findViewById<EditText>(R.id.email)
@@ -64,9 +64,18 @@ class LoginActivity : AppCompatActivity() {
                     sharedPreferences.edit {
                         putBoolean("login", true)
                     }
+
                     Toast.makeText(this@LoginActivity, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
                     val id = idet.text.toString()
                     val pw = pwet.text.toString()
+
+                    // 유저가 입력한 id, pw를 쉐어드에 저장한다.
+                    val sharedPreference = getSharedPreferences("Account", Context.MODE_PRIVATE)
+                    val editor = sharedPreference.edit()
+                    editor.putString("id", id)
+                    editor.putString("pw", pw)
+                    editor.apply()
+                    Log.d("Login","$id, $pw")
 
                     GlobalScope.launch(Dispatchers.IO) {
                         val result = performLogin(id, pw)
