@@ -22,6 +22,7 @@ import com.example.myapplication.databinding.ActivitySignupstepBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
@@ -79,7 +80,11 @@ class SignupStepActivity : AppCompatActivity() {
                     val studentNum = binding.studentNum.text.toString()
                     val password = binding.password.text.toString()
                     sendPostRequest(studentNum, password)
-                    transitionToStep(STEP_2, "Next")}
+                    // 에러 응답이 아닐 경우에만 Step 2로 넘어가도록 처리
+                    if (!isErrorResponse) {
+                        transitionToStep(STEP_2, "Next")
+                    }
+                }
                 STEP_2 -> transitionToStep(STEP_3, "Next")
                 STEP_3 -> transitionToStep(FINAL_STEP, "Submit")
                 else -> {
@@ -257,7 +262,7 @@ class SignupStepActivity : AppCompatActivity() {
         }
         else if(type.equals("studentNumCorrect")){
             dialog.setTitle("회원가입 실패")
-            dialog.setMessage("학번을 8자를 입력해주세요")
+            dialog.setMessage("명지대 통합로그인 아이디, 비밀번호를 입력해주세요!")
         }
         else if(type.equals("emailCorrect")){
             dialog.setTitle("회원가입 실패")
@@ -296,27 +301,46 @@ class SignupStepActivity : AppCompatActivity() {
             }
         }
     }
+    private var isErrorResponse = false // 에러 응답 여부를 나타내는 변수
+
     private fun sendPostRequest(studentNum: String, password: String) {
-        try {
-            val url = URL("https://sso1.mju.ac.kr/mju/userCheck.do")
-            val conn = url.openConnection() as HttpURLConnection
-            conn.requestMethod = "POST"
-            conn.doOutput = true
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val url = URL("https://sso1.mju.ac.kr/mju/userCheck.do")
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST"
+                conn.doOutput = true
 
-            val postData = "id=$studentNum&passwrd=$password"
-            val os: OutputStream = conn.outputStream
-            val writer = OutputStreamWriter(os, "UTF-8")
-            writer.write(postData)
-            writer.flush()
-            writer.close()
-            os.close()
+                val postData = "id=$studentNum&passwrd=$password"
+                val os: OutputStream = conn.outputStream
+                val writer = OutputStreamWriter(os, "UTF-8")
+                writer.write(postData)
+                writer.flush()
+                writer.close()
+                os.close()
 
-            val responseCode = conn.responseCode
-            // Handle the response code and response if needed
-        } catch (e: Exception) {
-            e.printStackTrace()
+                val responseCode = conn.responseCode
+                val response = conn.inputStream.bufferedReader().use { it.readText() }
+
+                val jsonResponse = JSONObject(response)
+                val errorCode = jsonResponse.getString("error")
+                Log.d("PLEASE", errorCode) // Log the error code
+
+                if (errorCode == "VL-2100") {
+                    // Handle "VL-2100" error response
+                    runOnUiThread {
+                        dialog("studentNumCorrect")
+                        isErrorResponse = true // Set error flag
+                    }
+                } else if (errorCode == "0000") {
+                    // Handle "0000" success response
+                    runOnUiThread {
+                        isErrorResponse = false // Set success flag
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
-
-
 }
