@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.R
 
-class CarouselAdapter(private val context: Context, private val itemList: List<ItemData>) : RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
+class CarouselAdapter(private val context: Context, private val itemList: List<CarouselItem>) : RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageButton: ImageButton = itemView.findViewById(R.id.imageButton)
@@ -29,14 +29,22 @@ class CarouselAdapter(private val context: Context, private val itemList: List<I
         val currentItem = itemList[position % itemList.size] // Use modulo to create circular wrapping
 
         // Set data to the views here
-        holder.imageButton.setImageResource(currentItem.imageResId)
+        Glide.with(context)
+            .load(currentItem.image)
+            .into(holder.imageButton)
+
         holder.titleTextView.text = currentItem.title
         holder.descriptionTextView.text = currentItem.donLoc
         holder.imageButton.setOnClickListener {
             val intent = Intent(context, DonSelectActivity::class.java)
             intent.putExtra("title", currentItem.title)
             intent.putExtra("donLoc", currentItem.donLoc)
-            intent.putExtra("imageResId", currentItem.imageResId)
+            intent.putExtra("image", currentItem.image)
+            intent.putExtra("p_id", currentItem.p_id)
+            intent.putExtra("description", currentItem.description)
+            intent.putExtra("goal", currentItem.goal)
+            intent.putExtra("enddate", currentItem.enddate)
+            intent.putExtra("current", currentItem.current)
             context.startActivity(intent)
 
             if (context is Activity) {

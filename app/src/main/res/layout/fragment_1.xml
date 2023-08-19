@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titlelayout"
-        android:layout_centerInParent="true" /> <!-- Adjust this margin value as needed -->
+        android:layout_centerInParent="true" />
 
     <TextView
         android:id="@+id/bottom_title"
