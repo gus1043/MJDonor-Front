@@ -1,5 +1,5 @@
 data class ItemParticipationData(
-    val imageResId: Int,
+    val imageResId: String,
     val title: String,
     val donLoc: String,
     val account: String,

@@ -33,9 +33,9 @@ class Fragment3 : Fragment() {
 
         // Sample data for the RecyclerView items
         val itemList = listOf(
-            ItemParticipationData(R.drawable.img1, "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 , true),
-            ItemParticipationData(R.drawable.img2, "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555, false ),
-            ItemParticipationData(R.drawable.img3, "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 , true),
+            ItemParticipationData("https://www.kasandbox.org/programming-images/avatars/purple-pi-teal.png", "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 , true),
+            ItemParticipationData("https://www.kasandbox.org/programming-images/avatars/purple-pi-pink.png", "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555, false ),
+            ItemParticipationData("https://www.kasandbox.org/programming-images/avatars/primosaur-ultimate.png", "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 , true),
         )
 
         // Pass the FragmentManager as a parameter to the adapter

@@ -9,12 +9,16 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.ActivityDonateinputBinding
 import java.text.NumberFormat
 
 class DonInputActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDonateinputBinding
     private lateinit var currencyFormat: NumberFormat
+    private lateinit var title: String
+    private lateinit var donLoc: String
+    private lateinit var image: String
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +26,17 @@ class DonInputActivity : AppCompatActivity() {
         binding = ActivityDonateinputBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        title = intent.getStringExtra("title") ?: "Default Title"
+        donLoc = intent.getStringExtra("donLoc") ?: "Default Location"
+        image = intent.getStringExtra("image")?: "Default Image"
+
         currencyFormat = NumberFormat.getCurrencyInstance()
+
+        binding.donationNameDonate.text = title
+        binding.companyDonate.text = donLoc
+        Glide.with(this)
+            .load(image)
+            .into(binding.selectedimage1)
 
         // EditText 초기값 설정
         binding.money.setText("0")

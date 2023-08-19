@@ -31,12 +31,11 @@ class DonSelectActivity : AppCompatActivity() {
         // 인텐트로 전달된 값 받기
         title = intent.getStringExtra("title") ?: "Default Title"
         donLoc = intent.getStringExtra("donLoc") ?: "Default Location"
-        image = intent.getStringExtra("image")?: "Default Location"
+        image = intent.getStringExtra("image")?: "Default Image"
         p_id = intent.getIntExtra("p_id",1)
         goal = intent.getIntExtra("goal",1)
-        enddate = intent.getIntExtra("enddate",1)
+        enddate = intent.getIntExtra("enddate",12345678)
         current = intent.getIntExtra("current",1)
-
         description = intent.getStringExtra("description") ?: "Default Description"
 
         val endDateDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).parse(enddate.toString())
@@ -50,6 +49,9 @@ class DonSelectActivity : AppCompatActivity() {
 
         binding.selectdonatebtn.setOnClickListener {
             val intent: Intent = Intent(this, DonInputActivity::class.java)
+            intent.putExtra("title", title)
+            intent.putExtra("donLoc", donLoc)
+            intent.putExtra("image", image)
             startActivity(intent)
             overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
         }
@@ -91,12 +93,17 @@ class DonSelectActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewmain.layoutManager = layoutManager
-
     }
 
     private fun openDonationTree() {
         val fragment = DonationTree()
-        fragment.show(supportFragmentManager, "donationTreeDialog")
+        fragment.setImage(image) // 이미지 설정
+
+        // DonationTree 프래그먼트를 표시
+        val fragmentManager = supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        fragment.show(transaction, "donationTreeDialog")
     }
+
 }
 

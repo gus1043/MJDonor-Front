@@ -8,20 +8,32 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.DonationTreeBinding
 
 class DonationTree : DialogFragment() {
     private lateinit var binding: DonationTreeBinding
     private var alertDialog: AlertDialog? = null
+    private lateinit var image: String
+
+    fun setImage(image: String) {
+        this.image = image
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireActivity())
         binding = DonationTreeBinding.inflate(requireActivity().layoutInflater)
         val view = binding.root
 
+        // 이미지를 설정하는 부분 추가
+        Glide.with(this)
+            .load(image)
+            .into(binding.imageView2)
+
         builder.setView(view)
         return builder.create()
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DonationTreeBinding.inflate(inflater, container, false)
@@ -36,6 +48,7 @@ class DonationTree : DialogFragment() {
             showPopupDialog(binding)
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         // 다이얼로그를 닫기 위해 onDestroy에서 호출

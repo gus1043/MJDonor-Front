@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.DonationTree
 import com.example.myapplication.R
@@ -33,14 +34,18 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = itemList[position]
 
-        holder.participatedimage.setImageResource(currentItem.imageResId)
+        Glide.with(context)
+            .load(currentItem.imageResId)
+            .into(holder.participatedimage)
+
         holder.titleText.text = currentItem.title
         holder.donLocText.text = currentItem.donLoc
         holder.account.text = currentItem.account
         holder.enddate.text = currentItem.enddate
         holder.money.text = currentItem.money.toString()
+
         holder.participatedimage.setOnClickListener {
-            openDonationTree()
+            openDonationTree(currentItem.imageResId) // 이미지 URL 설정
         }
 
         val depositMessage = if (currentItem.Deposite == true) {
@@ -64,8 +69,12 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
     override fun getItemCount(): Int {
         return itemList.size
     }
-    private fun openDonationTree() {
+    private fun openDonationTree(imageUrl: String) {
         val fragment = DonationTree()
-        fragment.show(fragmentManager, "donationTreeDialog")
+        fragment.setImage(imageUrl) // 이미지 URL 설정
+
+        // DonationTree 프래그먼트를 표시
+        val transaction = fragmentManager.beginTransaction()
+        fragment.show(transaction, "donationTreeDialog")
     }
 }

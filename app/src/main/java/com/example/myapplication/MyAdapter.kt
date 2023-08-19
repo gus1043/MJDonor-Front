@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.R
 
@@ -28,13 +29,23 @@ class MyAdapter(private val context: Context, private var itemList: List<ItemDat
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = itemList[position]
 
-        // Set data to the views here
-        holder.selectedImage.setImageResource(currentItem.imageResId)
+        Glide.with(context)
+            .load(currentItem.imageResId)
+            .into(holder.selectedImage)
+
         holder.titleText.text = currentItem.title
         holder.donLocText.text = currentItem.donLoc
         holder.type.text = currentItem.type
         holder.donateButton.setOnClickListener {
             val intent = Intent(context, DonSelectActivity::class.java)
+            intent.putExtra("title", currentItem.title)
+            intent.putExtra("donLoc", currentItem.donLoc)
+            intent.putExtra("image", currentItem.imageResId)
+            intent.putExtra("p_id", currentItem.p_id)
+            intent.putExtra("description", currentItem.description)
+            intent.putExtra("goal", currentItem.goal)
+            intent.putExtra("enddate", currentItem.enddate)
+            intent.putExtra("current", currentItem.current)
             context.startActivity(intent)
         }
     }
