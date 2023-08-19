@@ -90,10 +90,8 @@ class SignupStepActivity : AppCompatActivity() {
                 else -> {
 
                     var isExistBlank = false
-                    var isPWSame = false
                     var isAgree = binding.signupAgree.isChecked
                     var studentNumCorrect = true
-                    var passwordCorrect = true
                     var emailCorrect = true
 
                     val email = binding.email.text.toString()
@@ -126,16 +124,7 @@ class SignupStepActivity : AppCompatActivity() {
                         isAgree = true
                     }
 
-//                    //비밀번호 유효성
-//                    if(!Pattern.matches("^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$", password))
-//                    {
-//                       passwordCorrect= false }
-//
-//                    if(password == passwordCheck){
-//                        isPWSame = true }
-
-
-                    if (!isExistBlank && isPWSame && emailCorrect && studentNumCorrect && passwordCorrect && isAgree) {
+                    if (!isExistBlank && emailCorrect && studentNumCorrect && isAgree) {
                         // 회원가입 성공 토스트 메세지 띄우기
                         Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
 
@@ -164,12 +153,6 @@ class SignupStepActivity : AppCompatActivity() {
                         if(isExistBlank){   // 작성 안한 항목이 있을 경우
                             dialog("blank")
                         }
-                        else if(!isPWSame){ // 입력한 비밀번호가 다를 경우
-                            dialog("not same")
-                        }
-//                        else if(!passwordCorrect){ // 비밀번호 유효성
-//                            dialog("passwordCorrect")
-//                        }
                         else if(!emailCorrect){ // 입력한 비밀번호가 다를 경우
                             dialog("emailCorrect")
                         }
@@ -267,10 +250,6 @@ class SignupStepActivity : AppCompatActivity() {
         else if(type.equals("emailCorrect")){
             dialog.setTitle("회원가입 실패")
             dialog.setMessage("이메일 형식을 맞춰주세요")
-        }
-        else if(type.equals("passwordCorrect")){
-            dialog.setTitle("회원가입 실패")
-            dialog.setMessage("비밀번호 형식을 맞춰 주세요")
         }
         else if(type.equals("Agree")){
             dialog.setTitle("회원가입 실패")
