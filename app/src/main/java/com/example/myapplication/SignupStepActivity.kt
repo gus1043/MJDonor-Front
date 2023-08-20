@@ -156,7 +156,7 @@ class SignupStepActivity : AppCompatActivity() {
 
     private suspend fun performSignup(studentNum: Int, email: String, name: String, password: String, walletAdress: String, photobytearray: ByteArray?): String? {
         try {
-            val url = URL("http://192.168.0.101:8081/MJDonor/Android/performSignup.jsp")
+            val url = URL("http://jsp.mjdonor.kro.kr:8888/webapp/Android/performSignup.jsp")
             val conn = url.openConnection() as HttpURLConnection
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
             conn.requestMethod = "POST"

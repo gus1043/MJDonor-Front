@@ -52,7 +52,7 @@ class Fragment3 : Fragment() {
 
         Log.d("Account", "$id, $pw")
 
-        val userInfoUrl = "http://192.168.0.101:8081/MJDonor/Android/userInfo.jsp?u_id=${id}"
+        val userInfoUrl = "http://jsp.mjdonor.kro.kr:8888/webapp/Android/userInfo.jsp?u_id=${id}"
         val url = URL(userInfoUrl)
         val connection = url.openConnection() as HttpURLConnection
 
@@ -93,7 +93,7 @@ class Fragment3 : Fragment() {
             }
         }
 
-        val donationCountUrl = "http://192.168.0.101:8081/MJDonor/Android/donationCountForUser.jsp?u_id=${id}"
+        val donationCountUrl = "http://jsp.mjdonor.kro.kr:8888/webapp/Android/donationCountForUser.jsp?u_id=${id}"
         val donationCountUrlConnection = URL(donationCountUrl).openConnection() as HttpURLConnection
         GlobalScope.launch(Dispatchers.IO) {
             try {
@@ -120,7 +120,7 @@ class Fragment3 : Fragment() {
         }
 
         // totalDonation 데이터 파싱
-        val totalDonationUrl = "http://192.168.0.101:8081/MJDonor/Android/sumDonationPointForUser.jsp?u_id=${id}"
+        val totalDonationUrl = "http://jsp.mjdonor.kro.kr:8888/webapp/Android/sumDonationPointForUser.jsp?u_id=${id}"
         val totalDonationUrlConnection = URL(totalDonationUrl).openConnection() as HttpURLConnection
 
         GlobalScope.launch(Dispatchers.IO) {
