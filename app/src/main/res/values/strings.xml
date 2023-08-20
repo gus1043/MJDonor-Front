@@ -50,5 +50,5 @@
     <string name="depostie_not">입금 미완료</string>
     <string name="passwordneed">특수문자, 영대소문자를 포함한 8-20자로 작성해주세요</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="pay">환불 받을 본인 명의의 계좌를 함께 입력해 주세요.\n기부 모금 마감 날짜까지 목표 금액이 달성되지 않으면\n순차적으로 자동 환불됩니다</string>
+    <string name="pay">환불 받을 본인 명의의 계좌를 함께 입력해 주세요. 기부 모금 마감 날짜까지 목표 금액이 달성되지 않으면 순차적으로 자동 환불됩니다.</string>
 </resources>

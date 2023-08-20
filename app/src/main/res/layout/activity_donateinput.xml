@@ -76,14 +76,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="30dp"
+            android:layout_marginTop="60dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="10dp">
+            tools:layout_editor_absoluteX="30dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:text="기부하기"
                 android:textSize="20dp"
@@ -95,14 +97,14 @@
                 android:gravity="center"
                 android:text="@string/donatement"
                 android:textSize="15dp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="5dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="15dp">
 
                 <EditText
                     android:id="@+id/money"
@@ -128,34 +130,36 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <Button
                         android:id="@+id/button1"
                         android:layout_width="97dp"
                         android:layout_height="wrap_content"
-                        android:text="+ 1,000원"
                         android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"/>
+                        android:layout_centerVertical="true"
+                        android:text="+ 1,000원" />
 
                     <Button
                         android:id="@+id/button2"
                         android:layout_width="97dp"
                         android:layout_height="wrap_content"
-                        android:text="+ 5,000원"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@id/button1"
-                        android:layout_centerVertical="true"/>
+                        android:text="+ 5,000원" />
 
                     <Button
                         android:id="@+id/button3"
                         android:layout_width="97dp"
                         android:layout_height="wrap_content"
-                        android:text="+ 10,000원"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@id/button2"
-                        android:layout_centerVertical="true"/>
+                        android:text="+ 10,000원" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -163,18 +167,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="-5dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="-10dp">
+                android:layout_marginBottom="10dp">
 
                 <EditText
                     android:id="@+id/nickname"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
+                    android:background="@drawable/textbox"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:background="@drawable/textbox" />
+                    android:paddingRight="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -184,14 +188,15 @@
                     android:background="#ffffff"
                     android:text="닉네임" />
             </RelativeLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="-10dp"
-                android:background="#ffffff"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="-5dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="#ffffff"
                 android:text="실제 기부금이 전달될 때 표기될 기부자명입니다." />
 
             <CheckBox

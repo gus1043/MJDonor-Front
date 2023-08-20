@@ -25,7 +25,8 @@
                 android:gravity="center"
                 android:text="@string/titleadd"
                 android:textSize="15dp"
-                android:textAppearance="@style/title" />
+                android:textAppearance="@style/title"
+                android:layout_marginTop="5dp"/>
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
@@ -34,7 +35,8 @@
                 android:textStyle="bold"
                 android:textSize="25dp"
                 android:text="@string/list_title"
-                android:textAppearance="@style/title" />
+                android:textAppearance="@style/title"
+                android:layout_marginBottom="5dp"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -48,51 +50,51 @@
                         android:id="@+id/all"
                         android:drawableLeft="@drawable/baseline_cruelty_free_24"
                         android:text="전체"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="40dp"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:layout_margin="3dp"
-                        android:background="@drawable/rounded_button"/>
-
-                    <Button
-                        android:id="@+id/environment"
-                        android:drawableLeft="@drawable/baseline_cruelty_free_24"
-                        android:text="환경"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="5dp"
-                        android:paddingEnd="5dp"
-                        android:layout_margin="3dp"
+                        android:layout_margin="5dp"
                         android:background="@drawable/rounded_button"/>
 
                     <Button
                         android:id="@+id/single_parent"
                         android:drawableLeft="@drawable/baseline_cruelty_free_24"
                         android:text="한부모가정"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="40dp"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:layout_margin="3dp"
+                        android:layout_margin="5dp"
                         android:background="@drawable/rounded_button"/>
 
                     <Button
                         android:id="@+id/low_income"
                         android:drawableLeft="@drawable/baseline_cruelty_free_24"
                         android:text="저소득층"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="40dp"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:layout_margin="3dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/rounded_button"/>
+
+                    <Button
+                        android:id="@+id/environment"
+                        android:drawableLeft="@drawable/baseline_cruelty_free_24"
+                        android:text="환경"
+                        android:layout_width="110dp"
+                        android:layout_height="40dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:layout_margin="5dp"
                         android:background="@drawable/rounded_button"/>
 
                     <Button
                         android:id="@+id/global"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
+                        android:layout_width="110dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
                         android:background="@drawable/rounded_button"
                         android:drawableLeft="@drawable/baseline_cruelty_free_24"
                         android:paddingStart="5dp"
@@ -118,7 +120,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
+                    android:layout_width="360dp"
                     android:layout_height="match_parent"/>
 
                 <!--                <de.hdodenhof.circleimageview.CircleImageView-->
@@ -127,6 +129,7 @@
                 <!--                    app:civ_border_color="@color/design_default_color_primary_dark"-->
                 <!--                    android:src="@drawable/logo"-->
                 <!--                    android:layout_width="100dp"-->
+                <!--                    android:layout_marginBottom="5dp"-->
                 <!--                    android:layout_height="100dp"/>-->
 
             </LinearLayout>
