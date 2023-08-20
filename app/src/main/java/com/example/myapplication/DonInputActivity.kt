@@ -104,8 +104,9 @@ class DonInputActivity : AppCompatActivity() {
             }else if (!isAgree){
                 Toast.makeText(this, "약관에 동의해야 합니다.", Toast.LENGTH_SHORT).show()
             } else {
-                val intent: Intent = Intent(this, DonatedCardActivity::class.java)
-                finish()
+                val intent: Intent = Intent(this, DonatePayActivity::class.java)
+                intent.putExtra("donationAmount", money) // 다음 액티비티로 기부 금액 전달
+                intent.putExtra("donorNickname", nickname) // 다음 액티비티로 기부자 닉네임 전달
                 startActivity(intent)
                 overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
             }
