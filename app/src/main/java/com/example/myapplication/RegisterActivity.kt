@@ -214,7 +214,7 @@ class RegisterActivity : AppCompatActivity() {
                 return dateFormat.format(date)
             }
 
-            val url = URL("http://192.168.0.101:8081/MJDonor/Android/performRegister.jsp")
+            val url = URL("http://jsp.mjdonor.kro.kr:8888/webapp/Android/performRegister.jsp")
             val conn = url.openConnection() as HttpURLConnection
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
             conn.requestMethod = "POST"
