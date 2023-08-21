@@ -156,8 +156,6 @@ class RegisterActivity : AppCompatActivity() {
                         secondSelectedBitmap?.let { it2 ->
                             performRegister(title, registerDescription,
                                 goal, startparsedDate as Date, endparsedDate as Date,
-                                it1,
-                                it2,
                                 type,
                                 o_id,
                                 u_id
@@ -176,8 +174,6 @@ class RegisterActivity : AppCompatActivity() {
                             Log.d("RegisterActivity", "Title: $title")
                             Log.d("RegisterActivity", "Register Description: $registerDescription")
                             Log.d("RegisterActivity", "Goal: $goal")
-                            Log.d("RegisterActivity", "First Selected Image: $firstSelectedBitmap")
-                            Log.d("RegisterActivity", "Second Selected Image: $secondSelectedBitmap")
                             Log.d("RegisterActivity", "Type: $type")
                             Log.d("RegisterActivity", "o_id: $o_id")
                             Log.d("RegisterActivity", "u_id: $u_id")
@@ -203,8 +199,6 @@ class RegisterActivity : AppCompatActivity() {
                         val body1 = MultipartBody.Part.createFormData("image", fileName1, requestFile1)
                         val body2 = MultipartBody.Part.createFormData("image", fileName2, requestFile2)
 
-                        Log.d("please", fileName1)
-                        Log.d("please", fileName2)
                         sendImage(body1)
                         sendImage(body2)
                     } else {
@@ -238,7 +232,7 @@ class RegisterActivity : AppCompatActivity() {
         })
     }
 
-    private suspend fun performRegister(title: String, registerDescription: String, goal: Int, startDate: Date, endDate: Date, firstSelectedImage: Bitmap, secondSelectedImage: Bitmap, type: String, o_id: Int, u_id: Int): String? {
+    private suspend fun performRegister(title: String, registerDescription: String, goal: Int, startDate: Date, endDate: Date, type: String, o_id: Int, u_id: Int): String? {
         try {
 
             fun formatDate(date: Date): String {
@@ -254,7 +248,7 @@ class RegisterActivity : AppCompatActivity() {
             val osw: OutputStream = conn.outputStream
             val writer = BufferedWriter(OutputStreamWriter(osw, "UTF-8"))
 
-            val sendMsg = "name=$title&description=$registerDescription&target_point=$goal&start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}&image1=${firstSelectedImage.toString()}&image2=${secondSelectedImage.toString()}&category=$type&ORGANIZATION_ID=$o_id&REGISTRANT_ID=$u_id"
+            val sendMsg = "name=$title&description=$registerDescription&target_point=$goal&start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}&category=$type&ORGANIZATION_ID=$o_id&REGISTRANT_ID=$u_id"
 
             writer.write(sendMsg)
             writer.flush()
@@ -271,21 +265,21 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
                 val receiveMsg = buffer.toString()
+
                 return receiveMsg
             } else {
                 Log.d("TestRegisterActivity", "HTTP connection failed with response code: ${conn.responseCode}")
+
             }
 
-            Log.d("RegisterActivity", "Title: $title")
-            Log.d("RegisterActivity", "Register Description: $registerDescription")
-            Log.d("RegisterActivity", "Goal: $goal")
-            Log.d("RegisterActivity", "Start Date: ${formatDate(startDate)}")
-            Log.d("RegisterActivity", "End Date: ${formatDate(endDate)}")
-            Log.d("RegisterActivity", "First Selected Image: $firstSelectedImage")
-            Log.d("RegisterActivity", "Second Selected Image: $secondSelectedImage")
-            Log.d("RegisterActivity", "Type: $type")
-            Log.d("RegisterActivity", "o_id: $o_id")
-            Log.d("RegisterActivity", "u_id: $u_id")
+            Log.d("RegisterActivity1", "Title: $title")
+            Log.d("RegisterActivity1", "Register Description: $registerDescription")
+            Log.d("RegisterActivity1", "Goal: $goal")
+            Log.d("RegisterActivity1", "Start Date: ${formatDate(startDate)}")
+            Log.d("RegisterActivity1", "End Date: ${formatDate(endDate)}")
+            Log.d("RegisterActivity1", "Type: $type")
+            Log.d("RegisterActivity1", "o_id: $o_id")
+            Log.d("RegisterActivity1", "u_id: $u_id")
 
         } catch (e: MalformedURLException) {
             e.printStackTrace()
