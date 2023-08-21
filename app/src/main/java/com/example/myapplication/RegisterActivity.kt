@@ -4,10 +4,13 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -20,6 +23,12 @@ import com.example.myapplication.databinding.ActivityRegisterBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
@@ -128,12 +137,10 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             if (isExistBlank) {
-                Toast.makeText(this, "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "모F든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else if (!isAgree) {
                 Toast.makeText(this, "약관에 동의해야 합니다.", Toast.LENGTH_SHORT).show()
             } else {
-
-
                 GlobalScope.launch(Dispatchers.IO) {
 
 
@@ -176,11 +183,36 @@ class RegisterActivity : AppCompatActivity() {
                             Log.d("RegisterActivity", "u_id: $u_id")
                         }
                     }
+
+                    if (firstSelectedBitmap != null && secondSelectedBitmap != null) {
+                        val fileName1 = "donation_$title(1).jpg"
+                        val fileName2 = "donation_$title(2).jpg"
+                        val mediaType = "image/*".toMediaTypeOrNull()
+
+                        val byteArrayOutputStream1 = ByteArrayOutputStream()
+                        firstSelectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream1)
+                        val selectedImageByteArray1 = byteArrayOutputStream1.toByteArray()
+
+                        val byteArrayOutputStream2 = ByteArrayOutputStream()
+                        secondSelectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream2)
+                        val selectedImageByteArray2 = byteArrayOutputStream2.toByteArray()
+
+                        val requestFile1 = RequestBody.create(mediaType, selectedImageByteArray1)
+                        val requestFile2 = RequestBody.create(mediaType, selectedImageByteArray2)
+
+                        val body1 = MultipartBody.Part.createFormData("image", fileName1, requestFile1)
+                        val body2 = MultipartBody.Part.createFormData("image", fileName2, requestFile2)
+
+                        Log.d("please", fileName1)
+                        Log.d("please", fileName2)
+                        sendImage(body1)
+                        sendImage(body2)
+                    } else {
+                        Toast.makeText(this@RegisterActivity, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
-
-
         currencyFormat = NumberFormat.getCurrencyInstance() // Initialize currencyFormat
 
         binding.goal.setText("0")
@@ -269,6 +301,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             val selectedImage = data?.data
+            val mediaType = "image/*".toMediaTypeOrNull()
 
             try {
                 val inputStream = contentResolver.openInputStream(selectedImage!!)
@@ -289,6 +322,39 @@ class RegisterActivity : AppCompatActivity() {
 
         }
     }
+
+    private val retrofit = RetrofitInstance.getInstance().create(MyApi::class.java)
+
+    // 절대경로 변환
+    fun absolutelyPath(path: Uri?, context : Context): String {
+        var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+        var c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
+        var index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        c?.moveToFirst()
+
+        var result = c?.getString(index!!)
+
+        return result!!
+    }
+
+    fun sendImage(body: MultipartBody.Part){
+        retrofit.sendImage(body).enqueue(object: Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(response.isSuccessful){
+                    Toast.makeText(this@RegisterActivity, "이미지 전송 성공", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this@RegisterActivity, "이미지 전송 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.d("testt", t.message.toString())
+            }
+
+        })
+    }
+
+
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
