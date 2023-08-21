@@ -272,12 +272,15 @@ class SignupStepActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             val selectedImage = data?.data
-            val file = File(absolutelyPath(selectedImage , this))
+            val studentNum = binding.studentNum.text.toString() // 입력받은 학번
+            val fileName = "profile_$studentNum.jpg" // 새로운 파일명
+
+            val file = File(absolutelyPath(selectedImage, this))
             val mediaType = "image/*".toMediaTypeOrNull()
             val requestFile = RequestBody.create(mediaType, file)
-            val body = MultipartBody.Part.createFormData("profile", file.name, requestFile)
+            val body = MultipartBody.Part.createFormData("profile", fileName, requestFile)
 
-            Log.d("please",file.name)
+            Log.d("please", fileName)
 
             sendImage(body)
             try {
@@ -288,7 +291,7 @@ class SignupStepActivity : AppCompatActivity() {
 
                 val byteArrayOutputStream = ByteArrayOutputStream()
                 selectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-                selectedImageByteArray = byteArrayOutputStream.toByteArray()  // Store the byte array
+                selectedImageByteArray = byteArrayOutputStream.toByteArray() // Store the byte array
                 Log.d("bitmapThumb", "$selectedImageByteArray")
                 binding.imageView1.setImageBitmap(selectedBitmap)
 
@@ -297,6 +300,7 @@ class SignupStepActivity : AppCompatActivity() {
             }
         }
     }
+
     private val retrofit = RetrofitInstance.getInstance().create(MyApi::class.java)
 
     // 절대경로 변환
