@@ -1,10 +1,14 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
@@ -15,7 +19,14 @@ import com.example.myapplication.databinding.ActivitySignupstepBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
@@ -261,7 +272,14 @@ class SignupStepActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             val selectedImage = data?.data
+            val file = File(absolutelyPath(selectedImage , this))
+            val mediaType = "image/*".toMediaTypeOrNull()
+            val requestFile = RequestBody.create(mediaType, file)
+            val body = MultipartBody.Part.createFormData("profile", file.name, requestFile)
 
+            Log.d("please",file.name)
+
+            sendImage(body)
             try {
                 val inputStream = contentResolver.openInputStream(selectedImage!!)
                 selectedBitmap = BitmapFactory.decodeStream(inputStream)
@@ -278,6 +296,36 @@ class SignupStepActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
+    }
+    private val retrofit = RetrofitInstance.getInstance().create(MyApi::class.java)
+
+    // 절대경로 변환
+    fun absolutelyPath(path: Uri?, context : Context): String {
+        var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+        var c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
+        var index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        c?.moveToFirst()
+
+        var result = c?.getString(index!!)
+
+        return result!!
+    }
+
+    fun sendImage(body: MultipartBody.Part){
+        retrofit.sendImage(body).enqueue(object: Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(response.isSuccessful){
+                    Toast.makeText(this@SignupStepActivity, "이미지 전송 성공", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this@SignupStepActivity, "이미지 전송 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.d("testt", t.message.toString())
+            }
+
+        })
     }
 
     private var isErrorResponse = false // 에러 응답 여부를 나타내는 변수
