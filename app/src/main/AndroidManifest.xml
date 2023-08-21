@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="25"
+        android:largeHeap="true"
         android:usesCleartextTraffic="true">
 
         <activity

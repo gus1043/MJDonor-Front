@@ -37,18 +37,8 @@ class Fragment1 : Fragment() {
         adapter = CarouselAdapter(requireContext(), itemList)
         recyclerViewmain.adapter = adapter
 
-        // Set up the carousel layout manager for the RecyclerView
         recyclerViewmain.setCarouselLayoutManager()
 
-        binding.input.setOnClickListener {
-            val intent = Intent(requireContext(), DonInputActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.register.setOnClickListener {
-            val intent = Intent(requireContext(), RegisterActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onDestroyView() {

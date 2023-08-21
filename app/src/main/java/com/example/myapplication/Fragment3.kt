@@ -7,14 +7,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.myapplication.LoginActivity
 import com.example.myapplication.R
 import com.example.myapplication.SignupActivity
 import com.example.myapplication.databinding.Fragment3Binding
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -55,13 +58,7 @@ class Fragment3 : Fragment() {
         val userInfoUrl = "http://jsp.mjdonor.kro.kr:8888/webapp/Android/userInfo.jsp?u_id=${id}"
         val url = URL(userInfoUrl)
         val connection = url.openConnection() as HttpURLConnection
-
-        // Sample data for the RecyclerView items
-        val itemList = listOf(
-            ItemParticipationData("https://www.kasandbox.org/programming-images/avatars/purple-pi-teal.png", "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 , true),
-            ItemParticipationData("https://www.kasandbox.org/programming-images/avatars/purple-pi-pink.png", "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555, false ),
-            ItemParticipationData("https://www.kasandbox.org/programming-images/avatars/primosaur-ultimate.png", "아메리칸 스나이퍼", "유니세프 한국위원회", "카카오뱅크 3333-58-481", "23/08/28 19:00", 8555 , true),
-        )
+        val userProfileUrl = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=profile_${id}"
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
@@ -82,10 +79,12 @@ class Fragment3 : Fragment() {
                     binding.stdnum.text = userId
 
                     // 이미지 다운로드 및 설정
-                    val extractedBitmap = BitmapFactory.decodeByteArray(photo.toByteArray(), 0, photo.toByteArray().size)
-                    binding.profile.setImageBitmap(extractedBitmap)
+                    Picasso.get()
+                        .load("${userProfileUrl}.jpg")
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
+                        .into(binding.profile)
                 }
-
             } catch (e: Exception) {
                 // Handle exceptions here
                 e.printStackTrace()
