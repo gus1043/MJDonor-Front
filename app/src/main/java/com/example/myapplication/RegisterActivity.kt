@@ -44,6 +44,8 @@ class RegisterActivity : AppCompatActivity() {
     var isThumbnailVisible = true
     private var firstSelectedBitmap: Bitmap? = null
     private var secondSelectedBitmap: Bitmap? = null
+    private var fileName1: String? = null
+    private var fileName2: String? = null
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -57,7 +59,7 @@ class RegisterActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
 
-    super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -136,6 +138,31 @@ class RegisterActivity : AppCompatActivity() {
                 isExistBlank = true
             }
 
+            if (firstSelectedBitmap != null && secondSelectedBitmap != null) {
+                fileName1 = "donation_$title(1).jpg"
+                fileName2 = "donation_$title(2).jpg"
+                val mediaType = "image/*".toMediaTypeOrNull()
+
+                val byteArrayOutputStream1 = ByteArrayOutputStream()
+                firstSelectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream1)
+                val selectedImageByteArray1 = byteArrayOutputStream1.toByteArray()
+
+                val byteArrayOutputStream2 = ByteArrayOutputStream()
+                secondSelectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream2)
+                val selectedImageByteArray2 = byteArrayOutputStream2.toByteArray()
+
+                val requestFile1 = RequestBody.create(mediaType, selectedImageByteArray1)
+                val requestFile2 = RequestBody.create(mediaType, selectedImageByteArray2)
+
+                val body1 = MultipartBody.Part.createFormData("image", fileName1, requestFile1)
+                val body2 = MultipartBody.Part.createFormData("image", fileName2, requestFile2)
+
+                sendImage(body1)
+                sendImage(body2)
+            } else {
+                Toast.makeText(this@RegisterActivity, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
+            }
+
             if (isExistBlank) {
                 Toast.makeText(this, "모F든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else if (!isAgree) {
@@ -158,14 +185,15 @@ class RegisterActivity : AppCompatActivity() {
                                 goal, startparsedDate as Date, endparsedDate as Date,
                                 type,
                                 o_id,
-                                u_id
+                                u_id,
+                                "$fileName1" ,
+                                "$fileName2"
                             )
                         }
                     }
                     // UI 업데이트 작업 등을 여기에 추가할 수 있습니다.
                     if (result != null) {
                         runOnUiThread {
-                            //로그인 성공 시 메인 화면으로 이동
                             val intent: Intent = Intent(this@RegisterActivity, RegisterCardActivity::class.java)
                             finish()
                             startActivity(intent)
@@ -177,33 +205,12 @@ class RegisterActivity : AppCompatActivity() {
                             Log.d("RegisterActivity", "Type: $type")
                             Log.d("RegisterActivity", "o_id: $o_id")
                             Log.d("RegisterActivity", "u_id: $u_id")
+                            Log.d("RegisterActivity1", "fileName1: $fileName1")
+                            Log.d("RegisterActivity1", "fileName2: $fileName2")
                         }
                     }
 
-                    if (firstSelectedBitmap != null && secondSelectedBitmap != null) {
-                        val fileName1 = "donation_$title(1).jpg"
-                        val fileName2 = "donation_$title(2).jpg"
-                        val mediaType = "image/*".toMediaTypeOrNull()
 
-                        val byteArrayOutputStream1 = ByteArrayOutputStream()
-                        firstSelectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream1)
-                        val selectedImageByteArray1 = byteArrayOutputStream1.toByteArray()
-
-                        val byteArrayOutputStream2 = ByteArrayOutputStream()
-                        secondSelectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream2)
-                        val selectedImageByteArray2 = byteArrayOutputStream2.toByteArray()
-
-                        val requestFile1 = RequestBody.create(mediaType, selectedImageByteArray1)
-                        val requestFile2 = RequestBody.create(mediaType, selectedImageByteArray2)
-
-                        val body1 = MultipartBody.Part.createFormData("image", fileName1, requestFile1)
-                        val body2 = MultipartBody.Part.createFormData("image", fileName2, requestFile2)
-
-                        sendImage(body1)
-                        sendImage(body2)
-                    } else {
-                        Toast.makeText(this@RegisterActivity, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
-                    }
                 }
             }
         }
@@ -232,11 +239,11 @@ class RegisterActivity : AppCompatActivity() {
         })
     }
 
-    private suspend fun performRegister(title: String, registerDescription: String, goal: Int, startDate: Date, endDate: Date, type: String, o_id: Int, u_id: Int): String? {
+    private suspend fun performRegister(title: String, registerDescription: String, goal: Int, startDate: Date, endDate: Date, type: String, o_id: Int, u_id: Int, fileName1:String, fileName2:String): String? {
         try {
 
             fun formatDate(date: Date): String {
-                val dateFormat = SimpleDateFormat("yy/MM/dd", Locale.US)
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
                 return dateFormat.format(date)
             }
 
@@ -248,16 +255,17 @@ class RegisterActivity : AppCompatActivity() {
             val osw: OutputStream = conn.outputStream
             val writer = BufferedWriter(OutputStreamWriter(osw, "UTF-8"))
 
-            val sendMsg = "name=$title&description=$registerDescription&target_point=$goal&start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}&category=$type&ORGANIZATION_ID=$o_id&REGISTRANT_ID=$u_id"
+            val sendMsg = "name=$title&description=$registerDescription&target_point=$goal&start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}&category=$type&ORGANIZATION_ID=$o_id&REGISTRANT_ID=$u_id&IMAGE1=$fileName1&IMAGE2=$fileName2"
 
             writer.write(sendMsg)
             writer.flush()
+
+            Log.d("TestRegisterActivity", sendMsg)
 
             if (conn.responseCode == HttpURLConnection.HTTP_OK) {
                 val tmp = InputStreamReader(conn.inputStream, "UTF-8")
                 val reader = BufferedReader(tmp)
                 val buffer = StringBuffer()
-
                 var str: String? = null
                 while (reader.readLine().also { str = it } != null) {
                     str?.let {
@@ -266,20 +274,12 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 val receiveMsg = buffer.toString()
 
+                Log.d("TestRegisterActivity", receiveMsg)
                 return receiveMsg
             } else {
                 Log.d("TestRegisterActivity", "HTTP connection failed with response code: ${conn.responseCode}")
 
             }
-
-            Log.d("RegisterActivity1", "Title: $title")
-            Log.d("RegisterActivity1", "Register Description: $registerDescription")
-            Log.d("RegisterActivity1", "Goal: $goal")
-            Log.d("RegisterActivity1", "Start Date: ${formatDate(startDate)}")
-            Log.d("RegisterActivity1", "End Date: ${formatDate(endDate)}")
-            Log.d("RegisterActivity1", "Type: $type")
-            Log.d("RegisterActivity1", "o_id: $o_id")
-            Log.d("RegisterActivity1", "u_id: $u_id")
 
         } catch (e: MalformedURLException) {
             e.printStackTrace()
@@ -382,7 +382,4 @@ class RegisterActivity : AppCompatActivity() {
 
         datePickerDialog.show()
     }
-
-
 }
-
