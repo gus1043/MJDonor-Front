@@ -6,6 +6,6 @@ data class CarouselItem(
     val description: String,
     val donLoc: String,
     val enddate: Int,
-    val goal : Int,
+    val goal: Int,
     val current:Int
     )
