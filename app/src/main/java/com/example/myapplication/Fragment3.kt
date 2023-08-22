@@ -58,7 +58,7 @@ class Fragment3 : Fragment() {
         val userInfoUrl = "http://jsp.mjdonor.kro.kr:8888/webapp/Android/userInfo.jsp?u_id=${id}"
         val url = URL(userInfoUrl)
         val connection = url.openConnection() as HttpURLConnection
-        val userProfileUrl = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=profile_${id}"
+
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
@@ -69,10 +69,12 @@ class Fragment3 : Fragment() {
                 val photo = content.substringAfter("Photo: ").substringBefore(", ")
                 val name = content.substringAfter("Name: ").substringBefore(", ")
                 val userId = content.substringAfter("User ID: ")
+                val userProfileUrl = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${photo}"
 
                 Log.d("please", name)
                 Log.d("please", userId)
                 Log.d("please", photo)
+                Log.d("please", userProfileUrl)
 
                 withContext(Dispatchers.Main) {
                     binding.name.text = name
@@ -80,7 +82,7 @@ class Fragment3 : Fragment() {
 
                     // 이미지 다운로드 및 설정
                     Picasso.get()
-                        .load("${userProfileUrl}.jpg")
+                        .load("${userProfileUrl}")
                         .placeholder(R.drawable.logo)
                         .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
                         .into(binding.profile)
