@@ -38,7 +38,7 @@ class SignupStepActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupstepBinding
     private var position = 0
     val TAG: String = "회원가입"
-
+    private var fileName:String? = null
     private lateinit var imageView1: ImageView
     private lateinit var imageView2: ImageView
     private lateinit var imageView3: ImageView
@@ -130,12 +130,31 @@ class SignupStepActivity : AppCompatActivity() {
                         isAgree = true
                     }
 
+                    if (selectedBitmap != null) {
+                        // 입력받은 학번
+                        fileName = "profile_$studentNum.jpg" // 새로운 파일명
+                        val mediaType = "image/*".toMediaTypeOrNull()
+
+                        val byteArrayOutputStream = ByteArrayOutputStream()
+                        selectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+                        val selectedImageByteArray = byteArrayOutputStream.toByteArray()
+                        val requestFile = RequestBody.create(mediaType, selectedImageByteArray)
+                        val body = MultipartBody.Part.createFormData("profile", fileName, requestFile)
+                        Log.d("please", fileName!!)
+
+                        sendImage(body)
+                    } else {
+                        Toast.makeText(this@SignupStepActivity, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                    }
+
+
+
                     if (!isExistBlank && emailCorrect && studentNumCorrect && isAgree) {
                         // 회원가입 성공 토스트 메세지 띄우기
                         Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
-                        Log.d("bitmapSignup","$email, $name, $password, $walletAdress, $selectedImageByteArray")
+                        Log.d("bitmapSignup","$email, $name, $password, $walletAdress, $fileName")
                         GlobalScope.launch(Dispatchers.IO) {
-                            val result = performSignup(studentNum as Int, email, name, password, walletAdress, selectedImageByteArray)
+                            val result = performSignup(studentNum as Int, email, name, password, walletAdress, fileName)
                             // UI 업데이트 작업 등을 여기에 추가할 수 있습니다.
                             if (result != null) {
                                 runOnUiThread {
@@ -165,7 +184,7 @@ class SignupStepActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun performSignup(studentNum: Int, email: String, name: String, password: String, walletAdress: String, photobytearray: ByteArray?): String? {
+    private suspend fun performSignup(studentNum: Int, email: String, name: String, password: String, walletAdress: String, filename: String?): String? {
         try {
             val url = URL("http://jsp.mjdonor.kro.kr:8888/webapp/Android/performSignup.jsp")
             val conn = url.openConnection() as HttpURLConnection
@@ -175,8 +194,8 @@ class SignupStepActivity : AppCompatActivity() {
             val osw: OutputStream = conn.outputStream
             val writer = BufferedWriter(OutputStreamWriter(osw, "UTF-8"))
 
-            val sendMsg = "u_id=$studentNum&email=$email&name=$name&password=$password&wallet=$walletAdress&photo=${photobytearray}"
-            Log.d("bitmapPerform", "u_id=$studentNum&email=$email&name=$name&password=$password&wallet=$walletAdress&photo=${photobytearray}")
+            val sendMsg = "u_id=$studentNum&email=$email&name=$name&password=$password&wallet=$walletAdress&photo=${filename}"
+            Log.d("bitmapPerform", "u_id=$studentNum&email=$email&name=$name&password=$password&wallet=$walletAdress&photo=${filename}")
             writer.write(sendMsg)
             writer.flush()
 
@@ -272,27 +291,11 @@ class SignupStepActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             val selectedImage = data?.data
-            val studentNum = binding.studentNum.text.toString() // 입력받은 학번
-            val fileName = "profile_$studentNum.jpg" // 새로운 파일명
 
-            val file = File(absolutelyPath(selectedImage, this))
-            val mediaType = "image/*".toMediaTypeOrNull()
-            val requestFile = RequestBody.create(mediaType, file)
-            val body = MultipartBody.Part.createFormData("profile", fileName, requestFile)
-
-            Log.d("please", fileName)
-
-            sendImage(body)
             try {
                 val inputStream = contentResolver.openInputStream(selectedImage!!)
                 selectedBitmap = BitmapFactory.decodeStream(inputStream)
-
                 inputStream?.close()
-
-                val byteArrayOutputStream = ByteArrayOutputStream()
-                selectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-                selectedImageByteArray = byteArrayOutputStream.toByteArray() // Store the byte array
-                Log.d("bitmapThumb", "$selectedImageByteArray")
                 binding.imageView1.setImageBitmap(selectedBitmap)
 
             } catch (e: Exception) {
@@ -302,18 +305,6 @@ class SignupStepActivity : AppCompatActivity() {
     }
 
     private val retrofit = RetrofitInstance.getInstance().create(MyApi::class.java)
-
-    // 절대경로 변환
-    fun absolutelyPath(path: Uri?, context : Context): String {
-        var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
-        var c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
-        var index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-        c?.moveToFirst()
-
-        var result = c?.getString(index!!)
-
-        return result!!
-    }
 
     fun sendImage(body: MultipartBody.Part){
         retrofit.sendImage(body).enqueue(object: Callback<String> {
@@ -326,7 +317,7 @@ class SignupStepActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.d("testt", t.message.toString())
+                Log.d("test", t.message.toString())
             }
 
         })
