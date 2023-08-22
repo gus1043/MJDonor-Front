@@ -1,70 +1,153 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityDonatepayBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import org.json.JSONObject
-import java.io.IOException
+import java.io.*
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DonatePayActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDonatepayBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDonatepayBinding.inflate(layoutInflater)
+        sharedPreferences = getSharedPreferences("Account", Context.MODE_PRIVATE)
         setContentView(binding.root)
 
         // 이전 액티비티(DonInputActivity)에서 넘어온 데이터 추출
-        val amount = intent.getIntExtra("donationAmount", 0) // 인텐트에서 금액 데이터 추출
-        val accountNumber = intent.getStringExtra("accountnumber")
-        val bank = intent.getStringExtra("bank")
-        val mes = intent.getStringExtra("mes")
+        val amount = intent.getIntExtra("donationAmount", 0)
         val nickname = intent.getStringExtra("donorNickname")
+        val id = sharedPreferences.getString("id", "")
 
         binding.payButton.setOnClickListener {
-            val point = 10000
-            val email = "example@email.com"
-            val nick = "JohnDoe"
-            val project = "ProjectXYZ"
-            val due = "2023-08-31"
-            val rbank = "국민"
-            val r_a = "1234567890"
 
-            val jsonObject = JSONObject()
-            jsonObject.put("point", point)
-            jsonObject.put("email", email)
-            jsonObject.put("nick", nick)
-            jsonObject.put("project", project)
-            jsonObject.put("due", due)
-            jsonObject.put("rbank", rbank)
-            jsonObject.put("r_a", r_a)
+            val rbank = binding.bank.selectedItem.toString()
+            val r_a = binding.accountnumber.text.toString()
+            val msg = binding.mes.text.toString()
 
-            val jsonString = jsonObject.toString()
+            val u_id = id?.toInt()
+            val point = amount
+            val nick = nickname
 
-            val apiUrl = "http://192.168.0.101:8081/MJDonor/Android/virtual_account.jsp"
+            val p_id = 4
 
-            val client = OkHttpClient()
-            val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), jsonString)
-            val request = Request.Builder()
-                .url(apiUrl)
-                .post(requestBody)
-                .build()
+            val dueDateStr = "2023-04-05"
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+            val dueDate: Date = dateFormat.parse(dueDateStr)
 
-            client.newCall(request).enqueue(object : Callback {
-                override fun onResponse(call: Call, response: Response) {
-                    val responseBody = response.body?.string()
-                    // Handle the response here
+            Log.d("DonatePayActivity", "u_id: $u_id")
+            Log.d("DonatePayActivity", "point: $point")
+            Log.d("DonatePayActivity", "nick: $nick")
+            Log.d("DonatePayActivity", "msg: $msg")
+            Log.d("DonatePayActivity", "p_id: $p_id")
+            Log.d("DonatePayActivity", "dueDate: ${formatDate(dueDate)}")
+            Log.d("DonatePayActivity", "rbank: $rbank")
+            Log.d("DonatePayActivity", "r_a: $r_a")
+
+            GlobalScope.launch(Dispatchers.IO) {
+
+                val result =
+                    nick?.let { it1 ->
+                        if (u_id != null) {
+                            performVirtualAccount(
+                                u_id, point, it1, msg,
+                                p_id, dueDate, rbank,
+                                r_a
+                            )
+                        } else{
+                            performVirtualAccount(
+                                0, point, it1, msg,
+                                p_id, dueDate, rbank,
+                                r_a
+                            )
+                        }
+                    }
+
+                // UI 업데이트 작업 등을 여기에 추가할 수 있습니다.
+                if (result != null) {
+                    runOnUiThread {
+                        val intent: Intent =
+                            Intent(this@DonatePayActivity, DonatedCardActivity::class.java)
+                        finish()
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
+
+                    }
                 }
-
-                override fun onFailure(call: Call, e: IOException) {
-                    e.printStackTrace()
-                    // Handle failure here
-                }
-            })
+            }
         }
     }
-}
+
+        private suspend fun performVirtualAccount(u_id: Int, point: Int, nick: String, msg: String, p_id: Int, dueDate: Date, rbank: String, r_a: String
+        ): String? {
+            try {
+
+                fun formatDate(date: String): String {
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                    return dateFormat.format(date)
+                }
+
+                val url = URL("http://192.168.0.102:8081/MJDonor/Android/virtual_account.jsp")
+                val conn = url.openConnection() as HttpURLConnection
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+                conn.requestMethod = "POST"
+
+                val osw: OutputStream = conn.outputStream
+                val writer = BufferedWriter(OutputStreamWriter(osw, "UTF-8"))
+
+                val sendMsg = "u_id=$u_id&point=$point&nick=$nick&msg=$msg&p_id=$p_id&dueDate=${formatDate(dueDate)}&rbank=$rbank&r_a=$r_a"
+
+                writer.write(sendMsg)
+                writer.flush()
+
+                Log.d("TestDonatePayActivity", sendMsg)
+
+                if (conn.responseCode == HttpURLConnection.HTTP_OK) {
+                    val tmp = InputStreamReader(conn.inputStream, "UTF-8")
+                    val reader = BufferedReader(tmp)
+                    val buffer = StringBuffer()
+                    var str: String? = null
+                    while (reader.readLine().also { str = it } != null) {
+                        str?.let {
+                            buffer.append(it)
+                        }
+                    }
+                    val receiveMsg = buffer.toString()
+
+                    Log.d("TestDonatePayActivity", receiveMsg)
+                    return receiveMsg
+                } else {
+                    Log.d("TestDonatePayActivity", "HTTP connection failed with response code: ${conn.responseCode}")
+
+                }
+
+            } catch (e: MalformedURLException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Log.e("TestDonatePayActivity", "IOException: ${e.message}")
+                Log.e("TestDonatePayActivity", "IOException: $e")
+            }
+            return null
+        }
+    }
+
+    private fun formatDate(date: Date): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        return dateFormat.format(date)
+    }
