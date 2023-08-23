@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="로그인을 진행할게요.😊"
+                android:text="로그인을 진행할게요. 😊"
                 android:gravity="center"
                 />
         </LinearLayout>
@@ -97,7 +97,7 @@
                             android:id="@+id/email"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
-                            android:hint="Email address"
+                            android:hint="  학번"
                             android:inputType="textEmailAddress"/>
                     </LinearLayout>
 
@@ -113,7 +113,7 @@
                             android:src="@drawable/baseline_lock_24"/>
                         <EditText
                             android:id="@+id/password"
-                            android:hint="Password"
+                            android:hint="  비밀번호"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"/>
@@ -127,6 +127,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
             android:text="@string/toSignup"/>
 
