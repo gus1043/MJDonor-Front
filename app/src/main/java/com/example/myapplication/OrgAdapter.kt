@@ -8,6 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.R
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class OrgAdapter(private val context: Context, private val itemList: List<orgData>) : RecyclerView.Adapter<OrgAdapter.ViewHolder>() {
 
@@ -24,9 +29,23 @@ class OrgAdapter(private val context: Context, private val itemList: List<orgDat
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = itemList[position]
 
-        Glide.with(context)
-            .load(currentItem.imageResId)
-            .into(holder.orgimage)
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                withContext(Dispatchers.Main) {
+                    val currentItem = itemList[position]
+                    val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${currentItem.imageResId}"
+
+                    Picasso.get()
+                        .load("${imageURL}")
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.logo)
+                        .into(holder.orgimage)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+            }
+        }
 
         holder.orgText.text = currentItem.donLoc
     }

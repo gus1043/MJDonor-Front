@@ -7,7 +7,9 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="@drawable/rounded_box"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
 
     <ImageView
         android:id="@+id/selectedimage1"

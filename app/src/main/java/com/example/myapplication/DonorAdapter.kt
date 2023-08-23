@@ -60,7 +60,8 @@ class DonorAdapter(private val context: Context, private val itemList: List<Dono
                 // Handle exceptions here
                 e.printStackTrace()
             } finally {
-            }}
+            }
+        }
     }
 
     private fun Int.dpToPx(context: Context): Int {
