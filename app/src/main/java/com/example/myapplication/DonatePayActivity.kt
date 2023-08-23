@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -27,6 +28,7 @@ class DonatePayActivity : AppCompatActivity() {
     private lateinit var nickname: String
     private var money : Int=0
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDonatepayBinding.inflate(layoutInflater)
@@ -63,20 +65,25 @@ class DonatePayActivity : AppCompatActivity() {
             val nick = nickname
             val p_id = p_id
 
-            val dueDateStr = "2023-04-05"
+            val realDate = Date() // Current Date
             val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-            val dueDate: Date = dateFormat.parse(dueDateStr)
+            val dueDate = dateFormat.format(realDate)
 
             Log.d("DonatePayActivity", "u_id: $u_id")
             Log.d("DonatePayActivity", "point: $point")
             Log.d("DonatePayActivity", "nick: $nick")
             Log.d("DonatePayActivity", "msg: $msg")
             Log.d("DonatePayActivity", "p_id: $p_id")
-            Log.d("DonatePayActivity", "dueDate: ${formatDate(dueDate)}")
+            Log.d("DonatePayActivity", "dueDate: $dueDate")
             Log.d("DonatePayActivity", "rbank: $rbank")
             Log.d("DonatePayActivity", "r_a: $r_a")
 
             GlobalScope.launch(Dispatchers.IO) {
+
+                val calendar = Calendar.getInstance()
+                calendar.time = Date()
+                calendar.add(Calendar.DAY_OF_YEAR, 1)
+                val dueDate = calendar.time
 
                 val result =
                     nick?.let { it1 ->
@@ -114,12 +121,7 @@ class DonatePayActivity : AppCompatActivity() {
         ): String? {
             try {
 
-                fun formatDate(date: String): String {
-                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-                    return dateFormat.format(date)
-                }
-
-                val url = URL("http://192.168.0.102:8081/MJDonor/Android/virtual_account.jsp")
+                val url = URL("http://jsp.mjdonor.kro.kr:8888/webapp/Android/virtual_account.jsp")
                 val conn = url.openConnection() as HttpURLConnection
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
                 conn.requestMethod = "POST"
