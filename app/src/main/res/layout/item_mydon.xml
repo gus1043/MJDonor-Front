@@ -57,6 +57,46 @@
                     android:layout_marginTop="5dp"
                     android:layout_alignParentEnd="true">
 
+                    <Button
+                        android:id="@+id/donBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="확인하기"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:background="@drawable/rounded_btn"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/donLoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="유니세프 한국위원회"
+                android:textSize="15dp"
+                tools:ignore="TextSizeCheck"
+                android:layout_marginBottom="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignParentEnd="true">
+
                     <TextView
                         android:id="@+id/deposit"
                         android:layout_width="wrap_content"
@@ -65,21 +105,11 @@
                         android:textSize="15dp"
                         tools:ignore="TextSizeCheck"
                         android:layout_gravity="end"/>
+
                 </LinearLayout>
 
             </RelativeLayout>
-
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/donLoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:text="유니세프 한국위원회"
-            android:textSize="15dp"
-            tools:ignore="TextSizeCheck"
-            android:layout_marginBottom="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

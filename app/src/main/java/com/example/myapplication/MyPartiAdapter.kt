@@ -3,6 +3,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -24,10 +25,12 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
         val enddate: TextView = itemView.findViewById(R.id.enddate)
         val money: TextView = itemView.findViewById(R.id.money)
         val deposit: TextView = itemView.findViewById(R.id.deposit)
+        val donBtn: Button = itemView.findViewById(R.id.donBtn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_mydon, parent, false)
+
         return ViewHolder(itemView)
     }
 
@@ -63,6 +66,30 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
         }
 
         holder.deposit.setTextColor(ContextCompat.getColor(context, textColorResId))
+
+        holder.donBtn.setOnClickListener {
+            val redirect = "kotlin-wallet-wc://request" // should be unique for your wallet
+
+            val appMetaData = Core.Model.AppMetaData(
+                name = "Wallet Name",
+                description = "Wallet Description",
+                url = "Wallet Url",
+                icons = listOfIconUrlStrings,
+                redirect = redirect
+            )
+
+            CoreClient.initialize(
+                relayServerUrl = serverUrl,
+                connectionType = connectionType,
+                application = application,
+                metaData = appMetaData
+            )
+
+            val init = Wallet.Params.Init(coreClient = CoreClient)
+            Web3Wallet.initialize(init)
+
+
+        }
 
     }
 
