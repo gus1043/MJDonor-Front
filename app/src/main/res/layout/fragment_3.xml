@@ -38,7 +38,7 @@
                     app:civ_border_width="2dp"
                     app:civ_fill_color="#23f22f"
                     app:civ_border_color="#022A75"
-                    android:src="@drawable/profile3"
+                    android:src="@drawable/logo"
                     android:layout_width="80dp"
                     android:layout_height="80dp" />
 
