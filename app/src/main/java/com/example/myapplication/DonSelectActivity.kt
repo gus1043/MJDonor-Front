@@ -105,7 +105,7 @@ class DonSelectActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Main) {
-                    val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${image2}"
+                    val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${image1}"
                     // 이미지 다운로드 및 설정
                     Picasso.get()
                         .load("${imageURL}")
@@ -168,7 +168,7 @@ class DonSelectActivity : AppCompatActivity() {
 
     private fun openDonationTree() {
         val fragment = DonationTree()
-        fragment.setImage(image2)// 이미지 설정
+        fragment.setImage(image1)// 이미지 설정
 
         // DonationTree 프래그먼트를 표시
         val fragmentManager = supportFragmentManager

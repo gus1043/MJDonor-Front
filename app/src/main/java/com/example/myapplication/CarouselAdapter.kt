@@ -43,7 +43,7 @@ class CarouselAdapter(private val context: Context, private val itemList: List<C
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Main) {
-                    val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${currentItem.image1}"
+                    val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${currentItem.image2}"
                     // 이미지 다운로드 및 설정
                     Picasso.get()
                         .load("${imageURL}")
