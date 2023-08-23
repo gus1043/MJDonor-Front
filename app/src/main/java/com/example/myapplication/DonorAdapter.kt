@@ -8,6 +8,11 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DonorAdapter(private val context: Context, private val itemList: List<DonorItem>) : RecyclerView.Adapter<DonorAdapter.ViewHolder>() {
 
@@ -39,14 +44,23 @@ class DonorAdapter(private val context: Context, private val itemList: List<Dono
             holder.itemView.layoutParams = layoutParams
         }
 
-        holder.profile.setOnClickListener {
-            val currentItem = itemList[position]
-            val uri = currentItem.image
-            if (uri.isNotEmpty()) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-                context.startActivity(intent)
-            }
-        }
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                withContext(Dispatchers.Main) {
+                    val currentItem = itemList[position]
+                    val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${currentItem.image}"
+                    // 이미지 다운로드 및 설정
+                    Picasso.get()
+                        .load("${imageURL}")
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
+                        .into(holder.profile)
+                }
+            } catch (e: Exception) {
+                // Handle exceptions here
+                e.printStackTrace()
+            } finally {
+            }}
     }
 
     private fun Int.dpToPx(context: Context): Int {

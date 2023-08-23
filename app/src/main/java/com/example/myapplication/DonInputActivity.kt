@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.ActivityDonateinputBinding
+import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 
 class DonInputActivity : AppCompatActivity() {
@@ -34,10 +35,14 @@ class DonInputActivity : AppCompatActivity() {
 
         binding.donationNameDonate.text = title
         binding.companyDonate.text = donLoc
-        Glide.with(this)
-            .load(image1)
-            .into(binding.selectedimage1)
 
+        val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${image1}"
+        // 이미지 다운로드 및 설정
+        Picasso.get()
+            .load("${imageURL}")
+            .placeholder(R.drawable.logo)
+            .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
+            .into(binding.selectedimage1)
         // EditText 초기값 설정
         binding.money.setText("0")
 
@@ -107,6 +112,7 @@ class DonInputActivity : AppCompatActivity() {
                 val intent: Intent = Intent(this, DonatePayActivity::class.java)
                 intent.putExtra("donationAmount", money) // 다음 액티비티로 기부 금액 전달
                 intent.putExtra("donorNickname", nickname) // 다음 액티비티로 기부자 닉네임 전달
+                finish()
                 startActivity(intent)
                 overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
             }

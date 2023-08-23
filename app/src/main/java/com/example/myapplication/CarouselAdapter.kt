@@ -1,6 +1,7 @@
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.R
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.HttpURLConnection
+import java.net.URL
 
 class CarouselAdapter(private val context: Context, private val itemList: List<CarouselItem>) : RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
 
@@ -28,10 +36,23 @@ class CarouselAdapter(private val context: Context, private val itemList: List<C
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = itemList[position % itemList.size] // Use modulo to create circular wrapping
 
-        // Set data to the views here
-        Glide.with(context)
-            .load(currentItem.image1)
-            .into(holder.imageButton)
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                withContext(Dispatchers.Main) {
+                    val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${currentItem.image1}"
+                    // 이미지 다운로드 및 설정
+                    Picasso.get()
+                        .load("${imageURL}")
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
+                        .into(holder.imageButton)
+                }
+            } catch (e: Exception) {
+                // Handle exceptions here
+                e.printStackTrace()
+            } finally {
+            }
+        }
 
         holder.titleTextView.text = currentItem.title
         holder.descriptionTextView.text = currentItem.donLoc

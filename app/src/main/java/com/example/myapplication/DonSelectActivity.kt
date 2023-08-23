@@ -100,6 +100,22 @@ class DonSelectActivity : AppCompatActivity() {
         Glide.with(this)
             .load(image2)
             .into(binding.selecteddonation)
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                withContext(Dispatchers.Main) {
+                    val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${image2}"
+                    // 이미지 다운로드 및 설정
+                    Picasso.get()
+                        .load("${imageURL}")
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
+                        .into(binding.selecteddonation)
+                }
+            } catch (e: Exception) {
+                // Handle exceptions here
+                e.printStackTrace()
+            } finally {
+            }
         binding.donationContent.text = description
         binding.goal.text = "$formattedGoal 원"
         binding.enddate.text = "$formattedEndDate 까지"
@@ -145,11 +161,12 @@ class DonSelectActivity : AppCompatActivity() {
                 DonorlistUrlConnection.disconnect()
             }
         }
+        }
     }
 
     private fun openDonationTree() {
         val fragment = DonationTree()
-        fragment.setImage(image1) // 이미지 설정
+        fragment.setImage(image2)// 이미지 설정
 
         // DonationTree 프래그먼트를 표시
         val fragmentManager = supportFragmentManager

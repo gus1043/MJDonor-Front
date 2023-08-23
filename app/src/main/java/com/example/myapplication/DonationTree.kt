@@ -10,6 +10,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.DonationTreeBinding
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DonationTree : DialogFragment() {
     private lateinit var binding: DonationTreeBinding
@@ -26,8 +31,13 @@ class DonationTree : DialogFragment() {
         val view = binding.root
 
         // 이미지를 설정하는 부분 추가
-        Glide.with(this)
-            .load(image)
+
+        val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${image}"
+        // 이미지 다운로드 및 설정
+        Picasso.get()
+            .load("${imageURL}")
+            .placeholder(R.drawable.logo)
+            .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
             .into(binding.imageView2)
 
         builder.setView(view)

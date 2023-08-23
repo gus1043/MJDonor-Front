@@ -5,8 +5,8 @@ data class ItemData(
     val title: String,
     val description: String,
     val donLoc: String,
-    val enddate: Int,
-    val goal : Int,
-    val current:Int,
+    val enddate: String,
+    val goal : String,
+    val current:String,
     val type : String
 )

@@ -45,7 +45,7 @@ class Fragment1 : Fragment() {
                 val listInputStream = listUrlConnection.inputStream
                 val listContent = listInputStream.bufferedReader().use { it.readText().trim() }
                 Log.d("please Content", "content $listContent")
-                val lines = listContent.split("\n","<br><br>")
+                val lines = listContent.split("\n","<br>")
                 Log.d("please line", "${lines.count()}")
                 Log.d("please line", "${lines[0]}")
                 Log.d("please line", "${lines[1]}")
