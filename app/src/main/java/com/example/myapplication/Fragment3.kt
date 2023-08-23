@@ -25,6 +25,7 @@ import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.atomic.AtomicInteger
 
 class Fragment3 : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -144,6 +145,76 @@ class Fragment3 : Fragment() {
                 e.printStackTrace()
             } finally {
                 totalDonationUrlConnection.disconnect()
+            }
+        }
+
+
+        val MylistUrl = "http://jsp.mjdonor.kro.kr:8888/webapp/Android/contributedDonationList.jsp?u_id=${id}"
+        Log.d("please D_url", MylistUrl)
+        val listUrlConnection = URL(MylistUrl).openConnection() as HttpURLConnection
+        val Projects = mutableListOf<ItemParticipationData>()
+
+        val recyclerView = binding.recyclerView
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val listInputStream = listUrlConnection.inputStream
+                val listContent = listInputStream.bufferedReader().use { it.readText().trim() }
+                Log.d("please Content", "content $listContent")
+                val lines = listContent.split("\n","<br><br>")
+                Log.d("please line", "${lines.count()}")
+                Log.d("please line", "${lines[0]}")
+                Log.d("please line", "${lines[1]}")
+                Log.d("please line", "${lines[2]}")
+                Log.d("please line", "${lines[3]}")
+                var count= AtomicInteger(0)
+                for (line in lines) {
+                    if (line.isNotEmpty()) {
+                        Log.d("please for", line)
+                        val ProjectName =
+                            line.substringAfter("Project Name:").substringBefore(",").trim()
+                        val OrganizationName =
+                            line.substringAfter("organization_name:").trim().substringBefore(",")
+                                .trim()
+                        val Image1 = line.substringAfter("Image1:").substringBefore(",").trim()
+                        val Deposit =
+                            line.substringAfter("Deposit:").substringBefore(",").trim()
+                        val Virtual_Account =
+                            line.substringAfter(" Virtual Account:").substringBefore(",").trim()
+                        val end_date = line.substringAfter("end_date:").substringBefore(",").trim()
+                        val Point =
+                            line.substringAfter("Point:").substringBefore(",").trim()
+                        val Donation_Limit =
+                            line.substringAfter("Donation Limit::").substringBefore(",").trim()
+
+                        Log.d("please title", ProjectName)
+                        Log.d("please OrganizationName",OrganizationName)
+                        Log.d("please Deposit", Deposit)
+                        Log.d("please image1", Image1)
+                        Log.d("please Virtual_Account", Virtual_Account)
+                        Log.d("please end_date", end_date)
+                        Log.d("please point", Point)
+                        Log.d("please Donation_Limit", Donation_Limit)
+
+                        Log.d("please cnt", count.getAndIncrement().toString())
+                        Projects.add(
+                            ItemParticipationData(
+                                Image1,ProjectName,OrganizationName,Virtual_Account,Point, Deposit.toInt(), Donation_Limit
+                            )
+                        )
+                    }
+                }
+                Log.d("please PROJECT", Projects.toString())
+                withContext(Dispatchers.Main) {
+                    adapter = MyPartiAdapter(requireContext(), childFragmentManager ,Projects)
+                    recyclerView.adapter = adapter
+                    recyclerView.setCarouselLayoutManager()
+                }
+            } catch (e: Exception) {
+                // Handle exceptions here
+                e.printStackTrace()
+            } finally {
+                listUrlConnection.disconnect()
             }
         }
     }

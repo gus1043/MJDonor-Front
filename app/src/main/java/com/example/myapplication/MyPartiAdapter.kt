@@ -48,7 +48,7 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
             openDonationTree(currentItem.imageResId) // 이미지 URL 설정
         }
 
-        val depositMessage = if (currentItem.Deposite == true) {
+        val depositMessage = if (currentItem.Deposite == 0) {
             context.getString(R.string.depostie_done)
         } else {
             context.getString(R.string.depostie_not)
@@ -56,7 +56,7 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
 
         holder.deposit.text = depositMessage
 
-        val textColorResId = if (currentItem.Deposite == true) {
+        val textColorResId = if (currentItem.Deposite == 0) {
             R.color.green
         } else {
             R.color.red
