@@ -99,9 +99,7 @@ class DonSelectActivity : AppCompatActivity() {
         // 받은 값을 뷰에 설정
         binding.selectedtitle.text = title
         binding.company.text = donLoc
-        Glide.with(this)
-            .load(image2)
-            .into(binding.selecteddonation)
+
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Main) {

@@ -261,7 +261,7 @@ class RegisterActivity : AppCompatActivity() {
             val osw: OutputStream = conn.outputStream
             val writer = BufferedWriter(OutputStreamWriter(osw, "UTF-8"))
 
-            val sendMsg = "name=$title&description=$registerDescription&target_point=$goal&start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}&category=$type&ORGANIZATION_ID=$o_id&REGISTRANT_ID=$u_id&IMAGE1=$fileName1&IMAGE2=$fileName2"
+            val sendMsg = "name=$title&description=$registerDescription&target_point=$goal&start_date=${formatDate(startDate)}&end_date=${formatDate(endDate)}&category=$type&ORGANIZATION_ID=$o_id&REGISTRANT_ID=$u_id&image1=$fileName1&image2=$fileName2"
 
             writer.write(sendMsg)
             writer.flush()
