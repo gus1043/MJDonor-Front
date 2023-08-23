@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.DonationTree
 import com.example.myapplication.R
+import com.squareup.picasso.Picasso
 import org.w3c.dom.Text
 
 class MyPartiAdapter(private val context: Context, private val fragmentManager: FragmentManager, private val itemList: List<ItemParticipationData>) : RecyclerView.Adapter<MyPartiAdapter.ViewHolder>() {
@@ -37,8 +38,12 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = itemList[position]
 
-        Glide.with(context)
-            .load(currentItem.imageResId)
+        val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${currentItem.imageResId}"
+        // 이미지 다운로드 및 설정
+        Picasso.get()
+            .load("${imageURL}")
+            .placeholder(R.drawable.logo)
+            .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
             .into(holder.participatedimage)
 
         holder.titleText.text = currentItem.title
@@ -51,7 +56,7 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
             openDonationTree(currentItem.imageResId) // 이미지 URL 설정
         }
 
-        val depositMessage = if (currentItem.Deposite == 0) {
+        val depositMessage = if (currentItem.Deposite == 1) {
             context.getString(R.string.depostie_done)
         } else {
             context.getString(R.string.depostie_not)
@@ -59,7 +64,7 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
 
         holder.deposit.text = depositMessage
 
-        val textColorResId = if (currentItem.Deposite == 0) {
+        val textColorResId = if (currentItem.Deposite == 1) {
             R.color.green
         } else {
             R.color.red

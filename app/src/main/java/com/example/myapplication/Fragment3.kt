@@ -150,53 +150,50 @@ class Fragment3 : Fragment() {
 
 
         val MylistUrl = "http://jsp.mjdonor.kro.kr:8888/webapp/Android/contributedDonationList.jsp?u_id=${id}"
-        Log.d("please D_url", MylistUrl)
+        Log.d("frag3 url", MylistUrl)
         val listUrlConnection = URL(MylistUrl).openConnection() as HttpURLConnection
         val Projects = mutableListOf<ItemParticipationData>()
 
         val recyclerView = binding.recyclerView
-
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val listInputStream = listUrlConnection.inputStream
                 val listContent = listInputStream.bufferedReader().use { it.readText().trim() }
-                Log.d("please Content", "content $listContent")
-                val lines = listContent.split("\n","<br><br>")
-                Log.d("please line", "${lines.count()}")
-                Log.d("please line", "${lines[0]}")
-                Log.d("please line", "${lines[1]}")
-                Log.d("please line", "${lines[2]}")
-                Log.d("please line", "${lines[3]}")
+                Log.d("frag3 Content", "content $listContent")
+                val lines = listContent.split("\n","<br>")
+                Log.d("frag3 size", "${lines.count()}")
                 var count= AtomicInteger(0)
                 for (line in lines) {
                     if (line.isNotEmpty()) {
-                        Log.d("please for", line)
+                        Log.d("frag3", line)
                         val ProjectName =
                             line.substringAfter("Project Name:").substringBefore(",").trim()
                         val OrganizationName =
-                            line.substringAfter("organization_name:").trim().substringBefore(",")
+                            line.substringAfter("Organization Name:").trim().substringBefore(",")
                                 .trim()
                         val Image1 = line.substringAfter("Image1:").substringBefore(",").trim()
                         val Deposit =
                             line.substringAfter("Deposit:").substringBefore(",").trim()
                         val Virtual_Account =
                             line.substringAfter(" Virtual Account:").substringBefore(",").trim()
-                        val end_date = line.substringAfter("end_date:").substringBefore(",").trim()
+                        val end_date = line.substringAfter("End Date:").substringBefore(",").trim()
                         val Point =
                             line.substringAfter("Point:").substringBefore(",").trim()
                         val Donation_Limit =
-                            line.substringAfter("Donation Limit::").substringBefore(",").trim()
+                            line.substringAfter("Donation Limit:").substringBefore(",").trim()
 
-                        Log.d("please title", ProjectName)
-                        Log.d("please OrganizationName",OrganizationName)
-                        Log.d("please Deposit", Deposit)
-                        Log.d("please image1", Image1)
-                        Log.d("please Virtual_Account", Virtual_Account)
-                        Log.d("please end_date", end_date)
-                        Log.d("please point", Point)
-                        Log.d("please Donation_Limit", Donation_Limit)
+                        Log.d("frag3 title", ProjectName)
+                        Log.d("frag3 OrganizationName",OrganizationName)
+                        Log.d("frag3 Deposit", Deposit)
+                        Log.d("frag3 image1", Image1)
+                        Log.d("frag3 deposite", Deposit)
+                        Log.d("frag3 Virtual_Account", Virtual_Account)
+                        Log.d("frag3 end_date", end_date)
+                        Log.d("frag3 point", Point)
+                        Log.d("frag3 Donation_Limit", Donation_Limit)
 
-                        Log.d("please cnt", count.getAndIncrement().toString())
+                        Log.d("frag3 cnt", count.getAndIncrement().toString())
                         Projects.add(
                             ItemParticipationData(
                                 Image1,ProjectName,OrganizationName,Virtual_Account,Point, Deposit.toInt(), Donation_Limit
@@ -208,7 +205,6 @@ class Fragment3 : Fragment() {
                 withContext(Dispatchers.Main) {
                     adapter = MyPartiAdapter(requireContext(), childFragmentManager ,Projects)
                     recyclerView.adapter = adapter
-                    recyclerView.setCarouselLayoutManager()
                 }
             } catch (e: Exception) {
                 // Handle exceptions here
