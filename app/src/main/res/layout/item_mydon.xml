@@ -102,7 +102,7 @@
                         android:id="@+id/donBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:text="확인하기"
+                        android:text="기부 확정"
                         android:textColor="@color/white"
                         android:textSize="15dp"
                         android:background="@drawable/rounded_btn"/>

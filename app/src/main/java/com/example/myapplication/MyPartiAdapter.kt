@@ -1,5 +1,6 @@
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,6 +73,19 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
 
         holder.deposit.setTextColor(ContextCompat.getColor(context, textColorResId))
 
+        holder.donBtn.setOnClickListener{
+            var intent = context.packageManager.getLaunchIntentForPackage("io.metamask") // Replace with your actual package name
+            if(intent == null) {
+                val link = "https://play.google.com/store/apps/details?id=io.metamask" // Replace with your actual package name
+                intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(link)
+                }
+                context.startActivity(intent)
+                return@setOnClickListener
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
