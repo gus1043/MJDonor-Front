@@ -72,30 +72,6 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
 
         holder.deposit.setTextColor(ContextCompat.getColor(context, textColorResId))
 
-        holder.donBtn.setOnClickListener {
-            val redirect = "kotlin-wallet-wc://request" // should be unique for your wallet
-
-            val appMetaData = Core.Model.AppMetaData(
-                name = "Wallet Name",
-                description = "Wallet Description",
-                url = "Wallet Url",
-                icons = listOfIconUrlStrings,
-                redirect = redirect
-            )
-
-            CoreClient.initialize(
-                relayServerUrl = serverUrl,
-                connectionType = connectionType,
-                application = application,
-                metaData = appMetaData
-            )
-
-            val init = Wallet.Params.Init(coreClient = CoreClient)
-            Web3Wallet.initialize(init)
-
-
-        }
-
     }
 
     override fun getItemCount(): Int {

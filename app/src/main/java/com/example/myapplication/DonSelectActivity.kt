@@ -127,7 +127,7 @@ class DonSelectActivity : AppCompatActivity() {
         val ProjectDonors = mutableListOf<DonorItem>()
 
         val recyclerViewmain = binding.recyclerViewmain
-        recyclerViewmain.layoutManager = LinearLayoutManager(this@DonSelectActivity)
+        recyclerViewmain.layoutManager = LinearLayoutManager(this@DonSelectActivity, LinearLayoutManager.HORIZONTAL, false)
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
@@ -135,12 +135,14 @@ class DonSelectActivity : AppCompatActivity() {
                 val DonorlistInputStream = DonorlistUrlConnection.inputStream
                 val DonorlistContent = DonorlistInputStream.bufferedReader().use { it.readText().trim() }
                 Log.d("please DonorlistContent", "Lines: $DonorlistContent")
-                val lines = DonorlistContent.split("\n","<br><br>")
-                Log.d("please", "Lines: $lines")
+                val lines = DonorlistContent.split("\n","<br>")
+                Log.d("donselect", "Lines: $lines")
 
                 for (line in lines) {
                     if (line.isNotEmpty()) {
-                        val Photo = line.substringAfter("Photo:").trim()
+                        Log.d("donselect", "Line: $line")
+                        val U_id = line.substringAfter("User ID: ").trim()
+                        val Photo = line.substringAfter("Photo: ").trim()
                         val Projectdonor = DonorItem(
                             Photo, p_id
                         )

@@ -114,7 +114,9 @@ class DonInputActivity : AppCompatActivity() {
             } else {
                 val intent: Intent = Intent(this, DonatePayActivity::class.java)
                 intent.putExtra("p_id", p_id)
+                intent.putExtra("title", title)
                 intent.putExtra("image", image1)
+                intent.putExtra("donLoc", donLoc)
                 intent.putExtra("money", money) // 다음 액티비티로 기부 금액 전달
                 intent.putExtra("nickname", nickname) // 다음 액티비티로 기부자 닉네임 전달
                 finish()
