@@ -25,7 +25,7 @@ class DonatePayActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private var p_id : Int=0
     private lateinit var nickname: String
-    private lateinit var money: String
+    private var money : Int=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class DonatePayActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 이전 액티비티(DonInputActivity)에서 넘어온 데이터 추출
-        money = intent.getStringExtra("money") ?: "0"
+        money = intent.getIntExtra("money",1)
         nickname = intent.getStringExtra("nickname") ?: "Default nickname"
         p_id = intent.getIntExtra("p_id",1)
         Log.d("Donatepay p_id", p_id.toString())
@@ -50,7 +50,7 @@ class DonatePayActivity : AppCompatActivity() {
             .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
             .into(binding.selectedimage1)
 
-        binding.paymentAmount.setText(money)
+        binding.paymentAmount.setText(money.toString() + "원")
 
         binding.payButton.setOnClickListener {
 
@@ -59,7 +59,7 @@ class DonatePayActivity : AppCompatActivity() {
             val msg = binding.mes.text.toString()
 
             val u_id = id?.toInt()
-            val point = money.toInt()
+            val point = money
             val nick = nickname
             val p_id = p_id
 
