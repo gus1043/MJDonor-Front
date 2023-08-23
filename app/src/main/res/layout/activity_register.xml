@@ -41,6 +41,26 @@
             android:clickable="true"
             tools:ignore="ExtraText" />
 
+        <TextView
+            android:id="@+id/rightBtnText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="가로가 긴 이미지를 입력해주세요!"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"/>
+
+        <TextView
+            android:id="@+id/leftBtnText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="세로가 긴 이미지를 입력해주세요!"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"/>
+
         <ImageButton
             android:id="@+id/rightBtn"
             android:layout_width="wrap_content"

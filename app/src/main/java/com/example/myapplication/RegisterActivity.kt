@@ -75,7 +75,9 @@ class RegisterActivity : AppCompatActivity() {
 
         //초기 상태
         binding.rightBtn.setVisibility(View.VISIBLE);
+        binding.rightBtnText.setVisibility(View.VISIBLE);
         binding.leftBtn.setVisibility(View.GONE);
+        binding.leftBtnText.setVisibility(View.GONE);
         binding.selectedimage1.setVisibility(View.VISIBLE);
         binding.selectedimage2.setVisibility(View.GONE);
 
@@ -97,6 +99,8 @@ class RegisterActivity : AppCompatActivity() {
             binding.selectedimage2.visibility = View.VISIBLE
             binding.rightBtn.visibility = View.GONE
             binding.leftBtn.visibility = View.VISIBLE
+            binding.rightBtnText.visibility = View.GONE
+            binding.leftBtnText.visibility = View.VISIBLE
             secondSelectedBitmap?.let { binding.selectedimage2.setImageBitmap(it) }
         }
 
@@ -106,6 +110,8 @@ class RegisterActivity : AppCompatActivity() {
             binding.selectedimage2.visibility = View.GONE
             binding.rightBtn.visibility = View.VISIBLE
             binding.leftBtn.visibility = View.GONE
+            binding.rightBtnText.visibility = View.VISIBLE
+            binding.leftBtnText.visibility = View.GONE
             firstSelectedBitmap?.let { binding.selectedimage1.setImageBitmap(it) }
         }
 
