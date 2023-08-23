@@ -23,6 +23,9 @@ class DonatePayActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDonatepayBinding
     private lateinit var sharedPreferences: SharedPreferences
+    private var p_id : Int=0
+    private lateinit var nickname: String
+    private lateinit var money: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +34,11 @@ class DonatePayActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 이전 액티비티(DonInputActivity)에서 넘어온 데이터 추출
-        val amount = intent.getIntExtra("donationAmount", 0)
-        val nickname = intent.getStringExtra("donorNickname")
+        money = intent.getStringExtra("money") ?: "Default money"
+        nickname = intent.getStringExtra("nickname") ?: "Default nickname"
+        p_id = intent.getIntExtra("p_id",1)
+        Log.d("Donatepay p_id", p_id.toString())
+
         val id = sharedPreferences.getString("id", "")
         val image1 = intent.getStringExtra("image1")?: "Default Image"
 
@@ -44,6 +50,8 @@ class DonatePayActivity : AppCompatActivity() {
             .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
             .into(binding.selectedimage1)
 
+        binding.paymentAmount.setText(money)
+
         binding.payButton.setOnClickListener {
 
             val rbank = binding.bank.selectedItem.toString()
@@ -51,10 +59,9 @@ class DonatePayActivity : AppCompatActivity() {
             val msg = binding.mes.text.toString()
 
             val u_id = id?.toInt()
-            val point = amount
+            val point = money.toInt()
             val nick = nickname
-
-            val p_id = 4
+            val p_id = p_id
 
             val dueDateStr = "2023-04-05"
             val dateFormat = SimpleDateFormat("yyyy-MM-dd")
