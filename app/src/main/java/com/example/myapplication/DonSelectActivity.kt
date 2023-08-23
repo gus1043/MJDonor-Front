@@ -64,6 +64,7 @@ class DonSelectActivity : AppCompatActivity() {
             intent.putExtra("donLoc", donLoc)
             intent.putExtra("image1", image1)
             startActivity(intent)
+            finish()
             overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
         }
         Log.d("please p_id", p_id.toString())
