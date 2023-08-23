@@ -17,6 +17,7 @@ import java.text.NumberFormat
 class DonInputActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDonateinputBinding
     private lateinit var currencyFormat: NumberFormat
+    private var p_id : Int=0
     private lateinit var title: String
     private lateinit var donLoc: String
     private lateinit var image1: String
@@ -27,6 +28,7 @@ class DonInputActivity : AppCompatActivity() {
         binding = ActivityDonateinputBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        p_id = intent.getIntExtra("p_id",1)
         title = intent.getStringExtra("title") ?: "Default Title"
         donLoc = intent.getStringExtra("donLoc") ?: "Default Location"
         image1 = intent.getStringExtra("image1")?: "Default Image"
@@ -110,6 +112,8 @@ class DonInputActivity : AppCompatActivity() {
                 Toast.makeText(this, "약관에 동의해야 합니다.", Toast.LENGTH_SHORT).show()
             } else {
                 val intent: Intent = Intent(this, DonatePayActivity::class.java)
+                intent.putExtra("donationAmount", p_id)
+                intent.putExtra("donationAmount", image1)
                 intent.putExtra("donationAmount", money) // 다음 액티비티로 기부 금액 전달
                 intent.putExtra("donorNickname", nickname) // 다음 액티비티로 기부자 닉네임 전달
                 finish()

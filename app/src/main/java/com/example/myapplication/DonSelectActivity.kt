@@ -60,6 +60,7 @@ class DonSelectActivity : AppCompatActivity() {
 
         binding.selectdonatebtn.setOnClickListener {
             val intent: Intent = Intent(this, DonInputActivity::class.java)
+            intent.putExtra("p_id", p_id)
             intent.putExtra("title", title)
             intent.putExtra("donLoc", donLoc)
             intent.putExtra("image1", image1)

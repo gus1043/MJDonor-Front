@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityDonatepayBinding
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -33,6 +34,15 @@ class DonatePayActivity : AppCompatActivity() {
         val amount = intent.getIntExtra("donationAmount", 0)
         val nickname = intent.getStringExtra("donorNickname")
         val id = sharedPreferences.getString("id", "")
+        val image1 = intent.getStringExtra("image1")?: "Default Image"
+
+        val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${image1}"
+        // 이미지 다운로드 및 설정
+        Picasso.get()
+            .load("${imageURL}")
+            .placeholder(R.drawable.logo)
+            .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
+            .into(binding.selectedimage1)
 
         binding.payButton.setOnClickListener {
 
