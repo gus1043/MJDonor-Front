@@ -34,7 +34,7 @@ class DonatePayActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 이전 액티비티(DonInputActivity)에서 넘어온 데이터 추출
-        money = intent.getStringExtra("money") ?: "Default money"
+        money = intent.getStringExtra("money") ?: "0"
         nickname = intent.getStringExtra("nickname") ?: "Default nickname"
         p_id = intent.getIntExtra("p_id",1)
         Log.d("Donatepay p_id", p_id.toString())
