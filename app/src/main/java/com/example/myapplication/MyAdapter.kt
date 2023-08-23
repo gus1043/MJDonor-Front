@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.R
+import com.squareup.picasso.Picasso
 
 class MyAdapter(private val context: Context, private var itemList: List<ItemData>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
@@ -29,8 +30,11 @@ class MyAdapter(private val context: Context, private var itemList: List<ItemDat
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = itemList[position]
 
-        Glide.with(context)
-            .load(currentItem.imageResId1)
+        val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${currentItem.imageResId1}"
+        Picasso.get()
+            .load("${imageURL}")
+            .placeholder(R.drawable.logo)
+            .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
             .into(holder.selectedImage)
 
         holder.titleText.text = currentItem.title
