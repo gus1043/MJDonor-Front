@@ -9,6 +9,8 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp">
 
+
+
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="300dp"
@@ -21,13 +23,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/black"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:alpha="0.2"
+        android:background="@drawable/rounded_box"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/black" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="20dp"
         android:layout_gravity="bottom">
 
         <TextView
@@ -36,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="아메리칸 스나이퍼"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:textStyle="bold"/>
 
         <LinearLayout
@@ -49,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="25dp"
                 android:textColor="@color/white"
                 android:text="유니세프 한국위원회"
                 android:gravity="start" />
