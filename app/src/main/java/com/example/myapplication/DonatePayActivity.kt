@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import java.io.*
 import java.net.HttpURLConnection
@@ -28,6 +29,7 @@ class DonatePayActivity : AppCompatActivity() {
     private lateinit var nickname: String
     private lateinit var title: String
     private lateinit var donLoc: String
+    private lateinit var image1: String
     private var money : Int=0
 
     @SuppressLint("SimpleDateFormat")
@@ -42,19 +44,32 @@ class DonatePayActivity : AppCompatActivity() {
         donLoc =  intent.getStringExtra("donLoc") ?: "Default donLoc"
         title =  intent.getStringExtra("title") ?: "Default title"
         nickname = intent.getStringExtra("nickname") ?: "Default nickname"
+        image1 = intent.getStringExtra("image") ?: "Default image"
         p_id = intent.getIntExtra("p_id",1)
         Log.d("Donatepay p_id", p_id.toString())
-
+        Log.d("pay", image1)
         val id = sharedPreferences.getString("id", "")
-        val image1 = intent.getStringExtra("image1")?: "Default Image"
 
         val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${image1}"
+        Log.d("pay", imageURL)
         // 이미지 다운로드 및 설정
-        Picasso.get()
-            .load("${imageURL}")
-            .placeholder(R.drawable.logo)
-            .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
-            .into(binding.selectedimage1)
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                withContext(Dispatchers.Main) {
+                    val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${image1}"
+                    // 이미지 다운로드 및 설정
+                    Picasso.get()
+                        .load("${imageURL}")
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
+                        .into(binding.selectedimage1)
+                }
+            } catch (e: Exception) {
+                // Handle exceptions here
+                e.printStackTrace()
+            } finally {
+            }
+        }
 
         binding.paymentAmount.setText(money.toString() + "원")
         binding.donationName.text = title

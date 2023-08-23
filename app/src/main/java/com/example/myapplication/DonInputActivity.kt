@@ -121,6 +121,7 @@ class DonInputActivity : AppCompatActivity() {
                 intent.putExtra("nickname", nickname) // 다음 액티비티로 기부자 닉네임 전달
                 finish()
                 startActivity(intent)
+                Log.d("input", image1)
                 overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
             }
         }
