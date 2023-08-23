@@ -1,4 +1,4 @@
 data class DonorItem(
-    val uri: String,
-    val p_id: Int
+    val image: String,
+    val p_id: Int,
 )

@@ -24,7 +24,7 @@ class DonorAdapter(private val context: Context, private val itemList: List<Dono
         if (position < 4) {
             val currentItem = itemList[position]
             Glide.with(context)
-                .load(currentItem.uri)
+                .load(currentItem.image)
                 .into(holder.profile)
 
             if (position > 0) {
@@ -41,7 +41,7 @@ class DonorAdapter(private val context: Context, private val itemList: List<Dono
 
         holder.profile.setOnClickListener {
             val currentItem = itemList[position]
-            val uri = currentItem.uri
+            val uri = currentItem.image
             if (uri.isNotEmpty()) {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
                 context.startActivity(intent)

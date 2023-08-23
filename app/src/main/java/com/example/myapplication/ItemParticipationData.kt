@@ -3,7 +3,7 @@ data class ItemParticipationData(
     val title: String,
     val donLoc: String,
     val account: String,
-    val enddate : String,
     val money : Int,
-    val Deposite : Boolean
+    val Deposite : Boolean,
+    val enddate : String
 )
