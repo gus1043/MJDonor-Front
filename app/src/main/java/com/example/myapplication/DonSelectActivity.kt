@@ -29,9 +29,9 @@ class DonSelectActivity : AppCompatActivity() {
     private lateinit var image1: String
     private lateinit var image2: String
     private var p_id : Int=0
-    private var enddate : Int=0
-    private var goal : Int=0
-    private var current: Int=0
+    private lateinit var enddate : String
+    private lateinit var goal :String
+    private lateinit var current: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,15 +44,15 @@ class DonSelectActivity : AppCompatActivity() {
         image1 = intent.getStringExtra("image1")?: "Default Image"
         image2 = intent.getStringExtra("image2")?: "Default Image"
         p_id = intent.getIntExtra("p_id",1)
-        goal = intent.getIntExtra("goal",1)
-        enddate = intent.getIntExtra("enddate",12345678)
-        current = intent.getIntExtra("current",1)
+        goal = intent.getStringExtra("goal")?: "Default Image"
+        enddate = intent.getStringExtra("enddate")?: "Default Image"
+        current = intent.getStringExtra("current")?: "Default Image"
         description = intent.getStringExtra("description") ?: "Default Description"
 
-        val endDateDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).parse(enddate.toString())
+        val endDateDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).parse(enddate)
         val formattedEndDate = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).format(endDateDate)
-        val formattedGoal = NumberFormat.getNumberInstance(Locale.getDefault()).format(goal)
-        val formattedCurrent = NumberFormat.getNumberInstance(Locale.getDefault()).format(current)
+        val formattedGoal = NumberFormat.getNumberInstance(Locale.getDefault()).format(goal.toDouble())
+        val formattedCurrent = NumberFormat.getNumberInstance(Locale.getDefault()).format(current.toDouble())
 
         binding.selecteddonation.setOnClickListener {
             openDonationTree()
@@ -68,7 +68,10 @@ class DonSelectActivity : AppCompatActivity() {
             finish()
             overridePendingTransition(R.anim.fromright_toleft, R.anim.none)
         }
-        Log.d("please p_id", p_id.toString())
+        Log.d("donselect please p_id", p_id.toString())
+        Log.d("donselect please title", title)
+        Log.d("donselect please", goal)
+        Log.d("donselect please", enddate)
         val DonorCnturl = "http://jsp.mjdonor.kro.kr:8888/webapp/Android/donationCount.jsp?p_id=${p_id}"
         Log.d("please DonorCnturl", DonorCnturl)
         val url = URL(DonorCnturl)
@@ -82,8 +85,8 @@ class DonSelectActivity : AppCompatActivity() {
 
                 // 파싱된 결과에서 필요한 데이터 추출
                 val cnt= content.substringAfter("Donation Count: ").trim()
-                Log.d("please CNt", cnt)
-                Log.d("please CNt", "$cnt 기부자")
+                Log.d("donselect CNt", cnt)
+                Log.d("donselect CNt", "$cnt 기부자")
 
                 withContext(Dispatchers.Main) {
                     binding.numPeople.text ="$cnt 기부자"

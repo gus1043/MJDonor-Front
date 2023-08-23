@@ -145,8 +145,10 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             if (firstSelectedBitmap != null && secondSelectedBitmap != null) {
-                fileName1 = "donation_$title(1).jpg"
-                fileName2 = "donation_$title(2).jpg"
+                val trimtitle=title.trim()
+                val cleartitle = trimtitle.replace(Regex("[,.!]@"), "")
+                fileName1 = "donation_${title.trim()}(1).jpg"
+                fileName2 = "donation_${title.trim()}(2).jpg"
                 val mediaType = "image/*".toMediaTypeOrNull()
 
                 val byteArrayOutputStream1 = ByteArrayOutputStream()
