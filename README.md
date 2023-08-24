@@ -13,9 +13,9 @@
  ## Contributors
 |김소현|이상훈|채기웅|최지현|
 |:---:|:---:|:---:|:---:|
-|<img src="https://avatars.githubusercontent.com/u/63898043?v=4" width="200px">|<img src="https://github.com/MobileComputing-2023/AI-PictureBook/assets/80878955/61a87085-5503-436e-96b2-19d42508ac9b" width="200px">|<img src="https://avatars.githubusercontent.com/u/77622897?v=4" width="200px">|<img src="https://avatars.githubusercontent.com/u/80878955?v=4" width="200px">|
+|<img src="https://avatars.githubusercontent.com/u/63898043?v=4" width="200px">|<img src="https://avatars.githubusercontent.com/u/102343981?v=4" width="200px">|<img src="https://avatars.githubusercontent.com/u/77622897?v=4" width="200px">|<img src="https://avatars.githubusercontent.com/u/80878955?v=4" width="200px">|
 |백엔드|백엔드|블록체인|프론트엔드|
-|[@KimSH39](https://github.com/KimSH39)|[@LeeSanghoon9999](https://avatars.githubusercontent.com/u/102343981?v=4)|[@dipito](https://avatars.githubusercontent.com/u/77622897?v=4)|[@gus1043](https://github.com/gus1043)|
+|[@KimSH39](https://github.com/KimSH39)|[@LeeSanghoon9999](https://github.com/LeeSanghoon9999)|[@dipito](https://github.com/Gi-Woong)|[@gus1043](https://github.com/gus1043)|
  
 ## Dependencies
 + **이미지**
