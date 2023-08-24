@@ -50,7 +50,6 @@ class DonSelectActivity : AppCompatActivity() {
         description = intent.getStringExtra("description") ?: "Default Description"
 
         val endDateDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).parse(enddate)
-        val formattedEndDate = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).format(endDateDate)
         val formattedGoal = NumberFormat.getNumberInstance(Locale.getDefault()).format(goal.toDouble())
         val formattedCurrent = NumberFormat.getNumberInstance(Locale.getDefault()).format(current.toDouble())
 
@@ -121,7 +120,7 @@ class DonSelectActivity : AppCompatActivity() {
             }
         binding.donationContent.text = description
         binding.goal.text = "$formattedGoal 원"
-        binding.enddate.text = "$formattedEndDate 까지"
+        binding.enddate.text = "$enddate 까지"
         binding.current.text="$formattedCurrent 원"
 
         val DonorlistUrl = "http://jsp.mjdonor.kro.kr:8888/webapp/Android/donorPhoto.jsp?p_id=${p_id}"

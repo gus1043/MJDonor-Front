@@ -83,6 +83,7 @@ class CarouselAdapter(private val context: Context, private val itemList: List<C
                 intent.putExtra("enddate", currentItem.enddate)
                 intent.putExtra("current", currentItem.current)
                 context.startActivity(intent)
+                Log.d("carousel", currentItem.enddate)
                 Log.d("carousel", currentItem.current)
                 Log.d("carousel", currentItem.title)
                 Log.d("carousel", currentItem.goal)
