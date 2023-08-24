@@ -97,7 +97,7 @@
                             android:id="@+id/email"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
-                            android:hint="  학번"
+                            android:hint=" 통합 로그인 아이디"
                             android:inputType="textEmailAddress"/>
                     </LinearLayout>
 
@@ -113,7 +113,7 @@
                             android:src="@drawable/baseline_lock_24"/>
                         <EditText
                             android:id="@+id/password"
-                            android:hint="  비밀번호"
+                            android:hint=" 통합 로그인 비밀번호"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"/>
