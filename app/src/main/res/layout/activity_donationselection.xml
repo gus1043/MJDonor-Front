@@ -28,7 +28,7 @@
             android:layout_width="330dp"
             android:layout_height="30dp"
             android:layout_marginTop="5dp"
-            android:text="@string/donationName"
+            android:text=""
             android:textAppearance="@style/donationName"
             android:gravity="top"
             android:textStyle="bold"
@@ -118,7 +118,7 @@
             android:layout_width="330dp"
             android:layout_height="150dp"
             android:layout_marginTop="5dp"
-            android:text="@string/donationContent"
+            android:text=""
             android:textAppearance="@style/donationContent"
             android:gravity="top"
             />
