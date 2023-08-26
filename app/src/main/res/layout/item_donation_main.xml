@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="아메리칸 스나이퍼"
             android:textColor="@color/white"
-            android:textSize="30dp"
+            android:textSize="28dp"
             android:textStyle="bold"/>
 
         <LinearLayout

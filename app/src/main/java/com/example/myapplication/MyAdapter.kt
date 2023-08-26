@@ -37,7 +37,11 @@ class MyAdapter(private val context: Context, private var itemList: List<ItemDat
             .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
             .into(holder.selectedImage)
 
-        holder.titleText.text = currentItem.title
+        var title = currentItem.title
+        if (title.length > 12) {
+            title = title.substring(0, 12) + "..."
+        }
+        holder.titleText.text = title
         holder.donLocText.text = currentItem.donLoc
         holder.type.text = currentItem.type
         holder.donateButton.setOnClickListener {

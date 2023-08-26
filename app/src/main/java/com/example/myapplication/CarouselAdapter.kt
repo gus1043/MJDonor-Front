@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.myapplication.DonSelectActivity
 import com.example.myapplication.LoginActivity
 import com.example.myapplication.R
@@ -20,8 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.net.HttpURLConnection
-import java.net.URL
 
 class CarouselAdapter(private val context: Context, private val itemList: List<CarouselItem>) : RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -58,7 +54,11 @@ class CarouselAdapter(private val context: Context, private val itemList: List<C
             }
         }
 
-        holder.titleTextView.text = currentItem.title
+        var title = currentItem.title
+        if (title.length > 12) {
+            title = title.substring(0, 12) + "..."
+        }
+        holder.titleTextView.text = title
         holder.descriptionTextView.text = currentItem.donLoc
 
 

@@ -89,6 +89,12 @@ class DonSelectActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     binding.numPeople.text ="$cnt 기부자"
+                    binding.donationContent.text = description
+                    binding.goal.text = "$formattedGoal 원"
+                    binding.enddate.text = "$enddate 까지"
+                    binding.current.text="$formattedCurrent 원"
+                    binding.selectedtitle.text = title
+                    binding.company.text = donLoc
                 }
             } catch (e: Exception) {
                 // Handle exceptions here
@@ -96,11 +102,6 @@ class DonSelectActivity : AppCompatActivity() {
             } finally {
             }
         }
-
-
-        // 받은 값을 뷰에 설정
-        binding.selectedtitle.text = title
-        binding.company.text = donLoc
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
@@ -118,10 +119,6 @@ class DonSelectActivity : AppCompatActivity() {
                 e.printStackTrace()
             } finally {
             }
-        binding.donationContent.text = description
-        binding.goal.text = "$formattedGoal 원"
-        binding.enddate.text = "$enddate 까지"
-        binding.current.text="$formattedCurrent 원"
 
         val DonorlistUrl = "http://jsp.mjdonor.kro.kr:8888/webapp/Android/donorPhoto.jsp?p_id=${p_id}"
         Log.d("please D_url", DonorlistUrl)
