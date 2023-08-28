@@ -74,9 +74,10 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
         holder.deposit.setTextColor(ContextCompat.getColor(context, textColorResId))
 
         holder.donBtn.setOnClickListener{
-            var intent = context.packageManager.getLaunchIntentForPackage("io.metamask") // Replace with your actual package name
+            var intent = context.packageManager.getLaunchIntentForPackage("metamask.app") // Replace with your actual package name
             if(intent == null) {
-                val link = "https://play.google.com/store/apps/details?id=io.metamask" // Replace with your actual package name
+//                val link = "https://play.google.com/store/apps/details?id=io.metamask" // Replace with your actual package name
+                val link = "https://metamask.app.link/dapp/jsp.mjdonor.kro.kr/webapp/Blockchain/blockChainDonate.jsp?virtual_account=${currentItem.account}"
                 intent = Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse(link)
                 }
