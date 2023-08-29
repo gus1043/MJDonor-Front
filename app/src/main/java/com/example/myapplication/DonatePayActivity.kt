@@ -128,6 +128,10 @@ class DonatePayActivity : AppCompatActivity() {
                     runOnUiThread {
                         val intent: Intent =
                             Intent(this@DonatePayActivity, DonatedCardActivity::class.java)
+                        intent.putExtra("p_id", p_id)
+                        intent.putExtra("nick", nick)
+                        intent.putExtra("point", point)
+                        intent.putExtra("duedate", dueDate.toString())
                         finish()
                         startActivity(intent)
                         overridePendingTransition(R.anim.fromright_toleft, R.anim.none)

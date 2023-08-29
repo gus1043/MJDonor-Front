@@ -51,7 +51,7 @@
                 android:text="가상계좌: "/>
 
             <TextView
-                android:id="@+id/virtual_account"
+                android:id="@+id/virtualAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="하나은행 1234-4567-789"/>
@@ -67,7 +67,7 @@
                 android:text="입금 기한: "/>
 
             <TextView
-                android:id="@+id/deposit_deadline"
+                android:id="@+id/depositDeadline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2023-08-05 23:59"/>
