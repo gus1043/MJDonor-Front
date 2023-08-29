@@ -71,6 +71,11 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
         } else {
             R.color.red
         }
+        if (currentItem.Deposite == 1) {
+            holder.donBtn.visibility = View.VISIBLE
+        } else {
+            holder.donBtn.visibility = View.INVISIBLE
+        }
 
         holder.deposit.setTextColor(ContextCompat.getColor(context, textColorResId))
 
