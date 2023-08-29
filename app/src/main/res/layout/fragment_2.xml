@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,12 +116,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_margin="1dp">
+                android:layout_margin="1dp"
+                android:layout_marginBottom="80dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="360dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="80dp"/>
 
                 <!--                <de.hdodenhof.circleimageview.CircleImageView-->
                 <!--                    app:civ_border_width="2dp"-->
@@ -129,7 +131,7 @@
                 <!--                    app:civ_border_color="@color/design_default_color_primary_dark"-->
                 <!--                    android:src="@drawable/logo"-->
                 <!--                    android:layout_width="100dp"-->
-                <!--                    android:layout_marginBottom="5dp"-->
+                <!--                    android:layout_marginBottom="10dp"-->
                 <!--                    android:layout_height="100dp"/>-->
 
             </LinearLayout>
