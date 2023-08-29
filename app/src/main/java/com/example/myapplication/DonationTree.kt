@@ -20,6 +20,9 @@ class DonationTree : DialogFragment() {
     private lateinit var binding: DonationTreeBinding
     private var alertDialog: AlertDialog? = null
     private lateinit var image: String
+    private lateinit var title: String
+    private var percent : Double=0.0
+
 
     fun setImage(image: String) {
         this.image = image
@@ -29,21 +32,33 @@ class DonationTree : DialogFragment() {
         val builder = AlertDialog.Builder(requireActivity())
         binding = DonationTreeBinding.inflate(requireActivity().layoutInflater)
         val view = binding.root
+        title = arguments?.getString("title") ?: "Default Title"
+        percent = arguments?.getDouble("percent") ?: 0.0
 
-        // 이미지를 설정하는 부분 추가
+        binding.donationtitle.setText(title)
+        binding.donationpercent.setText("${percent.toString()} %")
+
+        val maxImageHeight = resources.getDimensionPixelSize(R.dimen.max_image_height) // Define the maximum height from resources
+
+        // Calculate the desired image height based on percent and maxImageHeight
+        val desiredImageHeight = (percent * maxImageHeight / 100).toInt()
+
+        // Set the desired image height as the layout parameters
+        val imageViewParams = binding.imageView2.layoutParams
+        imageViewParams.height = desiredImageHeight
+        binding.imageView2.layoutParams = imageViewParams
 
         val imageURL = "http://jsp.mjdonor.kro.kr:9999/webapp/Storage/download.jsp?filename=${image}"
         // 이미지 다운로드 및 설정
         Picasso.get()
             .load("${imageURL}")
             .placeholder(R.drawable.logo)
-            .error(R.drawable.logo) // 에러 대체 이미지를 지정해주세요
+            .error(R.drawable.logo)
             .into(binding.imageView2)
 
         builder.setView(view)
         return builder.create()
     }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DonationTreeBinding.inflate(inflater, container, false)

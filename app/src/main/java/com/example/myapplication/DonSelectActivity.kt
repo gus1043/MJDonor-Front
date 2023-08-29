@@ -54,7 +54,13 @@ class DonSelectActivity : AppCompatActivity() {
         val formattedCurrent = NumberFormat.getNumberInstance(Locale.getDefault()).format(current.toDouble())
 
         binding.selecteddonation.setOnClickListener {
-            openDonationTree()
+            val title = title
+            val percent = if (current.toDouble() == 0.0) {
+                0.0
+            } else {
+                (current.toDouble() / goal.toDouble()) * 100
+            }
+            openDonationTree(title,percent)
         }
 
         binding.selectdonatebtn.setOnClickListener {
@@ -165,9 +171,15 @@ class DonSelectActivity : AppCompatActivity() {
         }
     }
 
-    private fun openDonationTree() {
+    private fun openDonationTree(title: String, percent:Double) {
         val fragment = DonationTree()
-        fragment.setImage(image1)// 이미지 설정
+        fragment.setImage(image1)
+
+        // 데이터를 Bundle에 넣고 프래그먼트에 전달
+        val args = Bundle()
+        args.putString("title", title)
+        args.putDouble("percent", percent)
+        fragment.arguments = args
 
         // DonationTree 프래그먼트를 표시
         val fragmentManager = supportFragmentManager

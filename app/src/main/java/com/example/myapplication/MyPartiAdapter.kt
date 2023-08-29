@@ -1,6 +1,7 @@
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,7 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
         holder.money.text = currentItem.money.toString()
 
         holder.participatedimage.setOnClickListener {
-            openDonationTree(currentItem.imageResId) // 이미지 URL 설정
+            openDonationTree(currentItem)
         }
 
         val depositMessage = if (currentItem.Deposite == 1) {
@@ -74,9 +75,8 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
         holder.deposit.setTextColor(ContextCompat.getColor(context, textColorResId))
 
         holder.donBtn.setOnClickListener{
-            var intent = context.packageManager.getLaunchIntentForPackage("metamask.app") // Replace with your actual package name
+            var intent = context.packageManager.getLaunchIntentForPackage("metamask.app")
             if(intent == null) {
-//                val link = "https://play.google.com/store/apps/details?id=io.metamask" // Replace with your actual package name
                 val link = "https://metamask.app.link/dapp/jsp.mjdonor.kro.kr/webapp/Blockchain/blockChainDonate.jsp?virtual_account=${currentItem.account}"
                 intent = Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse(link)
@@ -92,9 +92,21 @@ class MyPartiAdapter(private val context: Context, private val fragmentManager: 
     override fun getItemCount(): Int {
         return itemList.size
     }
-    private fun openDonationTree(imageUrl: String) {
+    private fun openDonationTree(currentItem: ItemParticipationData) {
         val fragment = DonationTree()
-        fragment.setImage(imageUrl) // 이미지 URL 설정
+        fragment.setImage(currentItem.imageResId)
+
+        val percent = if (currentItem.currentPoint.toDouble() == 0.0) {
+            0.0
+        } else {
+            (currentItem.currentPoint.toDouble() / currentItem.TargetPoint.toDouble()) * 100
+        }
+
+        // 데이터를 Bundle에 넣고 프래그먼트에 전달
+        val args = Bundle()
+        args.putString("title", currentItem.title)
+        args.putDouble("percent", percent)
+        fragment.arguments = args
 
         // DonationTree 프래그먼트를 표시
         val transaction = fragmentManager.beginTransaction()

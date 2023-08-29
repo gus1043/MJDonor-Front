@@ -5,5 +5,7 @@ data class ItemParticipationData(
     val account: String,
     val money : String,
     val Deposite : Int,
-    val enddate : String
+    val enddate : String,
+    val currentPoint : String,
+    val TargetPoint : String,
 )

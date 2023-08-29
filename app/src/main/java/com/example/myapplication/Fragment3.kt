@@ -182,6 +182,10 @@ class Fragment3 : Fragment() {
                             line.substringAfter("Point:").substringBefore(",").trim()
                         val Donation_Limit =
                             line.substringAfter("Donation Limit:").substringBefore(",").trim()
+                        val Current_Point =
+                            line.substringAfter("Current Point:").substringBefore(",").trim()
+                        val Target_Point =
+                            line.substringAfter("Target Point:").substringBefore(",").trim()
 
                         Log.d("frag3 title", ProjectName)
                         Log.d("frag3 OrganizationName",OrganizationName)
@@ -196,7 +200,7 @@ class Fragment3 : Fragment() {
                         Log.d("frag3 cnt", count.getAndIncrement().toString())
                         Projects.add(
                             ItemParticipationData(
-                                Image1,ProjectName,OrganizationName,Virtual_Account,Point, Deposit.toInt(), Donation_Limit
+                                Image1,ProjectName,OrganizationName,Virtual_Account,Point, Deposit.toInt(), Donation_Limit, Current_Point, Target_Point
                             )
                         )
                     }
