@@ -38,12 +38,15 @@ class DonationTree : DialogFragment() {
         binding.donationtitle.setText(title)
         binding.donationpercent.setText("${percent.toString()} %")
 
-        val maxImageHeight = resources.getDimensionPixelSize(R.dimen.max_image_height) // Define the maximum height from resources
+        val maxImageHeight = resources.getDimensionPixelSize(R.dimen.max_image_height)
+        var desiredImageHeight: Int
 
-        // Calculate the desired image height based on percent and maxImageHeight
-        val desiredImageHeight = (percent * maxImageHeight / 100).toInt()
+        if (percent >= 100) {
+            desiredImageHeight = maxImageHeight
+        } else {
+            desiredImageHeight = (percent * maxImageHeight / 100).toInt()
+        }
 
-        // Set the desired image height as the layout parameters
         val imageViewParams = binding.imageView2.layoutParams
         imageViewParams.height = desiredImageHeight
         binding.imageView2.layoutParams = imageViewParams
