@@ -29,3 +29,7 @@
   ```
   implementation 'com.github.shuhart:stepview:1.5.1'//회원가입 stepper
   ```
+
+## Demo
+![MJDonor](https://github.com/gus1043/MJDonor-Front/assets/80878955/fe8e059a-5e75-4e36-8638-478e6c75be5f)
+
