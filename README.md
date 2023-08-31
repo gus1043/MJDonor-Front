@@ -31,6 +31,7 @@
   ```
 
 ## Demo
-![MJDonor](https://github.com/gus1043/MJDonor-Front/assets/80878955/0f49dbcf-4c30-41c6-8b44-9ce9175c8475)
+https://github.com/gus1043/MJDonor-Front/assets/80878955/8e251342-12f2-47c9-9166-bb9641993da9
+
 
 
