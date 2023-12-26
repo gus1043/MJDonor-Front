@@ -1,5 +1,10 @@
 # MJDonor-Front
-명지대생을 위한 블록체인 기부 플랫폼
+### 명지대생을 위한 블록체인 기부 플랫폼
+
+
+[최종 발표프레젠테이션 보러가기](https://docs.google.com/presentation/d/1bEuU0UnGOaemN__hYdcntvCXMqsA57fHH6zJtgR8o8s/edit?usp=sharing)  
+
+<br/>
 <p align="center">
   <img src="https://user-images.githubusercontent.com/80878955/262965980-8fb5459e-2576-4339-a4f0-b5c7de1fb1a6.jpg">
   <img src="https://user-images.githubusercontent.com/80878955/262958792-1a1202b1-b989-4d00-ab7e-734b353dea7e.jpg">
